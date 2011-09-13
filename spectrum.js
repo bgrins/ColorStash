@@ -44,16 +44,21 @@
         
         return [
             "<div class='spectrum-container'>",
-                "<div class='spectrum-color'>",
-                    "<div class='spectrum-saturation'>",
-                        "<div class='spectrum-value'>",
-                            "<div class='spectrum-drag-helper'></div>",
+                "<div class='spectrum-top'>",
+                    "<div class='spectrum-fill'></div>",
+                    "<div class='spectrum-top-inner'>",
+                        "<div class='spectrum-color'>",
+                            "<div class='spectrum-saturation'>",
+                                "<div class='spectrum-value'>",
+                                    "<div class='spectrum-drag-helper'></div>",
+                                "</div>",
+                            "</div>",
+                        "</div>",
+                        "<div class='spectrum-slide'>",
+                            "<div class='spectrum-slide-helper'></div>",
+                            gradientFix,
                         "</div>",
                     "</div>",
-                "</div>",
-                "<div class='spectrum-slide'>",
-                    "<div class='spectrum-slide-helper'></div>",
-                    gradientFix,
                 "</div>",
                 "<br style='clear:both;' />",
                 "<div class='spectrum-pallet-container spectrum-cf'></div>",
@@ -63,7 +68,7 @@
                         "<button class='spectrum-cancel spectrum-hide-small'>Cancel</button>",
                         "<button class='spectrum-choose spectrum-hide-small'>Choose</button>",
                         "<button class='spectrum-cancel spectrum-show-small'>X</button>",
-                        "<button class='spectrum-choose spectrum-show-small'>?</button>",
+                        "<button class='spectrum-choose spectrum-show-small'>✔</button>",
                     "</div>",
                 "</div>",
             "</div>"
@@ -100,6 +105,7 @@
         
         var opts = instanceOptions(o, element),
             callbacks = opts.callbacks,
+            resize = throttle(reflow, 100),
             visible = false,
             dragWidth = 0,
             dragHeight = 0,
@@ -253,20 +259,11 @@
             visible = true;
             
             $(doc).bind("click touchstart", hide);
+            $(window).bind("resize", resize);
+            replacer.addClass("spectrum-active");
+            container.show();
             
-            if (!opts.flat) {
-            	replacer.addClass("spectrum-active");
-            	container.show().offset(getOffset(container, offsetElement));
-            }
-            
-            // Cache sizes on start
-            dragWidth = dragger.width();
-            dragHeight = dragger.height();
-            dragHelperHeight = dragHelper.height();
-            slideWidth = slider.width();
-            slideHeight = slider.height();
-            slideHelperHelperHeight = slideHelper.height();
-            
+            reflow();
             doMove();
             
             colorOnShow = get();
@@ -281,7 +278,8 @@
             if (!visible || opts.flat) { return; }
             visible = false;
             
-            $(doc).unbind("click", hide);
+            $(doc).unbind("click touchstart", hide);
+            $(window).unbind("resize", resize);
             
            	replacer.removeClass("spectrum-active");
             container.hide();
@@ -375,6 +373,21 @@
         	}
         	
         	callbacks.change(color);
+        }
+        
+        function reflow() {
+            dragWidth = dragger.width();
+            dragHeight = dragger.height();
+            dragHelperHeight = dragHelper.height();
+            slideWidth = slider.width();
+            slideHeight = slider.height();
+            slideHelperHelperHeight = slideHelper.height();
+            
+            if (!opts.flat) {
+            	container.offset(getOffset(container, offsetElement));
+            }
+            
+            doMove();
         }
         
         initialize();
@@ -523,8 +536,20 @@
         }
     
         $(element).bind(hasTouch ? "touchstart" : "mousedown", start);
-    }   
+    }
     
+    function throttle(func, wait, debounce) {
+        var timeout;
+        return function() {
+          var context = this, args = arguments;
+          var throttler = function() {
+            timeout = null;
+            func.apply(context, args);
+          };
+          if (debounce) clearTimeout(timeout);
+          if (debounce || !timeout) timeout = setTimeout(throttler, wait);
+        };
+    }
     
     /**
      * Extend a given object with all the properties in passed-in object(s)
@@ -596,3 +621,4 @@ honeydew:"f0fff0",hotpink:"ff69b4",indianred:"cd5c5c",indigo:"4b0082",ivory:"fff
 limegreen:"32cd32",linen:"faf0e6",magenta:"ff00ff",maroon:"800000",mediumaquamarine:"66cdaa",mediumblue:"0000cd",mediumorchid:"ba55d3",mediumpurple:"9370d8",mediumseagreen:"3cb371",mediumslateblue:"7b68ee",mediumspringgreen:"00fa9a",mediumturquoise:"48d1cc",mediumvioletred:"c71585",midnightblue:"191970",mintcream:"f5fffa",mistyrose:"ffe4e1",moccasin:"ffe4b5",navajowhite:"ffdead",navy:"000080",oldlace:"fdf5e6",olive:"808000",olivedrab:"6b8e23",orange:"ffa500",orangered:"ff4500",orchid:"da70d6",palegoldenrod:"eee8aa",
 palegreen:"98fb98",paleturquoise:"afeeee",palevioletred:"d87093",papayawhip:"ffefd5",peachpuff:"ffdab9",peru:"cd853f",pink:"ffc0cb",plum:"dda0dd",powderblue:"b0e0e6",purple:"800080",red:"ff0000",rosybrown:"bc8f8f",royalblue:"4169e1",saddlebrown:"8b4513",salmon:"fa8072",sandybrown:"f4a460",seagreen:"2e8b57",seashell:"fff5ee",sienna:"a0522d",silver:"c0c0c0",skyblue:"87ceeb",slateblue:"6a5acd",slategray:"708090",snow:"fffafa",springgreen:"00ff7f",steelblue:"4682b4",tan:"d2b48c",teal:"008080",thistle:"d8bfd8",
 tomato:"ff6347",turquoise:"40e0d0",violet:"ee82ee",violetred:"d02090",wheat:"f5deb3",white:"ffffff",whitesmoke:"f5f5f5",yellow:"ffff00",yellowgreen:"9acd32"},w=function(a){var b={},c;for(c in a)a.hasOwnProperty(c)&&(b[a[c]]=c);return b}(n);return e}();
+

@@ -72,25 +72,25 @@ td { vertical-align: top; }
 .picker {
     display: inline-block;
     position: relative;
+    min-width: 300px;
+    text-align: center;
 }
-.picker .dummy {
-	margin-top: 76%;
-}
-
+.picker .spectrum-container { width: 100%; }
 .preview { -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear .5s; }
 .preview { width: 40px; height: 40px;  background-color:orange;}
 .preview.big { width: 80px; height: 80px; }
 
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 
-	.picker, .schemer, .colorer {
-		float: none;
-		width: auto;
-	}
-  #content { background-color:green; }
+.picker, .schemer, .colorer {
+    float: none;
+    width: 100%;
+}
+#content { background-color:green; }
 .preview { width: 20px; height: 20px;  background-color:purple;}
 .preview.big { width: 40px; height: 40px; }
+.picker .spectrum-container { width: 80%; }
   
 }
 
@@ -131,7 +131,6 @@ td { vertical-align: top; }
 }
 
 
-
 /***
 Spectrum: The No Hassle Colorpicker
 https://github.com/bgrins/spectrum
@@ -144,14 +143,23 @@ License: MIT
     position:absolute; 
     top:0; 
     left:0; 
+    display:inline-block;
 }
 .spectrum-color { 
     position:relative;
-    float:left;
+}
+.spectrum-saturation, .spectrum-value { 
+    position: absolute; 
+    top:0; 
+    left:0; 
+    right:0; 
+    bottom:0; 
 }
 .spectrum-replacer, .spectrum-preview, .spectrum-drag-helper, .spectrum-slide-helper , .spectrum-container.spectrum-dragging .spectrum-input, .spectrum-container button  { 
     -webkit-user-select:none; -moz-user-select: none; -o-user-select:none; user-select: none; 
 }
+
+/* Replacer (the little preview div that shows up instead of the <input>) */
 .spectrum-replacer {
     display:inline-block;
     margin:0;
@@ -160,7 +168,6 @@ License: MIT
     cursor:pointer;
     padding: 4px;
 }
-
 .spectrum-dd { 
     padding: 2px 0;
     height: 16px; 
@@ -186,7 +193,6 @@ License: MIT
 .spectrum-input-container {
     margin-top: 4px;
 }
-
 .spectrum-input-container div { float:right; }
 .spectrum-input:focus { border: 1px solid orange; }
 .spectrum-container.spectrum-flat .spectrum-input { width: 100%; padding:0; text-align: center; }
@@ -233,11 +239,12 @@ License: MIT
     top:0; 
     left: 0;
 }
-/*
+
 .spectrum-container.spectrum-flat {
-    position:static;
+    position: relative;
     display:inline-block;
-}*/
+}
+
 .spectrum-slide {
     position:relative;
     float:left;
@@ -288,8 +295,56 @@ License: MIT
 .spectrum-cf:after { clear: both; }
 .spectrum-cf { *zoom: 1; }
 
+/* 
+   Proportions using percentage widths.
+   Basic aspect ratio technique modified from:
+   http://ansciath.tumblr.com/post/7347495869/css-aspect-ratio
+*/
+.spectrum-top {
+  position:relative; 
+  width: 100%;
+  display:inline-block;
+}
 
+.spectrum-top-inner {
+   position:absolute; top:0; left:0; bottom:0; right:0;
+}
 
+.spectrum-color { 
+    position: absolute;
+    top:0;left:0;bottom:0;right:20%;
+}
+.spectrum-slide {
+    position: absolute;
+    top:0;right:0;bottom:0;left:83%;
+}
+.spectrum-fill { 
+    *height: 80%;
+    margin-top: 80%;  /* Same as spectrum-color width */
+}
+
+/* Mobile devices, make hue slider bigger so it is easier to slide */
+@media (max-device-width: 480px) {
+    .spectrum-color { right: 40%; }
+    .spectrum-slide { left: 63%; }
+    .spectrum-fill { margin-top: 60%; } 
+}
+
+.spectrum-drag-helper {
+   border-radius: 5px; 
+   height:5px; 
+   width: 5px; 
+   border: solid black 3px; pointer: cursor;
+}
+.spectrum-slide-helper { 
+    height: 5px; 
+    width: 110%;
+    margin-left: -5%;
+    background: white; 
+    opacity: .8; 
+}
+
+/* Basic display options (colors, fonts, global widths) */
 .spectrum-input {
    height: 20px;
    font-size: 16px;
@@ -301,54 +356,21 @@ License: MIT
    background:transparent;
    border-radius: 3px;
 }
-
-
-
-/* Normal Size */
-.spectrum-container { 
+.spectrum-container {
+    padding: 10px;
+    border-radius: 10px;
     width: 240px;
-    padding:10px; 
 }
-.spectrum-saturation, .spectrum-value, .spectrum-slide { 
-    width: 200px;
-    height: 200px;
-}
-.spectrum-slide, .spectrum-button  { 
-    margin-left: 10px; 
-    width: 30px;
-}
-
-/* Small Size */
 .spectrum-container.spectrum-small {
     width: 160px;
-    padding:5px; 
-}
-.spectrum-small .spectrum-saturation, .spectrum-small .spectrum-value, .spectrum-small .spectrum-slide { 
-    width: 120px;
-    height: 120px;
-}
-.spectrum-small .spectrum-slide, .spectrum-small .spectrum-button  { 
-    margin-left: 10px; 
-    width: 30px;
+    padding: 5px;
+    border-radius: 5px;
 }
 .spectrum-small .spectrum-pallet-container span {
 	width: 16px;
 }
-.spectrum-small .spectrum-input {
-    width: 50px;
-    padding: 1px;
-}
 
-.spectrum-saturation, .spectrum-value, .spectrum-slide { 
-    width: 200px;
-    height: 200px;
-}
-.spectrum-slide, .spectrum-button  { 
-    margin-left: 10px; 
-    width: 30px;
-}
-
-/* Themable options */
+/* Themable options (colors, fonts) */
 .spectrum-container.spectrum-light {
     background-color: #ddd; 
     border-radius: 5px; 
@@ -359,7 +381,6 @@ License: MIT
     border-radius: 5px; 
     font-family: Droid Sans, Tahoma, sans-serif;
 }
-
 .spectrum-dark .spectrum-input {
    border-color: #444;
    color: white;
@@ -368,7 +389,6 @@ License: MIT
    border-color: #aaa;
    color: #222;
 }
-
 .spectrum-replacer.spectrum-dark {    
     border: outset 2px #666;
     background: #333;
@@ -379,7 +399,6 @@ License: MIT
     border-style: solid;
     color: #ccf;
 }
-
 .spectrum-replacer.spectrum-light  {
     background: #eee;
     border: solid 2px #444;
@@ -390,7 +409,7 @@ License: MIT
     color: #111;
 }
 
-/* http://hellohappy.org/css3-buttons/ */
+/* Buttons: http://hellohappy.org/css3-buttons/ */
 .spectrum-container button {
   background-color: #eeeeee;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#cccccc));
@@ -439,51 +458,3 @@ License: MIT
 
 .spectrum-container.spectrum-small button { padding-left: 5px; padding-right: 5px; font-weight: bold; }
 
-.spectrum-drag-helper {
-   border-radius: 5px; 
-   height:5px; 
-   width: 5px; 
-   border: solid black 3px; pointer: cursor;
-}
-.spectrum-slide-helper { 
-    width: 40px; 
-    height: 5px; 
-    background: white; 
-    opacity: .8; 
-    left:-5px; 
-}
-.spectrum-replacer1 {
-    width: 30px;
-    height: 30px;
-    border: solid 2px #333;
-    border-radius: 3px;
-}
-
-
-
-/* Full width */
-.spectrum-container { 
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-	width: auto;
-}
-
-.spectrum-color { width: 71%; height:95%;}
-.spectrum-value, .spectrum-saturation  {
-	width: 100%; 
-	height: 100%;
-}
-.spectrum-slide, .spectrum-button  { 
-	width: 25%;
-	height: 95%;
-	margin-left:0;
-	float:right;
-}
-.spectrum-slide-helper {
-	width: 110%;
-	margin-left: -5%;
-	left:0;
-}
