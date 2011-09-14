@@ -8,14 +8,14 @@ a:visited { color: #551a8b; }
 a:hover { color: #06e; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
-ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+ul { margin: 0; padding:0; }
 button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; line-height: normal; *overflow: visible;  }
 header {
     overflow: visible;
     background: rgba(255, 255, 255, .8);
     margin-bottom:10px;
 }
-header .logo {
+.logo {
     background: no-repeat url(colorstash-logo.jpg);
     position:absolute;
     height: 70px;
@@ -23,7 +23,7 @@ header .logo {
     top:-10px; 
     left: 0;
 }
-header h1 { 
+h1 { 
     margin:0; 
     padding:0;
     padding-left: 70px;
@@ -39,7 +39,6 @@ header h1 {
     color: white;
 }
 #pallet { position:absolute; right:0; top: 0; padding-top:20px; z-index: 0; height:26px; overflow: hidden;  }
-.sub ul { margin: 0; padding:0; }
 .sub li {  
     display:inline-block; 
     width: 33px; 
@@ -53,8 +52,12 @@ header h1 {
     -webkit-transition: top .1s linear; 
 }
 .sub li:hover { top: -10px; margin:0; padding: 2px; }
-#content { 
-
+#cs { 
+	margin: 0 auto;
+	width: 95%;
+}
+.in {
+    padding: 0 15px;
 }
 #share { float: left; margin: 10px 0; margin-left: 75px; position: relative; z-index:1; }
 #share input { width: 210px; padding: 3px; font-size: 11px; color: #888; border: solid 2px; }
@@ -93,14 +96,7 @@ header h1 {
 #preview div { padding-top: 30px; text-align: right; width: 95%; }
 #preview a { color: #ddf; }
 #preview.contrast a { color: #003; }
-.inner {
-	margin: 0 auto;
-	width: 93.75%;
-}
 
-.in {
-    padding: 0 15px;
-}
 
 .picker, .schemer, .colorer {
 	float:left;
