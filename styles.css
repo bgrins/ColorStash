@@ -147,36 +147,47 @@ header .sub {
 #hsv:before { content: "hsv ↪"; }
 #rgb:before { content: "rgb ↪"; }
 #hsl:before { content: "hsl ↪"; }
-.picker {
-    display: inline-block;
+.spec-wrap {
+    /*display: inline-block;*/
+    margin: 0 auto;
     position: relative;
-    min-width: 300px;
     text-align: center;
 }
-.picker .spectrum-container { width: 80%; }
+.spec-wrap .spectrum-container { width: 100%; }
 .preview { -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear .5s; }
 .preview { width: 40px; height: 40px;  background-color:orange;}
 .preview.big { width: 80px; height: 80px; }
 
 
-@media (max-width: 800px) {
-
-.picker, .schemer, .colorer {
-    float: none;
-    width: 100%;
+/* Picker and generated values next to each other, schemes at bottom */
+@media (max-width: 1024px) {
+    .schemer {
+        float:none;
+        clear: both;
+        width:auto;
+    }
+    .spec-wrap {
+        max-width: 318px;
+    }
+    .picker, .colorer {
+        width: 50%;
+    }
+    .picker .spectrum-container { 
+        width: 95%; 
+    }
+      
 }
-#content { background-color:green; }
-.preview { width: 20px; height: 20px;  background-color:purple;}
-.preview.big { width: 40px; height: 40px; }
-.picker .spectrum-container { width: 80%; }
-  
-}
 
-@media (max-width: 400px) {
-
-  #content { background-color:red;}
-  
-
+/* Too small - put everything in line */
+@media (max-width: 640px) {
+    .schemer, .picker, .colorer {
+        float:none;
+        width:100%;
+        margin: 10px 0;
+    }
+    .spec-wrap {
+        max-width: 270px;
+    }
 }
 
 @media (min-width: 1300px) {
