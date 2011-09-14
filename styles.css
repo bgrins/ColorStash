@@ -79,14 +79,33 @@ header h1 {
     padding-left: 70px;
     font-family: cursive;
 }
-header .sub {
-    background: rgba(0, 0, 0, .8);
+
+.sub {
+    background: rgba(0, 0, 0, .7);
     text-align: right;
 } 
-
+.sub a {
+    color: white;
+}
+.sub ul { margin: 0; margin-top: 10px; }
+.sub ul, .sub li { display:inline-block; }
+.sub li { width: 20px; height: 20px; margin: 2px; cursor: pointer; }
 #content { 
 
 }
+#share { float: left; margin-left: 75px; margin: 10px 0; position: relative;  }
+#share input { width: 210px; padding: 3px; font-size: 11px; color: #888; }
+#share div:after {
+    content: "↩ share"; /*&#8617;*/
+    -webkit-transform:rotate(340deg);
+    display:block;
+    position: absolute;
+    right:-50px;
+    top:-2px;
+    color: white;
+}
+#pallet { float: right; }
+#manage { display:none; }
 #pick2 {
     font-size:24px;
     font-family: Droid Sans;
@@ -102,8 +121,13 @@ header .sub {
 }
 #preview {
     padding:10px;
-    padding-bottom:30px;
 }
+
+.nostorage #pallet, .nostorage #preview a { display:none; }
+
+#preview .remove, #preview.has .add { display:none; }
+#preview.has .remove { display:inherit; }
+#preview div { padding-top: 30px; text-align: right; width: 95%; }
 .inner {
 	margin: 0 auto;
 	width: 93.75%;
@@ -156,7 +180,7 @@ header .sub {
 }
 .spec-wrap .spectrum-container { width: 100%; }
 .preview { -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear .5s; }
-.preview { width: 40px; height: 40px;  background-color:orange;}
+.preview { width: 40px; height: 40px; }
 .preview.big { width: 80px; height: 80px; }
 
 

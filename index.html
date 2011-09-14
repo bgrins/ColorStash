@@ -4,10 +4,20 @@
 <title>Spectrum - The No Hassle JavaScript Colorpicker</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
+<body class='nostorage'>
 	<header>
 	   <h1>ColorStash</h1>
-	   <div class='sub'><a href='#about'>about</a></div>
+	   <div class='sub clearfix'>
+	       <div id='share'>
+              <div><input readonly /></div>
+	       </div>
+	       <div id='pallet'>
+	       <ul>
+	       
+	       </ul>
+	       <a id='m' href='#'>manage</a>
+	       </div>
+	   </div>
 	   <span class='logo'></span>
 	
 	</header>
@@ -16,20 +26,24 @@
             <div class='picker'>
                 <div class='in'>
                     <div class='spec-wrap'>
-                        <input type='text' name='pick1' id='pick1' value='#ddddff' />
+                        <input type='text' name='pick1' id='pick1' />
                     </div>
                 </div>
             </div>
 			<div class='colorer'>
 			 <div class='in'>
 				<div id='preview' class=''>
-                <input type='text' name='pick2' id='pick2' value='#ddddff' />
+                   <input type='text' name='pick2' id='pick2' />
+                   <div>
+                       <a href='#' class='add'>Add</a>
+                       <a href='#' class='remove'>Remove</a>
+                   </div>
                 </div>
 				<div id='stats' class='clearfix'>
 				<div id='values'>
 				    <div id='hex'><input type='text' readonly /></div>
 				    <div id='rgb'><input type='text' readonly /></div>
-				    <div id='hsl'><input type='text'  readonly /></div>
+				    <div id='hsl'><input type='text' readonly /></div>
 				    <div id='hsv'><input type='text' readonly /></div>
 				</div>
 				</div>
@@ -41,6 +55,8 @@
 			</div>
 		</div>
 	</section>
+	
+	<section id='manage'></section>
 	<footer></footer>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
