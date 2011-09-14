@@ -1,5 +1,6 @@
-var hasStorage = !!(localStorage && JSON);
-var defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }';
+var hasStorage = !!(localStorage && JSON),
+    defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }';
+   
 
 function getPallet() {
     if (!hasStorage) { "" }
@@ -48,7 +49,7 @@ $(function() {
     var s = $("#pick1");
     var tb = $("#pick2");
     var url = $("#share input");
-    var u = "http://localhost/~brian/colorstash/";
+    var u = location;
     var pallet = $("#pallet ul");
     tb.bind("keyup change", function() { setCurrentHex($(this).val()); });
     $("input[readonly]").click(function() { $(this).focus(); this.select(); });
@@ -62,7 +63,7 @@ $(function() {
         hsv = $("#hsv input"),
         triad = $("#triad"), 
         tetrad = $("#tetrad"), 
-        mono = $("#monochromatic"),
+        mono = $("#mono"),
         shareInput = $("#share input"),
         preview = $("#preview");
     
