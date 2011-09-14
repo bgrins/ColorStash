@@ -82,18 +82,18 @@ header h1 {
 
 .sub {
     background: rgba(0, 0, 0, .7);
-    text-align: right;
+    position:relative;
 } 
 .sub a {
     color: white;
 }
-.sub ul { margin: 0; margin-top: 10px; }
-.sub ul, .sub li { display:inline-block; }
-.sub li { width: 20px; height: 20px; margin: 2px; cursor: pointer; }
+#pallet { position:absolute; right:0; top: 10px; z-index: 0; height:23px; overflow: hidden;  }
+.sub ul { margin: 0; padding:0; }
+.sub li {  display:inline-block; width: 20px; height: 20px; margin: 2px; cursor: pointer; }
 #content { 
 
 }
-#share { float: left; margin-left: 75px; margin: 10px 0; position: relative;  }
+#share { float: left; margin: 10px 0; margin-left: 75px; position: relative; z-index:1; }
 #share input { width: 210px; padding: 3px; font-size: 11px; color: #888; }
 #share div:after {
     content: "↩ share"; /*&#8617;*/
@@ -104,7 +104,6 @@ header h1 {
     top:-2px;
     color: white;
 }
-#pallet { float: right; }
 #manage { display:none; }
 #pick2 {
     font-size:24px;

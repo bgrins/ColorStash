@@ -106,7 +106,7 @@ $(function() {
 	});
 	
 	$("#pallet").delegate("li", "click", function() {
-	   setCurrentHex($(this).attr("title"));
+	   setCurrentHex($(this).attr("title"), true);
 	});
 	
     $("body").toggleClass("nostorage", !hasStorage);
