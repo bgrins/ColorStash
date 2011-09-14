@@ -81,9 +81,6 @@ h1 {
     margin:0 auto;
     display:block;
 }
-#stats {
-
-}
 #preview {
     padding:10px;
     border: solid 2px #333;
@@ -103,30 +100,26 @@ h1 {
 	width: 33.33%;
 	margin-bottom: 10px;
 }
-#values {
+
+/* Conversions */
+#conv {
     margin-left: 40px;
     margin-top: 20px;
-    
     padding:10px;
 }
-#values div {
-    /*width: 95%;
-    margin: 0 auto;*/
-}
-#values input {
+#conv input {
     font-size: 16px; 
     padding: 3px;
     width: 95%;
     background-color: rgba(255, 255, 255, .6);
 }
-
-#values div { margin:5px 0; position:relative;}
-
-#values div:before {
+#conv div { margin:5px 0; position:relative;}
+#conv div:before {
     -webkit-transform:rotate(20deg);
     display:block;
     position: absolute;
     font-family: Georgia;
+    font-weight: bold;
     left:-40px;
     top:-4px;
 }
@@ -134,14 +127,13 @@ h1 {
 #hsv:before { content: "hsv →"; }
 #rgb:before { content: "rgb →"; }
 #hsl:before { content: "hsl →"; }
-.spec-wrap {
-    /*display: inline-block;*/
-    position: relative;
-    text-align: center;
-}
-.spec-wrap .sp-container { width: 100%; }
-#preview { -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear .5s; 
-border-radius: 5px;
+
+/* Make the colorpicker scale to fit */
+body .sp-container { width: 100%; }
+
+#preview { 
+    border-radius: 5px;
+    -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
 }
 
 
@@ -162,11 +154,11 @@ border-radius: 5px;
         width:auto;
         margin-top: 30px;
     }
-    .picker {width: 33%; }
+    .picker { width: 33%; }
     .colorer { width: 67%; }
 }
 
-/* Too small - put everything in line */
+/* Really small - put everything in line */
 @media (max-width: 745px) {
     .schemer, .picker, .colorer {
         float:none;
@@ -178,7 +170,7 @@ border-radius: 5px;
         width: auto;
         margin: 10px 0; 
     }
-    .spec-wrap {
+    .picker {
         max-width: 325px;
         margin: 0 auto;
     }
