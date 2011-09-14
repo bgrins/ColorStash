@@ -88,22 +88,65 @@ header .sub {
 
 }
 #pick2 {
-    font-size:18px;
+    font-size:24px;
     font-family: Droid Sans;
-    background: rgba(255, 255, 255, .6);
-    border-color: #333;
+    background: rgba(255, 255, 255, .9);
+    border: solid 2px #333;
     text-align: center;
+    width: 95%;
+    margin:0 auto;
+    display:block;
+}
+#stats {
+
+}
+#preview {
+    padding:10px;
+    padding-bottom:30px;
 }
 .inner {
 	margin: 0 auto;
 	width: 93.75%;
 }
 
+.in {
+    padding: 0 15px;
+}
+
 .picker, .schemer, .colorer {
 	float:left;
 	width: 33%;
 }
+#values {
+    margin-left: 40px;
+    margin-top: 20px;
+    
+    padding:10px;
+}
+#values div {
+    /*width: 95%;
+    margin: 0 auto;*/
+}
+#values input {
+    font-size: 16px; 
+    padding: 3px;
+    width: 95%;
+    background-color: rgba(255, 255, 255, .6);
+}
 
+#values div { margin:5px 0; position:relative;}
+
+#values div:before {
+    -webkit-transform:rotate(20deg);
+    display:block;
+    position: absolute;
+    left:-40px;
+    top:-4px;
+}
+#hex:before { content: "hex ↪"; }
+#hsv:before { content: "hsv ↪"; }
+#rgb:before { content: "rgb ↪"; }
+#hsl:before { content: "hsl ↪"; }
 .picker {
     display: inline-block;
     position: relative;

@@ -14,11 +14,23 @@ $(function() {
         s.spectrum("set", $(this).val())
     });
     
+    $("#stats input").click(function() { $(this).focus(); this.select(); });
+    var hsl = $("#hsl input");
+    var hex = $("#hex input");
+    var rgb = $("#rgb input");
+    var hsv = $("#hsv input");
+    
 	s.spectrum({
 		flat: true,
 		showInput: false,
 		change: function(color) {
-			$("#preview").css("background-color", color.toHexString());
+		    var hexVal = color.toHexString();
+			$("#preview").css("background-color", hexVal);
+			tb.css("border-color", hexVal);
+			hsv.val(color.toHsvString());
+			hex.val(color.toHexString());
+			rgb.val(color.toRgbString());
+			hsl.val(color.toHslString());
 		},
 		move: function(color) {
 			tb.val(color.toHexString());
