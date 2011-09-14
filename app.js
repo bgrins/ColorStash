@@ -7,11 +7,22 @@ window.log = function(){
 };
 
 $(function() {
-	console.log($("#pick1"));
-	$("#pick1").spectrum({
+    var s = $("#pick1");
+    var tb = $("#pick2");
+    
+    tb.bind("keyup change", function() {
+        s.spectrum("set", $(this).val())
+    });
+    
+	s.spectrum({
 		flat: true,
+		showInput: false,
 		change: function(color) {
 			$("#preview").css("background-color", color.toHexString());
+		},
+		move: function(color) {
+			tb.val(color.toHexString());
+		
 		}
 	});
 });

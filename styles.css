@@ -57,8 +57,43 @@ table { border-collapse: collapse; border-spacing: 0; }
 td { vertical-align: top; }
 
 
-#content { background-color:grey;}
+body {
+    background-color: #fdd;
+}
+header {
+    overflow: visible;
+    background: rgba(255, 255, 255, .8);
+    margin-bottom:10px;
+}
+header .logo {
+    background: no-repeat url(colorstash-logo.jpg);
+    position:absolute;
+    height: 70px;
+    width: 70px;
+    top:-10px; 
+    left: 0;
+}
+header h1 { 
+    margin:0; 
+    padding:0;
+    padding-left: 70px;
+    font-family: cursive;
+}
+header .sub {
+    background: rgba(0, 0, 0, .8);
+    text-align: right;
+} 
 
+#content { 
+
+}
+#pick2 {
+    font-size:18px;
+    font-family: Droid Sans;
+    background: rgba(255, 255, 255, .6);
+    border-color: #333;
+    text-align: center;
+}
 .inner {
 	margin: 0 auto;
 	width: 93.75%;
@@ -75,7 +110,7 @@ td { vertical-align: top; }
     min-width: 300px;
     text-align: center;
 }
-.picker .spectrum-container { width: 100%; }
+.picker .spectrum-container { width: 80%; }
 .preview { -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear .5s; }
 .preview { width: 40px; height: 40px;  background-color:orange;}
 .preview.big { width: 80px; height: 80px; }
