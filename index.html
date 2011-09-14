@@ -3,6 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>Spectrum - The No Hassle JavaScript Colorpicker</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
+<link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
 </head>
 <body class='nostorage'>
 	<header>
@@ -35,24 +36,29 @@
 				<div id='preview' class=''>
                    <input type='text' name='pick2' id='pick2' />
                    <div>
+                       <a href='#' class='reload'>Reload Schemes</a>
                        <a href='#' class='add'>Add</a>
                        <a href='#' class='remove'>Remove</a>
                    </div>
                 </div>
 				<div id='stats' class='clearfix'>
-				<div id='values'>
-				    <div id='hex'><input type='text' readonly /></div>
-				    <div id='rgb'><input type='text' readonly /></div>
-				    <div id='hsl'><input type='text' readonly /></div>
-				    <div id='hsv'><input type='text' readonly /></div>
-				</div>
+				    <div id='values'>
+				        <div id='hex'><input type='text' readonly /></div>
+				        <div id='rgb'><input type='text' readonly /></div>
+				        <div id='hsl'><input type='text' readonly /></div>
+				        <div id='hsv'><input type='text' readonly /></div>
+				    </div>
 				</div>
               </div>
 			</div>
 			<div class='schemer'>
-				Monochromatic:
-				Analogous:
-			</div>
+			     <div class='in'>
+				<ul id='triad' class='clearfix'></ul>
+				<ul id='tetrad' class='clearfix'></ul>
+				<ul id='monochromatic' class='clearfix'></ul>
+				<ul id='analogous' class='clearfix'></ul>
+				</div>
+            </div>
 		</div>
 	</section>
 	
