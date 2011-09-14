@@ -143,7 +143,7 @@ header h1 {
     position: relative;
     text-align: center;
 }
-.spec-wrap .spectrum-container { width: 100%; }
+.spec-wrap .sp-container { width: 100%; }
 #preview { -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear .5s; 
 border-radius: 5px;
 }
@@ -166,13 +166,8 @@ border-radius: 5px;
         width:auto;
         margin-top: 30px;
     }
-    .picker, .colorer {
-        width: 50%;
-    }
-    .picker .spectrum-container { 
-        width: 95%; 
-    }
-      
+    .picker {width: 40%; }
+    .colorer { width: 60%; }
 }
 
 /* Too small - put everything in line */
