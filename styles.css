@@ -115,7 +115,8 @@ header .sub {
 
 .picker, .schemer, .colorer {
 	float:left;
-	width: 33%;
+	width: 33.33%;
+	margin-bottom: 10px;
 }
 #values {
     margin-left: 40px;
