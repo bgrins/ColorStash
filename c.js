@@ -49,12 +49,13 @@ function palletRemove(hex) {
 }
 
 $(function() {
-    var s = $("#pick1");
-    var tb = $("#pick2");
-    var url = $("#share input");
-    var u = location;
-    var pallet = $("#pallet ul");
-    tb.bind("keyup change", function() { setCurrentHex($(this).val()); });
+    var spec = $("#spec"),
+        current = $("#current"),
+        u = location,
+        pallet = $("#pallet ul");
+        
+        
+    current.bind("keyup change", function() { setCurrentHex($(this).val()); });
     $("input[readonly]").click(function() { $(this).focus(); this.select(); });
     
     var backgroundColor = "background-color";
@@ -74,15 +75,14 @@ $(function() {
         var hexVal = color.toHexString();
         
         preview.css(backgroundColor, hexVal);
-        tb.css(borderColor, hexVal);
-        shareInput.css(borderColor, hexVal);
+        current.css(borderColor, hexVal);
+        shareInput.css(borderColor, hexVal).val(u + hexVal);
         
         
         hsv.val(color.toHsvString());
         hex.val(hexVal);
         rgb.val(color.toRgbString());
         hsl.val(color.toHslString());
-        url.val(u + hexVal);
         
         var h = color.toHsv();
         var isContrast = h.s < .3 && h.v > .6;
@@ -90,26 +90,26 @@ $(function() {
     }
     
     function getCurrentHex() {
-        return s.spectrum("get").toHexString();
+        return spec.spectrum("get").toHexString();
     }
     function setCurrentHex(color, shouldUpdateTextbox) {
-	   s.spectrum("set", color);
+	   spec.spectrum("set", color);
 	   shouldUpdateTextbox && updateTextbox();
     }
     
     function updateTextbox(color) {
-        tb.val((color || s.spectrum("get")).toHexString());
+        current.val((color || spec.spectrum("get")).toHexString());
     }
     
     function updatePartial(color) {
-        var tiny = color || s.spectrum("get");
+        var tiny = color || spec.spectrum("get");
 	   $("#preview").removeClass("fromScheme");
 	   $(".schemer li").removeClass("active");
         updateTextbox(tiny);
         updateSchemes(tiny);
     }
     
-	s.spectrum({
+	spec.spectrum({
 	    color: getLastColor(),
 		flat: true,
 		showInput: false,
