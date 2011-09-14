@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
 <title>ColorStash</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
@@ -22,7 +22,7 @@
 	   <span class='logo'></span>
 	
 	</header>
-	<section id='content'>
+	<div id='content'>
 		<div class='inner cf'>
             <div class='picker'>
                 <div class='in'>
@@ -36,9 +36,9 @@
 				<div id='preview' class=''>
                    <input type='text' name='pick2' id='pick2' />
                    <div>
-                       <a href='#' class='reload'>Reload Schemes</a>
-                       <a href='#' class='add'>Add</a>
-                       <a href='#' class='remove'>Remove</a>
+                       <button id='rl'>Reload Schemes</button>
+                       <button id='add'>Add</button>
+                       <button id='rm'>Remove</button>
                    </div>
                 </div>
 				<div id='stats' class='cf'>
@@ -53,18 +53,16 @@
 			</div>
 			<div class='schemer'>
 			     <div class='in'>
-				<ul id='triad' class='cf'></ul>
-				<ul id='tetrad' class='cf'></ul>
-				<ul id='mono' class='cf'></ul>
-				<ul id='analogous' class='cf'></ul>
+				    <ul id='triad' class='cf'></ul>
+				    <ul id='tetrad' class='cf'></ul>
+				    <ul id='mono' class='cf'></ul>
+				    <ul id='analogous' class='cf'></ul>
 				</div>
             </div>
 		</div>
-	</section>
+	</div>
 	
-	<footer></footer>
-	
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>

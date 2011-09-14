@@ -88,8 +88,8 @@ header h1 {
 
 .nostorage #pallet, .nostorage #preview a { display:none; }
 
-#preview .remove, #preview .reload, #preview.has .add { display:none; }
-#preview.has .remove, #preview.fromScheme .reload { display:inline; }
+#rm, #rl, #preview.has #add { display:none; }
+#preview.has #rm, #preview.fromScheme #rl { display:inline; }
 #preview div { padding-top: 30px; text-align: right; width: 95%; }
 #preview a { color: #ddf; }
 #preview.contrast a { color: #003; }

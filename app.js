@@ -118,11 +118,11 @@ $(function() {
 		show: updatePartial
 	});
 	
-	$("#preview a").click(function() {
+	preview.find("button").click(function() {
 	   var hex = getCurrentHex();
-	   $(this).is(".add") && palletAdd(hex);
-	   $(this).is(".remove") && palletRemove(hex);
-	   $(this).is(".reload") && updatePartial();
+	   this.id == "add" && palletAdd(hex);
+	   this.id == "remove" && palletRemove(hex);
+	   this.id == "rl" && updatePartial();
     
        $("#preview").toggleClass("has", palletHas(hex));
 	   return false;
