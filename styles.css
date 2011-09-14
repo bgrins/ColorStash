@@ -159,15 +159,15 @@ border-radius: 5px;
 .schemer li:hover, .schemer li.active { outline: solid orange 2px; }
 
 /* Picker and generated values next to each other, schemes at bottom */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .schemer {
         float:none;
         clear: both;
         width:auto;
         margin-top: 30px;
     }
-    .picker {width: 40%; }
-    .colorer { width: 60%; }
+    .picker {width: 33%; }
+    .colorer { width: 67%; }
 }
 
 /* Too small - put everything in line */
