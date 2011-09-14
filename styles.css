@@ -107,7 +107,7 @@ header h1 {
 
 }
 #share { float: left; margin: 10px 0; margin-left: 75px; position: relative; z-index:1; }
-#share input { width: 210px; padding: 3px; font-size: 11px; color: #888; }
+#share input { width: 210px; padding: 3px; font-size: 11px; color: #888; border: solid 2px; }
 #share div:after {
     content: "↩ share"; /*&#8617;*/
     -webkit-transform:rotate(340deg);
@@ -190,7 +190,6 @@ header h1 {
 #hsl:before { content: "hsl →"; }
 .spec-wrap {
     /*display: inline-block;*/
-    margin: 0 auto;
     position: relative;
     text-align: center;
 }
@@ -217,9 +216,6 @@ border-radius: 5px;
         width:auto;
         margin-top: 30px;
     }
-    .spec-wrap {
-        max-width: 318px;
-    }
     .picker, .colorer {
         width: 50%;
     }
@@ -230,7 +226,7 @@ border-radius: 5px;
 }
 
 /* Too small - put everything in line */
-@media (max-width: 640px) {
+@media (max-width: 745px) {
     .schemer, .picker, .colorer {
         float:none;
         width:100%;
@@ -242,12 +238,12 @@ border-radius: 5px;
         margin: 10px 0; 
     }
     .spec-wrap {
-        max-width: 270px;
+        max-width: 325px;
+        margin: 0 auto;
     }
 }
 
 @media (min-width: 1300px) {
-	#content { background-color: purple; }
 }
 .ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
 .ir br { display: none; }

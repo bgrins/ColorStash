@@ -60,21 +60,29 @@ $(function() {
     tb.bind("keyup change", function() { setCurrentHex($(this).val()); });
     $("input[readonly]").click(function() { $(this).focus(); this.select(); });
     
+    var backgroundColor = "background-color";
+    var borderColor = "border-color";
+    
     var hsl = $("#hsl input"),
         hex = $("#hex input"),
         rgb = $("#rgb input"),
         hsv = $("#hsv input"),
         triad = $("#triad"), 
         tetrad = $("#tetrad"), 
-        mono = $("#monochromatic");
+        mono = $("#monochromatic"),
+        shareInput = $("#share input"),
+        preview = $("#preview");
     
     function change(color) {
         var hexVal = color.toHexString();
-        console.log("change", hexVal);
-        $("#preview").css("background-color", hexVal);
-        tb.css("border-color", hexVal);
+        
+        preview.css(backgroundColor, hexVal);
+        tb.css(borderColor, hexVal);
+        shareInput.css(borderColor, hexVal);
+        
+        
         hsv.val(color.toHsvString());
-        hex.val(color.toHexString());
+        hex.val(hexVal);
         rgb.val(color.toRgbString());
         hsl.val(color.toHslString());
         url.val(u + hexVal);
