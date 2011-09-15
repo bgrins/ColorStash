@@ -6,18 +6,25 @@
 <link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
 </head>
 <body class='nostorage'>
-	<header>
+	<header class='cf'>
 	   <h1>ColorStash</h1>
-	   <div class='sub cf'>
-	       <div id='share'><div><input readonly /></div></div>
-	       <div id='pallet'><ul /></div>
-	   </div>
-	   <span class='logo'></span>
+	   <div id='links'><a href='http://10k.aneventapart.com/'>10K</a> | <a href='twitter.com/bgrins'>Me</a></div>
 	</header>
+	<div class='logo'></div>
+    
+    <div class='sub cf'>
+        <div id='share'><div><input readonly /></div></div>
+        <div id='pallet'><ul /></div>
+    </div>
+	
 	<div id='cs' class='cf'>
         <div class='picker'>
             <div class='in'>
                 <input id='spec' />
+                <div id='files'>
+                    <div></div>
+                    <span></span>
+                </div>
             </div>
         </div>
 		<div class='colorer'>
@@ -25,7 +32,7 @@
 		    <div id='preview'>
                <input id='current' />
                <div>
-                   <button id='rl'>Reload Schemes</button>
+                   <button id='rl'>Set As Base</button>
                    <button id='add'>Add</button>
                    <button id='rm'>Remove</button>
                </div>
@@ -40,10 +47,10 @@
 		</div>
 		<div class='schemer'>
 		     <div class='in'>
-		        <ul id='triad' class='cf'></ul>
 		        <ul id='tetrad' class='cf'></ul>
 		        <ul id='mono' class='cf'></ul>
-		        <ul id='analogous' class='cf'></ul>
+		        <ul id='an' class='cf'></ul>
+		        <ul id='sc' class='cf'></ul>
 		    </div>
         </div>
 	</div>
