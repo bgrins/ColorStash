@@ -17,6 +17,8 @@ function setLastColor(c) {
     localStorage["lastColor"] = c; 
 }
 function getLastColor() {
+    var fromHash = tinycolor(window.location.hash);
+    if (fromHash.ok) { return fromHash.toHexString(); }
     return (hasStorage && localStorage["lastColor"]) || "ddf";
 }
 function redrawPallet() {
@@ -53,7 +55,7 @@ $(function() {
         u = location,
         pallet = $("#pallet ul");
         
-        
+    
     current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
     $("input[readonly]").click(function() { $(this).focus(); this.select(); });
     
@@ -140,6 +142,9 @@ $(function() {
     $("body").toggleClass("nostorage", !hasStorage);
     redrawPallet();
     
+    window.onhashchange = function() {
+        setCurrentHex(getLastColor(), true);
+    }
     window.onunload = function() {
         setLastColor(getCurrentHex()); 
     }
