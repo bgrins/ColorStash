@@ -48,6 +48,7 @@ h1 {
     color: white;
 }
 #pallet { position:absolute; right:0; top: 0; padding-top:20px; z-index: 0; height:26px; overflow: hidden;  }
+.sub ul { width: 100%; }
 .sub li {  
     display:inline-block; 
     width: 33px; 
@@ -148,22 +149,23 @@ h1 {
 
 /* Make the colorpicker scale to fit */
 body .sp-container { width: 100%; }
-
-#preview { 
-    border-radius: 5px;
+#preview { border-radius: 5px; }
+#preview, .schemer li { 
     -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
 }
 
 .schemer.vhide ul { display:none; }
 .schemer ul { list-style-type: none; margin:0; padding:0; float:left; width:25%; }
+
 .schemer li { 
     height: 40px; 
-    width: 40px;
+    width: 14%;
 }
+/*
 #tetrad li { width: 25%; }
-#mono li { width: 16.7%; }
-#an li { width: 16.7%; }
-#sc li { width: 33%; }
+#mono li { width: 18.3%; }
+#an li { width: 18.3%; }
+#sc li { width: 33.3%; }*/
 .schemer li:hover, .schemer li.active { outline: solid orange 2px; }
 
 /* Picker and generated values next to each other, schemes at bottom */
@@ -177,9 +179,9 @@ body .sp-container { width: 100%; }
     .schemer ul {
         float:none;
         width: auto;
-        margin: 10px 0; 
+        margin: 10px 0;
     }
-    .schemer li { float:left;}
+    .schemer li {  float:left;  }
     .picker { width: 33%; }
     .colorer { width: 67%; }
 }
