@@ -12,7 +12,8 @@ ul { margin: 0; padding:0; }
 button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; line-height: normal; *overflow: visible;  }
 header {
     overflow: visible;
-    background: rgba(255, 255, 255, .8);
+    background: #d6f0f3;
+    border-bottom: solid 8px #636566;
 }
 #links {
     float:right;
@@ -38,7 +39,7 @@ h1 {
 }
 
 .sub {
-    background: rgba(0, 0, 0, .7);
+    background: #292c2d;
     position:relative;
     overflow:hidden;
     margin-bottom: 10px;
