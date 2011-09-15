@@ -159,10 +159,11 @@ body .sp-container { width: 100%; }
 .schemer li { 
     height: 40px; 
     width: 40px;
-    margin: 3px;
-    border: solid 1px #000; 
-    border-radius: 5px; 
 }
+#tetrad li { width: 25%; }
+#mono li { width: 16.7%; }
+#an li { width: 16.7%; }
+#sc li { width: 33%; }
 .schemer li:hover, .schemer li.active { outline: solid orange 2px; }
 
 /* Picker and generated values next to each other, schemes at bottom */
