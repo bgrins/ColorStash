@@ -133,7 +133,8 @@ h1 {
     background-color: rgba(255, 255, 255, .6);
 }
 #conv div { margin:5px 0; position:relative;}
-#conv div:before {
+
+#conv div:before, .schemer span {
     -webkit-transform:rotate(20deg);
     display:block;
     position: absolute;
@@ -154,9 +155,11 @@ body .sp-container { width: 100%; }
     -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
 }
 
+.schemer div { position: relative; }
 .schemer.vhide ul { display:none; }
 .schemer ul { list-style-type: none; margin:0; padding:0; float:left; width:25%; }
-
+.schemer span { 
+    text-align: right; width: 140px; left: 0; top: -10px;}
 .schemer li { 
     height: 40px; 
     width: 14%;
@@ -174,12 +177,13 @@ body .sp-container { width: 100%; }
         float:none;
         clear: both;
         width:auto;
-        margin-top: 30px;
+        padding-top: 30px;
     }
     .schemer ul {
         float:none;
         width: auto;
         margin: 10px 0;
+        margin-left: 140px;
     }
     .schemer li {  float:left;  }
     .picker { width: 33%; }
