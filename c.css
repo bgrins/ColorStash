@@ -193,7 +193,7 @@ body .sp-container { width: 100%; }
 }
 
 /* Really small - put everything in line */
-@media (max-width: 745px) {
+@media (max-width: 745px), (max-device-width: 480px) {
     .schemer, .picker, .colorer {
         float:none;
         width:100%;
@@ -219,8 +219,7 @@ body .sp-container { width: 100%; }
     }
 }
 
-@media (min-width: 1300px) {
-}
+@media (min-width: 1300px) { }
 
 .vhide { visibility: hidden; }
 .hide { display: none; }
