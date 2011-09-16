@@ -6,6 +6,7 @@ $.fn.ac = $.fn.addClass;
 $(function() {
 
 var win = window,
+    tinycolor = win.tinycolor,
     localStorage = win.localStorage,
     hasStorage = !!(localStorage && JSON),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }',
@@ -13,7 +14,7 @@ var win = window,
     lastColorName = "lastColor",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
-    URL = location,
+    LOCATION = location,
     spec = $("#spec"),
     current = $("#current"),
     pallet = $("#pallet ul"),
@@ -42,7 +43,7 @@ function change(color) {
         tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
         
     shareInput.css(BORDER_COLOR, hexVal).
-        val(URL + hexVal);
+        val(LOCATION + hexVal);
     
     hsv.val(color.toHsvString());
     hex.val(hexVal);
@@ -158,7 +159,7 @@ function setLastColor(c) {
     localStorage[lastColorName] = c; 
 }
 function getLastColor() {
-    var fromHash = tinycolor(location.hash);
+    var fromHash = tinycolor(LOCATION.hash);
     if (fromHash.ok) { return fromHash.toHexString(); }
     return (hasStorage && localStorage[lastColorName]) || "ddf";
 }
