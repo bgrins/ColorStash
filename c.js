@@ -1,5 +1,5 @@
 
-(function() {
+(function(window) {
 
 var localStorage = window.localStorage,
     hasStorage = !!(localStorage && JSON),
@@ -11,6 +11,8 @@ var localStorage = window.localStorage,
     URL = location;
 
 $.fn.tc = $.fn.toggleClass;
+$.fn.rc = $.fn.removeClass;
+$.fn.ac = $.fn.addClass;
     
 function getPallet() {
     if (!hasStorage) { "" }
@@ -25,7 +27,7 @@ function setLastColor(c) {
     localStorage[lastColorName] = c; 
 }
 function getLastColor() {
-    var fromHash = tinycolor(window.location.hash);
+    var fromHash = tinycolor(location.hash);
     if (fromHash.ok) { return fromHash.toHexString(); }
     return (hasStorage && localStorage[lastColorName]) || "ddf";
 }
@@ -62,10 +64,8 @@ $(function() {
         current = $("#current"),
         pallet = $("#pallet ul");
         
-    
     current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
     $("input[readonly]").click(function() { $(this).focus(); this.select(); });
-    
     
     var hsl = $("#hsl input"),
         hex = $("#hex input"),
@@ -104,8 +104,6 @@ $(function() {
        var ok = tinycolor(color).ok;
 	   spec.spectrum("set", color);
 	   shouldUpdateTextbox && updateTextbox();
-	   
-	   
        schemeContainer.tc("vhide", !ok);
 	   return ok;
     }
@@ -116,8 +114,8 @@ $(function() {
     
     function updatePartial(color) {
         var tiny = color || spec.spectrum("get");
-	   $("#preview").removeClass("fromScheme");
-	   $(".schemer li").removeClass("active");
+	    preview.rc("fromScheme");
+	    $(".schemer li").rc("active");
         updateTextbox(tiny);
         updateSchemes(tiny);
     }
@@ -170,7 +168,7 @@ $(function() {
 	   
 	}).delegate("li", "click", function() {
 	   setCurrentHex($(this).attr("title"), true);
-	   $(".schemer li").removeClass("active");
+	   $(".schemer li").rc("active");
 	   $(this).addClass("active");
 	   stored = getCurrentHex();
 	   $("#preview").addClass("fromScheme");
@@ -276,7 +274,7 @@ function initDragDrop() {
 	
 }*/
 
-})();
+})(window);
 // Spectrum: The No Hassle Colorpicker
 // https://github.com/bgrins/spectrum
 // Author: Brian Grinstead
