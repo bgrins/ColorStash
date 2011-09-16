@@ -98,12 +98,12 @@ h1 {
     background: rgba(255, 255, 255, .9);
     border: solid 2px rgba(0, 0, 0, .2);
     text-align: center;
-    width: 99%;
+    width: 95%;
     margin:0 auto;
     display:block;
 }
 #preview {
-    padding:10px 2.5%;
+    padding:10px 20px;
     border: solid 2px #333;
 }
 
