@@ -1,9 +1,10 @@
 
 (function() {
 
-var hasStorage = !!(localStorage && JSON),
+var localStorage = window.localStorage,
+    hasStorage = !!(localStorage && JSON),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }';
-
+    
 function getPallet() {
     if (!hasStorage) { "" }
     return JSON.parse(localStorage["colors"] || defaultPallet);
