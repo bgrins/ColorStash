@@ -9,6 +9,8 @@ var localStorage = window.localStorage,
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
     URL = location;
+
+$.fn.tc = $.fn.toggleClass;
     
 function getPallet() {
     if (!hasStorage) { "" }
@@ -80,19 +82,19 @@ $(function() {
     
     function change(color) {
         var hexVal = color.toHexString();
+        var hsvVal = color.toHsv();
         
-        preview.css(BACKGROUND_COLOR, hexVal);
-        shareInput.css(BORDER_COLOR, hexVal).val(URL + hexVal);
-        
+        preview.css(BACKGROUND_COLOR, hexVal).
+            tc("has", palletHas(hexVal)).
+            tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
+            
+        shareInput.css(BORDER_COLOR, hexVal).
+            val(URL + hexVal);
         
         hsv.val(color.toHsvString());
         hex.val(hexVal);
         rgb.val(color.toRgbString());
         hsl.val(color.toHslString());
-        
-        var h = color.toHsv();
-        var isContrast = h.s < .3 && h.v > .6;
-        $("#preview").toggleClass("has", palletHas(hexVal)).toggleClass("contrast", isContrast);
     }
     
     function getCurrentHex() {
@@ -104,7 +106,7 @@ $(function() {
 	   shouldUpdateTextbox && updateTextbox();
 	   
 	   
-       schemeContainer.toggleClass("vhide", !ok);
+       schemeContainer.tc("vhide", !ok);
 	   return ok;
     }
     
@@ -135,7 +137,7 @@ $(function() {
 	   this.id == "rm" && palletRemove(hex);
 	   this.id == "rl" && updatePartial();
     
-       $("#preview").toggleClass("has", palletHas(hex));
+       preview.tc("has", palletHas(hex));
 	   return false;
 	});
 	
@@ -143,7 +145,7 @@ $(function() {
 	   setCurrentHex($(this).attr("title"), true);
 	});
 	
-    $("body").toggleClass("nostorage", !hasStorage);
+    $("body").tc("nostorage", !hasStorage);
     redrawPallet();
     
     window.onhashchange = function() {
