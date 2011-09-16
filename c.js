@@ -1,18 +1,149 @@
 
-(function(window) {
+$.fn.tc = $.fn.toggleClass;
+$.fn.rc = $.fn.removeClass;
+$.fn.ac = $.fn.addClass;
 
-var localStorage = window.localStorage,
+$(function() {
+
+var win = window,
+    localStorage = win.localStorage,
     hasStorage = !!(localStorage && JSON),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }',
     colorStorageName = "colors",
     lastColorName = "lastColor",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
-    URL = location;
+    URL = location,
+    spec = $("#spec"),
+    current = $("#current"),
+    pallet = $("#pallet ul"),
+    hsl = $("#hsl input"),
+    hex = $("#hex input"),
+    rgb = $("#rgb input"),
+    hsv = $("#hsv input"),
+    analogous = $("#an"), 
+    splitcomplement = $("#sc"), 
+    tetrad = $("#tetrad"), 
+    mono = $("#mono"),
+    modifications = $("#mod"),
+    shareInput = $("#share input"),
+    preview = $("#preview"),
+    schemeContainer = $(".schemer");
 
-$.fn.tc = $.fn.toggleClass;
-$.fn.rc = $.fn.removeClass;
-$.fn.ac = $.fn.addClass;
+current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
+$("input[readonly]").click(function() { $(this).focus(); this.select(); });
+
+function change(color) {
+    var hexVal = color.toHexString();
+    var hsvVal = color.toHsv();
+    
+    preview.css(BACKGROUND_COLOR, hexVal).
+        tc("has", palletHas(hexVal)).
+        tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
+        
+    shareInput.css(BORDER_COLOR, hexVal).
+        val(URL + hexVal);
+    
+    hsv.val(color.toHsvString());
+    hex.val(hexVal);
+    rgb.val(color.toRgbString());
+    hsl.val(color.toHslString());
+}
+
+function getCurrentHex() {
+    return spec.spectrum("get").toHexString();
+}
+function setCurrentHex(color, shouldUpdateTextbox) {
+   var ok = tinycolor(color).ok;
+   spec.spectrum("set", color);
+   shouldUpdateTextbox && updateTextbox();
+   schemeContainer.tc("vhide", !ok);
+   return ok;
+}
+
+function updateTextbox(color) {
+    current.val((color || spec.spectrum("get")).toHexString());
+}
+
+function updatePartial(color) {
+    var tiny = color || spec.spectrum("get");
+    preview.rc("fromScheme");
+    $(".schemer li").rc("active");
+    updateTextbox(tiny);
+    updateSchemes(tiny);
+}
+
+spec.spectrum({
+    color: getLastColor(),
+    flat: true,
+    showInput: false,
+    change: change,
+    move: updatePartial,
+    show: updatePartial
+});
+
+preview.find("button").click(function() {
+   var hex = getCurrentHex();
+   this.id == "add" && palletAdd(hex);
+   this.id == "rm" && palletRemove(hex);
+   this.id == "rl" && updatePartial();
+
+   preview.tc("has", palletHas(hex));
+   return false;
+});
+
+$("#pallet").delegate("li", "click", function() {
+   setCurrentHex($(this).attr("title"), true);
+});
+
+$("body").tc("nostorage", !hasStorage);
+redrawPallet();
+
+win.onhashchange = function() {
+    setCurrentHex(getLastColor(), true);
+}
+win.onunload = function() {
+    setLastColor(getCurrentHex()); 
+}
+	
+// Only keep the scheme color if they click on it
+// Wait to update schemes until they press add
+var stored;
+$(".schemer").hover(
+   function() { stored = getCurrentHex(); }, 
+   function() { setCurrentHex(stored, true); }
+);
+
+$(".schemer").delegate("li", "hover", function() {
+   if (false && $(".schemer li.active").length == 0) {
+       setCurrentHex($(this).attr("title"), true);
+   }
+   
+}).delegate("li", "click", function() {
+   setCurrentHex($(this).attr("title"), true);
+   $(".schemer li").rc("active");
+   $(this).addClass("active");
+   stored = getCurrentHex();
+   $("#preview").addClass("fromScheme");
+});
+
+function schemeTmpl(e) {
+        var hex = e.toHexString();
+        return '<li style="background:'+hex+'" title="'+hex+'" />'
+}
+function updateSchemes(tiny) {
+    var tiny = tiny || spec.spectrum("get");
+    var mods = [
+        tiny,
+        tinycolor.desaturate(tiny, 20), tinycolor.saturate(tiny, 20), 
+        tinycolor.lighten(tiny, 20), tinycolor.darken(tiny, 20)
+    ];
+    modifications.html($.map(mods, schemeTmpl).join(''));
+    analogous.html($.map(tinycolor.analogous(tiny, 5), schemeTmpl).join(''));
+    splitcomplement.html($.map(tinycolor.splitcomplement(tiny), schemeTmpl).join(''));
+    tetrad.html($.map(tinycolor.tetrad(tiny), schemeTmpl).join(''));
+    mono.html($.map(tinycolor.monochromatic(tiny, 5), schemeTmpl).join(''));
+}
     
 function getPallet() {
     if (!hasStorage) { "" }
@@ -38,7 +169,7 @@ function redrawPallet() {
         html.push("<li style='background-color:" + i + ";' title='" + i + "' />");
     }
     
-    $("#pallet ul").html(html.join(''));   
+    pallet.html("<ul>"+html.join('')+"</ul>");   
 }
 
 function palletHas(hex) {
@@ -58,140 +189,6 @@ function palletRemove(hex) {
     setPallet(c);
     redrawPallet(c);
 }
-
-$(function() {
-    var spec = $("#spec"),
-        current = $("#current"),
-        pallet = $("#pallet ul");
-        
-    current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
-    $("input[readonly]").click(function() { $(this).focus(); this.select(); });
-    
-    var hsl = $("#hsl input"),
-        hex = $("#hex input"),
-        rgb = $("#rgb input"),
-        hsv = $("#hsv input"),
-        analogous = $("#an"), 
-        splitcomplement = $("#sc"), 
-        tetrad = $("#tetrad"), 
-        mono = $("#mono"),
-        modifications = $("#mod"),
-        shareInput = $("#share input"),
-        preview = $("#preview"),
-        schemeContainer = $(".schemer");
-    
-    function change(color) {
-        var hexVal = color.toHexString();
-        var hsvVal = color.toHsv();
-        
-        preview.css(BACKGROUND_COLOR, hexVal).
-            tc("has", palletHas(hexVal)).
-            tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
-            
-        shareInput.css(BORDER_COLOR, hexVal).
-            val(URL + hexVal);
-        
-        hsv.val(color.toHsvString());
-        hex.val(hexVal);
-        rgb.val(color.toRgbString());
-        hsl.val(color.toHslString());
-    }
-    
-    function getCurrentHex() {
-        return spec.spectrum("get").toHexString();
-    }
-    function setCurrentHex(color, shouldUpdateTextbox) {
-       var ok = tinycolor(color).ok;
-	   spec.spectrum("set", color);
-	   shouldUpdateTextbox && updateTextbox();
-       schemeContainer.tc("vhide", !ok);
-	   return ok;
-    }
-    
-    function updateTextbox(color) {
-        current.val((color || spec.spectrum("get")).toHexString());
-    }
-    
-    function updatePartial(color) {
-        var tiny = color || spec.spectrum("get");
-	    preview.rc("fromScheme");
-	    $(".schemer li").rc("active");
-        updateTextbox(tiny);
-        updateSchemes(tiny);
-    }
-    
-	spec.spectrum({
-	    color: getLastColor(),
-		flat: true,
-		showInput: false,
-		change: change,
-		move: updatePartial,
-		show: updatePartial
-	});
-	
-	preview.find("button").click(function() {
-	   var hex = getCurrentHex();
-	   this.id == "add" && palletAdd(hex);
-	   this.id == "rm" && palletRemove(hex);
-	   this.id == "rl" && updatePartial();
-    
-       preview.tc("has", palletHas(hex));
-	   return false;
-	});
-	
-	$("#pallet").delegate("li", "click", function() {
-	   setCurrentHex($(this).attr("title"), true);
-	});
-	
-    $("body").tc("nostorage", !hasStorage);
-    redrawPallet();
-    
-    window.onhashchange = function() {
-        setCurrentHex(getLastColor(), true);
-    }
-    window.onunload = function() {
-        setLastColor(getCurrentHex()); 
-    }
-    	
-	// Only keep the scheme color if they click on it
-	// Wait to update schemes until they press add
-	var stored;
-	$(".schemer").hover(
-	   function() { stored = getCurrentHex(); }, 
-	   function() { setCurrentHex(stored, true); }
-    );
-	
-    $(".schemer").delegate("li", "hover", function() {
-	   if (false && $(".schemer li.active").length == 0) {
-	       setCurrentHex($(this).attr("title"), true);
-	   }
-	   
-	}).delegate("li", "click", function() {
-	   setCurrentHex($(this).attr("title"), true);
-	   $(".schemer li").rc("active");
-	   $(this).addClass("active");
-	   stored = getCurrentHex();
-	   $("#preview").addClass("fromScheme");
-	});
-	
-    function schemeTmpl(e) {
-            var hex = e.toHexString();
-            return '<li style="background:'+hex+'" title="'+hex+'" />'
-    }
-    function updateSchemes(tiny) {
-        var tiny = tiny || spec.spectrum("get");
-        var mods = [
-            tiny,
-            tinycolor.desaturate(tiny, 20), tinycolor.saturate(tiny, 20), 
-            tinycolor.lighten(tiny, 20), tinycolor.darken(tiny, 20)
-        ];
-        modifications.html($.map(mods, schemeTmpl).join(''));
-        analogous.html($.map(tinycolor.analogous(tiny, 5), schemeTmpl).join(''));
-        splitcomplement.html($.map(tinycolor.splitcomplement(tiny), schemeTmpl).join(''));
-        tetrad.html($.map(tinycolor.tetrad(tiny), schemeTmpl).join(''));
-        mono.html($.map(tinycolor.monochromatic(tiny, 5), schemeTmpl).join(''));
-    }
-});
 
 // Some drag/drop crap here
 /*
@@ -274,7 +271,7 @@ function initDragDrop() {
 	
 }*/
 
-})(window);
+});
 // Spectrum: The No Hassle Colorpicker
 // https://github.com/bgrins/spectrum
 // Author: Brian Grinstead
