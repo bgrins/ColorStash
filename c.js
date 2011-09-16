@@ -99,7 +99,7 @@ pallet.delegate("li", "click", function() {
    setCurrentHex(this.title, true);
 });
 
-$("body").tc("nostorage", !hasStorage);
+$("body").tc("ns", !hasStorage);
 
 win.onhashchange = function() {
     setCurrentHex(getLastColor(), true);
@@ -111,27 +111,22 @@ win.onunload = function() {
 // Only keep the scheme color if they click on it
 // Wait to update schemes until they press add
 var stored;
-$(".schemer").hover(
+schemeContainer.hover(
    function() { stored = getCurrentHex(); }, 
    function() { setCurrentHex(stored, true); }
 );
 
-$(".schemer").delegate("li", "hover", function() {
-   if (false && $(".schemer li.active").length == 0) {
-       setCurrentHex($(this).attr("title"), true);
-   }
-   
-}).delegate("li", "click", function() {
-   setCurrentHex($(this).attr("title"), true);
+schemeContainer.delegate("li", "click", function() {
+   setCurrentHex(this.title, true);
    $(".schemer li").rc("active");
    $(this).ac("active");
    stored = getCurrentHex();
-   $("#preview").ac("fromScheme");
+   preview.ac("fromScheme");
 });
 
 function schemeTmpl(e) {
-        var hex = e.toHexString();
-        return '<li style="background:'+hex+'" title="'+hex+'" />'
+    var hex = e.toHexString();
+    return '<li style="background:'+hex+'" title="'+hex+'" />'
 }
 function updateSchemes(tiny) {
     var tiny = tiny || spec.spectrum("get");

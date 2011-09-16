@@ -106,7 +106,8 @@ h1 {
     border: solid 2px #333;
 }
 
-.nostorage #pa, .nostorage #preview a { display:none; }
+/* ns: no local storage available */
+.ns #pa, .ns #preview a { display:none; }
 
 #rm, #rl, #preview.has #add { display:none; }
 #preview.has #rm, #preview.fromScheme #rl { display:inline; }
