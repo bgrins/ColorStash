@@ -3,24 +3,29 @@
 
 var localStorage = window.localStorage,
     hasStorage = !!(localStorage && JSON),
-    defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }';
+    defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { }, "#98c39b": { } }',
+    colorStorageName = "colors",
+    lastColorName = "lastColor",
+    BACKGROUND_COLOR = "background-color",
+    BORDER_COLOR = "border-color",
+    URL = location;
     
 function getPallet() {
     if (!hasStorage) { "" }
-    return JSON.parse(localStorage["colors"] || defaultPallet);
+    return JSON.parse(localStorage[colorStorageName] || defaultPallet);
 }
 function setPallet(c) {
     if (!hasStorage) { return; }
-    localStorage["colors"] = JSON.stringify(c);
+    localStorage[colorStorageName] = JSON.stringify(c);
 }
 function setLastColor(c) {
     if (!hasStorage) { return; }
-    localStorage["lastColor"] = c; 
+    localStorage[lastColorName] = c; 
 }
 function getLastColor() {
     var fromHash = tinycolor(window.location.hash);
     if (fromHash.ok) { return fromHash.toHexString(); }
-    return (hasStorage && localStorage["lastColor"]) || "ddf";
+    return (hasStorage && localStorage[lastColorName]) || "ddf";
 }
 function redrawPallet() {
     var c = getPallet();
@@ -53,15 +58,12 @@ function palletRemove(hex) {
 $(function() {
     var spec = $("#spec"),
         current = $("#current"),
-        u = location,
         pallet = $("#pallet ul");
         
     
     current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
     $("input[readonly]").click(function() { $(this).focus(); this.select(); });
     
-    var backgroundColor = "background-color";
-    var borderColor = "border-color";
     
     var hsl = $("#hsl input"),
         hex = $("#hex input"),
@@ -79,8 +81,8 @@ $(function() {
     function change(color) {
         var hexVal = color.toHexString();
         
-        preview.css(backgroundColor, hexVal);
-        shareInput.css(borderColor, hexVal).val(u + hexVal);
+        preview.css(BACKGROUND_COLOR, hexVal);
+        shareInput.css(BORDER_COLOR, hexVal).val(URL + hexVal);
         
         
         hsv.val(color.toHsvString());
