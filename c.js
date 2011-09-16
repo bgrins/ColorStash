@@ -17,7 +17,7 @@ var win = window,
     LOCATION = location,
     spec = $("#spec"),
     current = $("#current"),
-    pallet = $("#pallet ul"),
+    pallet = $("#pa"),
     hsl = $("#hsl input"),
     hex = $("#hex input"),
     rgb = $("#rgb input"),
@@ -95,8 +95,8 @@ preview.find("button").click(function() {
    return false;
 });
 
-$("#pallet").delegate("li", "click", function() {
-   setCurrentHex($(this).attr("title"), true);
+pallet.delegate("li", "click", function() {
+   setCurrentHex(this.title, true);
 });
 
 $("body").tc("nostorage", !hasStorage);
@@ -172,7 +172,7 @@ function redrawPallet(active) {
         html.push("<li style='background-color:" + i + ";' title='" + i + "' " + cl + " />");
     }
     
-    pallet.html("<ul>"+html.join('')+"</ul>");   
+    pallet.html(html.join(''));   
 }
 
 function palletHas(hex) {
