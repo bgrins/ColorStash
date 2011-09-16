@@ -130,12 +130,6 @@ function schemeTmpl(e) {
 }
 function updateSchemes(tiny) {
     var tiny = tiny || spec.spectrum("get");
-    var mods = [
-        tiny,
-        tinycolor.desaturate(tiny, 20), tinycolor.saturate(tiny, 20), 
-        tinycolor.lighten(tiny, 20), tinycolor.darken(tiny, 20)
-    ];
-    modifications.html($.map(mods, schemeTmpl).join(''));
     analogous.html($.map(tinycolor.analogous(tiny, 5), schemeTmpl).join(''));
     splitcomplement.html($.map(tinycolor.splitcomplement(tiny), schemeTmpl).join(''));
     tetrad.html($.map(tinycolor.tetrad(tiny), schemeTmpl).join(''));
