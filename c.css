@@ -43,11 +43,12 @@ h1 {
     position:relative;
     overflow:hidden;
     margin-bottom: 10px;
+    height:40px;
 } 
 .sub a {
     color: white;
 }
-#pallet { position:absolute; right:0; top: 0; padding-top:20px; z-index: 0; height:26px; overflow: hidden;  }
+#pallet { position:absolute; left:0; top: 0; padding-top:15px; z-index: 0; height:26px; overflow: hidden;  }
 .sub ul { width: 100%; }
 .sub li {  
     display:inline-block; 
@@ -78,17 +79,17 @@ h1 {
 }
 
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
-#share { float: left; margin: 10px 0; margin-left: 75px; position: relative; z-index:1; }
+#share { float: right; padding-left: 50px; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
 #share input { width: 210px; padding: 3px; font-size: 11px; color: #888; border: solid 2px; }
-#share div:after {
-    content: "↩ share"; /*&#8617;*/
-    -webkit-transform:rotate(350deg);
+#share div:before {
+    content: "share ↪";
+    -webkit-transform:rotate(10deg);
     font-family: Georgia;
     display:block;
     position: absolute;
-    right:-50px;
+    left:0;
     top:-2px;
-    color: white;
+    color: #333;
 }
 #manage { display:none; }
 #current {
@@ -134,7 +135,7 @@ h1 {
 }
 #conv div { margin:5px 0; position:relative;}
 
-#conv div:before, .schemer span {
+#conv div:before, .schemer ul:before {
     -webkit-transform:rotate(20deg);
     display:block;
     position: absolute;
@@ -143,10 +144,17 @@ h1 {
     left:-40px;
     top:-4px;
 }
+.schemer .in div {position: relative;}
+.schemer ul:before { text-align: right; width: 140px; left: 0; top: -10px;}
 #hex:before { content: "hex →"; }
 #hsv:before { content: "hsv →"; }
 #rgb:before { content: "rgb →"; }
 #hsl:before { content: "hsl →"; }
+#mono:before { content: "monochromatic →"; }
+#an:before { content: "analogous →"; }
+#mod:before { content: "modifications →"; }
+#sc:before { content: "split complements →"; }
+#tetrad:before { content: "tetrad →"; }
 
 /* Make the colorpicker scale to fit */
 body .sp-container { width: 100%; }
@@ -155,20 +163,14 @@ body .sp-container { width: 100%; }
     -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
 }
 
-.schemer div { position: relative; }
 .schemer.vhide ul { display:none; }
 .schemer ul { list-style-type: none; margin:0; padding:0; float:left; width:25%; }
-.schemer span { 
-    text-align: right; width: 140px; left: 0; top: -10px;}
 .schemer li { 
     height: 40px; 
     width: 14%;
+    margin: 4px;
 }
-/*
-#tetrad li { width: 25%; }
-#mono li { width: 18.3%; }
-#an li { width: 18.3%; }
-#sc li { width: 33.3%; }*/
+
 .schemer li:hover, .schemer li.active { outline: solid orange 2px; }
 
 /* Picker and generated values next to each other, schemes at bottom */
@@ -197,11 +199,20 @@ body .sp-container { width: 100%; }
         width:100%;
         margin: 10px 0;
     }
-    .schemer ul {
-        float:none;
-        width: auto;
-        margin: 10px 0; 
+    .schemer .in div {
+        float:left;
+        width: 15%;
+        margin: 10px 1%; 
     }
+    #share { float:right; }
+    #share div:after { display:none;}
+    .schemer li { float:none; width: 90%; }
+     .schemer ul:before {
+        -webkit-transform:rotate(90deg);
+        top:0;left:-50%;
+    }
+    .schemer { margin-top: 40px; }
+    .schemer ul { margin-left:0; margin-top:80px;}
     .picker {
         max-width: 325px;
         margin: 0 auto;

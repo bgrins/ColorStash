@@ -178,14 +178,15 @@ $(function() {
     function updateSchemes(tiny) {
         var tiny = tiny || spec.spectrum("get");
         var mods = [
-            tinycolor.desaturate(tiny), tinycolor.saturate(tiny), 
-            tinycolor.lighten(tiny), tinycolor.darken(tiny)
+            tiny,
+            tinycolor.desaturate(tiny, 20), tinycolor.saturate(tiny, 20), 
+            tinycolor.lighten(tiny, 20), tinycolor.darken(tiny, 20)
         ];
         modifications.html($.map(mods, schemeTmpl).join(''));
-        analogous.html($.map(tinycolor.analogous(tiny), schemeTmpl).join(''));
+        analogous.html($.map(tinycolor.analogous(tiny, 5), schemeTmpl).join(''));
         splitcomplement.html($.map(tinycolor.splitcomplement(tiny), schemeTmpl).join(''));
         tetrad.html($.map(tinycolor.tetrad(tiny), schemeTmpl).join(''));
-        mono.html($.map(tinycolor.monochromatic(tiny), schemeTmpl).join(''));
+        mono.html($.map(tinycolor.monochromatic(tiny, 5), schemeTmpl).join(''));
     }
 });
 
