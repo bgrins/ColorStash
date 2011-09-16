@@ -85,6 +85,7 @@ h1 {
     content: "share ↪";
     -webkit-transform:rotate(10deg);
     font-family: Georgia;
+    letter-spacing: .1em;
     display:block;
     position: absolute;
     left:0;
@@ -200,9 +201,8 @@ body .sp-container { width: 100%; }
         margin: 10px 0;
     }
     .schemer .in div {
-        float:left;
-        width: 15%;
-        margin: 10px 1%; 
+        float:none; display:inline-block; width: 15%;
+        margin: 10px 0; 
     }
     #share { float:right; }
     #share div:after { display:none;}
@@ -211,7 +211,7 @@ body .sp-container { width: 100%; }
         -webkit-transform:rotate(90deg);
         top:0;left:-50%;
     }
-    .schemer { margin-top: 40px; }
+    .schemer { margin-top: 40px; text-align: center; }
     .schemer ul { margin-left:0; margin-top:80px;}
     .picker {
         max-width: 325px;
