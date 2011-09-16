@@ -292,26 +292,6 @@ License: MIT
 .sp-input:focus { border: 1px solid orange; }
 .sp-container.sp-flat .sp-input { width: 100%; padding:0; text-align: center; }
 
-.sp-pallet-container { 
-	margin:3px 0; 
-	padding: 0;
-}
-.sp-pallet-container span {
-	display: block;
-	float:left;
-	width: 30px;
-	height: 15px; 
-	margin: 3px;
-	cursor: pointer;
-	border:solid 2px transparent;
-}
-.sp-pallet-container span:hover, .sp-pallet-container span.sp-pallet-active {
-    border-color: orange;
-}  
-.sp-pallet-disabled .sp-pallet-container { 
-	display: none; 
-}
-
 .sp-saturation {
     background-image: -webkit-gradient(linear,  0 0, 100% 0, from(#FFF), to(rgba(204, 154, 129, 0)));
     background-image: -webkit-linear-gradient(left, #FFF, rgba(204, 154, 129, 0));
@@ -440,17 +420,6 @@ License: MIT
 }
 
 /* Basic display options (colors, fonts, global widths) */
-.sp-input {
-   height: 20px;
-   font-size: 16px;
-   border: 1px inset;
-   padding: 1px 5px;
-   margin: 0;
-   width: 120px;
-   margin-top: 1px;
-   background:transparent;
-   border-radius: 3px;
-}
 .sp-container {
     padding: 10px;
     border-radius: 10px;
