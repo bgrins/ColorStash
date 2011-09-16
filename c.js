@@ -41,7 +41,7 @@ function change(color) {
     preview.css(BACKGROUND_COLOR, hexVal).
         tc("has", palletHas(hexVal)).
         tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
-        
+    redrawPallet(hexVal);
     shareInput.css(BORDER_COLOR, hexVal).
         val(LOCATION + hexVal);
     
@@ -83,6 +83,8 @@ spec.spectrum({
     show: updatePartial
 });
 
+redrawPallet(getCurrentHex());
+
 preview.find("button").click(function() {
    var hex = getCurrentHex();
    this.id == "add" && palletAdd(hex);
@@ -98,7 +100,6 @@ $("#pallet").delegate("li", "click", function() {
 });
 
 $("body").tc("nostorage", !hasStorage);
-redrawPallet();
 
 win.onhashchange = function() {
     setCurrentHex(getLastColor(), true);
@@ -163,11 +164,12 @@ function getLastColor() {
     if (fromHash.ok) { return fromHash.toHexString(); }
     return (hasStorage && localStorage[lastColorName]) || "ddf";
 }
-function redrawPallet() {
+function redrawPallet(active) {
     var c = getPallet();
     var html = [];
     for (var i in c) {
-        html.push("<li style='background-color:" + i + ";' title='" + i + "' />");
+        var cl = i == active ? " class='active' " : "";
+        html.push("<li style='background-color:" + i + ";' title='" + i + "' " + cl + " />");
     }
     
     pallet.html("<ul>"+html.join('')+"</ul>");   
@@ -180,7 +182,7 @@ function palletAdd(hex) {
     var c = getPallet();
     c[hex] = { };
     setPallet(c);
-    redrawPallet(c);
+    redrawPallet(hex);
 }
 function palletRemove(hex) {
     var c = getPallet();
@@ -188,7 +190,7 @@ function palletRemove(hex) {
         delete c[hex];
     }
     setPallet(c);
-    redrawPallet(c);
+    redrawPallet();
 }
 
 // Some drag/drop crap here

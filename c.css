@@ -22,7 +22,7 @@ header {
     margin-right:5px;
 }
 .logo {
-    background: no-repeat url(colorstash.png);
+    background: no-repeat url(colorstash_pdn.png);
     position:absolute;
     height: 70px;
     width: 70px;
@@ -54,15 +54,14 @@ h1 {
     display:inline-block; 
     width: 33px; 
     height: 40px; 
-    margin: 2px;
+    margin: 3px;
     cursor: pointer; 
-    border: solid 1px #444;
     border-radius: 3px; 
     position:relative;
     top:0;
     -webkit-transition: top .1s linear; 
 }
-.sub li:hover { top: -10px; margin:0; padding: 2px; }
+.sub li:hover, .sub li.active { top: -10px; margin:1px; padding: 2px; -webkit-box-shadow: 0 0 6px orange;}
 #cs { 
 	margin: 0 auto;
 	width: 95%;
