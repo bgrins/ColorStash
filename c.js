@@ -14,11 +14,12 @@ var win = window,
     body = $(document.body).tc("ns", !hasStorage),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
+    hasTouch = ('ontouchstart' in window),
     lastColorName = "lc1",
     fromScheme = "fromScheme",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
-    LOCATION = location,
+    location = win.location,
     spec = $("#spec"),
     current = $("#current"),
     pallet = $("#pa"),
@@ -34,10 +35,15 @@ var win = window,
     modifications = $("#mod"),
     shareInput = $("#share input"),
     preview = $("#prev"),
-    schemeContainer = $("#scheme");
+    schemeContainer = $("#scheme"),
+    readonlyInputs = $("input[grab]").attr("spellcheck", "false");
 
 current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
-$("input[readonly]").click(function() { $(this).focus(); this.select(); });
+
+// iphone wont let you copy text out of readonly input
+if (!hasTouch) {
+    readonlyInputs.attr("readonly", "true").click(function() { $(this).focus(); this.select(); });
+}
 
 function change(color) {
     var hexVal = color.toHexString();
@@ -50,7 +56,7 @@ function change(color) {
     redrawPallet(hexVal);
     
     shareInput.css(BORDER_COLOR, hexVal).
-        val(LOCATION + hexVal);
+        val(location.href.split('#')[0] + hexVal);
     
     hsv.val(color.toHsvString());
     hex.val(hexVal);
@@ -157,7 +163,7 @@ function setLastColor(c) {
     localStorage[lastColorName] = c; 
 }
 function getLastColor() {
-    var fromHash = tinycolor(LOCATION.hash);
+    var fromHash = tinycolor(location.hash);
     if (fromHash.ok) { return fromHash.toHexString(); }
     return (hasStorage && localStorage[lastColorName]) || "2525c4";
 }
@@ -291,10 +297,7 @@ function initDragDrop() {
         change: noop,
         show: noop,
         hide: noop,
-        showPallet: false,
-        maxPalletSize: 12,
-        theme: 'sp-dark',
-        pallet: ['fff', '000']
+        theme: 'sp-dark'
     },
     spectrums = [],
     IE = $.browser.msie,
@@ -333,27 +336,9 @@ function initDragDrop() {
                         "</div>",
                     "</div>",
                 "</div>",
-                "<div class='sp-pallet sp-cf'></div>",
-                "<div class='sp-input-container sp-cf'>",
-                    "<input class='sp-input' type='text' spellcheck='false'  />",
-                    "<div>",
-                        "<button class='sp-cancel sp-hide-small'>Cancel</button>",
-                        "<button class='sp-choose sp-hide-small'>Choose</button>",
-                        "<button class='sp-cancel sp-show-small'>X</button>",
-                        "<button class='sp-choose sp-show-small'>✔</button>",
-                    "</div>",
-                "</div>",
             "</div>"
         ].join("");
-    })(),
-    palletTemplate = function(p, active) {
-    	var html = [];
-    	for (var i = 0; i < p.length; i++) {
-    		var c = i == active ? " class='sp-pallet-active' " : "";
-    		html.push('<span style="background-color:' + tinycolor(p[i]).toHexString() + ';"' + c + '></span>');
-    	}
-    	return html.join('');
-    };
+    })();
     
     function hideAll() {
         for (var i = 0; i < spectrums.length; i++) {
@@ -377,10 +362,9 @@ function initDragDrop() {
         
         var opts = instanceOptions(o, element),
             flat = opts.flat,
-            showPallet = opts.showPallet,
             theme = opts.theme,
             callbacks = opts.callbacks,
-            resize = throttle(reflow, 10),
+            resize = reflow,
             visible = false,
             dragWidth = 0,
             dragHeight = 0,
@@ -391,9 +375,7 @@ function initDragDrop() {
             currentHue = 0,
             currentSaturation = 0,
             currentValue = 0,
-            pallet = opts.pallet.slice(0),
-            draggingClass = "sp-dragging",
-            palletLookup = { };
+            draggingClass = "sp-dragging";
         
         var doc = element.ownerDocument,
             body = doc.body, 
@@ -404,7 +386,6 @@ function initDragDrop() {
             slider = container.find(".sp-hue"),
             slideHelper = container.find(".sp-slider"),
             textInput = container.find(".sp-input"),
-            palletContainer = container.find(".sp-pallet"),
             cancelButton = container.find(".sp-cancel"),
             chooseButton = container.find(".sp-choose"),
             isInput = boundElement.is("input"),
@@ -425,7 +406,6 @@ function initDragDrop() {
     	    
     	    container.toggleClass("sp-flat", flat);
     	    container.toggleClass("sp-input-disabled", !opts.showInput);
-    	    container.toggleClass("sp-pallet-disabled", !showPallet);
     	    
     	    if (shouldReplace) {
     	        boundElement.hide().after(replacer);
@@ -477,37 +457,14 @@ function initDragDrop() {
     	    
         	if (!!initialColor) {
         	    set(initialColor);
-        	    pallet.push(initialColor);
         	}
-        	
-        	setPallet(pallet);
         	
         	if (flat) {
         	    show();
         	}
         	
-        	palletContainer.delegate("span", "click", function() {
-        		set($(this).css("background-color"));
-        	});
 		}
 		
-		function setPallet(p) {
-        	if (showPallet) {
-        		var unique = [];
-				palletLookup = { };
-				for (var i = 0; i < p.length; i++) {
-					var hex = tinycolor(p[i]).toHexString();	
-					if (!palletLookup.hasOwnProperty(hex)) {
-						palletLookup[hex] = unique.push(p[i]) - 1;
-					}
-				}
-				pallet = unique.slice(0, opts.maxPalletSize);
-				drawPallet();
-        	}
-		}
-		function drawPallet(active) {
-			palletContainer.html(palletTemplate(pallet, active));
-		}
 		function dragStart() {
 		  container.addClass(draggingClass);
 		}
@@ -564,9 +521,6 @@ function initDragDrop() {
             
             var realColor = get();
             
-            // Update the pallet with the current color
-        	pallet.push(realColor.toHexString());
-        	setPallet(pallet);
         	
         	if (!changeOnMove) {
             	updateOriginalInput();
@@ -613,10 +567,6 @@ function initDragDrop() {
             if (hasOpened && changeOnMove) {
             	updateOriginalInput();
             }
-
-			if (showPallet) {
-				drawPallet(palletLookup[realHex]);
-			}
         }
         
         function updateHelperLocations() {
@@ -827,7 +777,7 @@ function initDragDrop() {
     
         $(element).bind(hasTouch ? "touchstart" : "mousedown", start);
     }
-    
+    /*
     function throttle(func, wait, debounce) {
         var timeout;
         return function() {
@@ -840,7 +790,7 @@ function initDragDrop() {
           if (debounce || !timeout) timeout = setTimeout(throttler, wait);
         };
     }
-    
+    */
     
     /**
      * Define a jQuery plugin

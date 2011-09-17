@@ -90,17 +90,15 @@ h1 {
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
 */
 
-#share { float: right; padding-left: 50px; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
-#share input { width: 210px; padding: 3px; font-size: 11px; color: #888; border: solid 2px; }
+#share { float: right; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
+#share input { width: 210px; padding: 3px; font-size: 11px; color: #777; border: solid 2px; }
 #share div:before {
-    content: "share ↪";
-    -webkit-transform:rotate(10deg);
-    -moz-transform:rotate(10deg);
+    content: "share this color →";
     font-family: Georgia;
     display:block;
     position: absolute;
-    left:0;
-    top:-2px;
+    left:-110px;
+    top:0;
     color: #333;
 }
 input { background: rgba(255, 255, 255, .9); }
@@ -196,7 +194,7 @@ body .sp-container { width: 100%; }
 #color { width: 60%; }
 
 /* Small - put everything in line */
-@media (max-width: 700px), (max-device-width: 480px) {
+@media (max-width: 600px), (max-device-width: 480px) {
     #pick, #scheme, #color {
         float:none;
         width:100%;
@@ -209,7 +207,7 @@ body .sp-container { width: 100%; }
         vertical-align: top;
     }
     #share { float:right; }
-    #share div:after { display:none;}
+    #share div:before { display:none;}
     #scheme li { float:none; width: 90%; height:60px; }
     #scheme li:first-child { width: 90%; height: 25px; margin-bottom:10px;  }
     #scheme ul:before {
@@ -220,9 +218,10 @@ body .sp-container { width: 100%; }
     #scheme { margin-top: 5px; padding:0; text-align: center; }
     #scheme ul { margin:0; }
     #pick {
-        max-width: 400px;
+        max-width: 355px;
         margin: 0 auto;
     }
+#pa li {  width: 50px; }
 }
 /* Picker and generated values next to each other, schemes at bottom */
 @media (min-width: 1024px) {
