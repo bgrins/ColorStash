@@ -62,12 +62,14 @@ h1 {
     position:relative;
     top:0;
     -webkit-transition: top .1s linear; 
+    -moz-transition: top .1s linear; 
 }
 #pa li:hover, #pa li.active { 
     top: -10px; 
     margin:1px; 
     padding: 2px; 
     -webkit-box-shadow: 0 0 6px orange;
+    -moz-box-shadow: 0 0 6px orange;
 }
 #stash { 
     padding: 10px;
@@ -93,6 +95,7 @@ h1 {
 #share div:before {
     content: "share ↪";
     -webkit-transform:rotate(10deg);
+    -moz-transform:rotate(10deg);
     font-family: Georgia;
     display:block;
     position: absolute;
@@ -138,6 +141,7 @@ input { background: rgba(255, 255, 255, .9); }
 
 #conv div:before, #scheme ul:before {
     -webkit-transform:rotate(10deg);
+    -moz-transform:rotate(10deg);
     display:block;
     position: absolute;
     font-family: Georgia;
@@ -180,7 +184,7 @@ body .sp-container { width: 100%; }
     float:none;
     clear: both;
     width:auto;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 #pick, #color {
@@ -188,11 +192,11 @@ body .sp-container { width: 100%; }
 	width: 50%;
     margin: 10px 0;
 }    
-#pick { width: 40%; max-width: 400px; }
+#pick { width: 40%; max-width: 355px; }
 #color { width: 60%; }
 
-/* Really small - put everything in line */
-@media (max-width: 900px), (max-device-width: 480px) {
+/* Small - put everything in line */
+@media (max-width: 700px), (max-device-width: 480px) {
     #pick, #scheme, #color {
         float:none;
         width:100%;
@@ -201,7 +205,7 @@ body .sp-container { width: 100%; }
         float:none; 
         display:inline-block; 
         width: 18%;
-        margin: 10px 0; 
+        margin: 0; 
         vertical-align: top;
     }
     #share { float:right; }
@@ -213,7 +217,7 @@ body .sp-container { width: 100%; }
         -webkit-transform:rotate(80deg); -moz-transform: rotate(80deg); 
         top:0;left:-20px;
     }
-    #scheme { margin-top: 10px; padding:0; text-align: center; }
+    #scheme { margin-top: 5px; padding:0; text-align: center; }
     #scheme ul { margin:0; }
     #pick {
         max-width: 400px;
@@ -221,7 +225,7 @@ body .sp-container { width: 100%; }
     }
 }
 /* Picker and generated values next to each other, schemes at bottom */
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
     #pick, #scheme, #color {
     	float:left;
     	width: 33.33%;
