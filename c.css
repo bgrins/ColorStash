@@ -166,11 +166,12 @@ body .sp-container { width: 100%; }
 #scheme .in div {position: relative; }
 #scheme ul:before { text-align: right; width: 140px; left: 0; top: 10px;}
 #scheme.vhide ul { display:none; }
-#scheme ul { list-style-type: none; margin: 9px 0 9px 140px; padding:0; float:left; width:25%; }
+#scheme ul { list-style-type: none; margin: 9px 0 9px 140px; padding:0; }
 #scheme li { 
     height: 40px; 
-    width: 14%;
+    width: 20%;
     margin: 4px;
+    float:left; 
 }
 #scheme li:first-child { width: 10%;}
 #scheme li:hover, #scheme li.active { 
@@ -191,12 +192,7 @@ body .sp-container { width: 100%; }
     margin: 10px 0;
 }
 
-#scheme ul {
-    float:none;
-    width: auto;
-}
     
-#scheme li {  float:left;  }
 #pick { width: 40%; max-width: 400px; }
 #color { width: 60%; }
 
