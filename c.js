@@ -48,8 +48,7 @@ if (!hasTouch) {
 function change(color) {
     var hexVal = color.toHexString();
     var hsvVal = color.toHsv();
-    
-    body.tc("has", palletHas(hexVal)).tc("contrast", hsvVal.s < .3 && hsvVal.v > .6).css(
+    body.tc("has", palletHas(hexVal)).tc("contrast", ( hsvVal.v > .6)).css(
         BACKGROUND_COLOR, tinycolor($.extend({}, hsvVal, {a: .2})).toRgbString()
     );    
     preview.css(BACKGROUND_COLOR, hexVal);
@@ -89,8 +88,6 @@ function updatePartial(color) {
 
 spec.spectrum({
     color: getLastColor(),
-    flat: true,
-    showInput: false,
     change: change,
     move: updatePartial,
     show: updatePartial
@@ -286,7 +283,7 @@ function initDragDrop() {
 (function(window, $, undefined) {
     var defaultOpts = {
         color: false,
-        flat: false,
+        flat: true,
         showInput: false,
         changeOnMove: true,
         beforeShow: noop,
@@ -377,7 +374,7 @@ function initDragDrop() {
         var doc = element.ownerDocument,
             body = doc.body, 
             boundElement = $(element),
-        	container = $(markup, doc).addClass(theme),
+        	container = $(markup, doc).ac(theme),
             dragger = container.find(".sp-color"),
             dragHelper = container.find(".sp-dragger"),
             slider = container.find(".sp-hue"),
@@ -388,7 +385,7 @@ function initDragDrop() {
             isInput = boundElement.is("input"),
             changeOnMove = (opts.changeOnMove || flat),
             shouldReplace = isInput && !flat,
-            replacer = (shouldReplace) ? $(replaceInput).addClass(theme) : $([]),
+            replacer = (shouldReplace) ? $(replaceInput).ac(theme) : $([]),
             offsetElement = (shouldReplace) ? replacer : boundElement,
             previewElement = replacer.find(".sp-preview"),
             initialColor = opts.color || (isInput && boundElement.val()),
@@ -401,8 +398,8 @@ function initDragDrop() {
     	        container.find("*:not(input)").attr("unselectable", "on");
     	    }   
     	    
-    	    container.toggleClass("sp-flat", flat);
-    	    container.toggleClass("sp-input-disabled", !opts.showInput);
+    	    container.tc("sp-flat", flat);
+    	    container.tc("sp-input-disabled", !opts.showInput);
     	    
     	    if (shouldReplace) {
     	        boundElement.hide().after(replacer);
@@ -463,10 +460,10 @@ function initDragDrop() {
 		}
 		
 		function dragStart() {
-		  container.addClass(draggingClass);
+		  container.ac(draggingClass);
 		}
 		function dragStop() {
-		  container.removeClass(draggingClass);
+		  container.rc(draggingClass);
 		}
         function setFromTextInput() {
         	set(textInput.val());
@@ -492,7 +489,7 @@ function initDragDrop() {
             
             $(doc).bind("click touchstart", hide);
             $(window).bind("resize", resize);
-            replacer.addClass("sp-active");
+            replacer.ac("sp-active");
             container.show();
             
             reflow();
@@ -513,7 +510,7 @@ function initDragDrop() {
             $(doc).unbind("click touchstart", hide);
             $(window).unbind("resize", resize);
             
-           	replacer.removeClass("sp-active");
+           	replacer.rc("sp-active");
             container.hide();
             
             var realColor = get();
