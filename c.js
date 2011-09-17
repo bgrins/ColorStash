@@ -10,9 +10,11 @@ var win = window,
     localStorage = win.localStorage,
     JSON = win.JSON,
     hasStorage = !!(localStorage && JSON),
+    body = $(document.body).tc("ns", !hasStorage),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
     lastColorName = "lc",
+    fromScheme = "fromScheme",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
     LOCATION = location,
@@ -39,10 +41,11 @@ function change(color) {
     var hexVal = color.toHexString();
     var hsvVal = color.toHsv();
     
-    preview.css(BACKGROUND_COLOR, hexVal).
-        tc("has", palletHas(hexVal)).
-        tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
+    body.tc("has", palletHas(hexVal)).tc("contrast", hsvVal.s < .3 && hsvVal.v > .6);
+        
+    preview.css(BACKGROUND_COLOR, hexVal);
     redrawPallet(hexVal);
+    
     shareInput.css(BORDER_COLOR, hexVal).
         val(LOCATION + hexVal);
     
@@ -69,7 +72,7 @@ function updateTextbox(color) {
 
 function updatePartial(color) {
     var tiny = color || spec.spectrum("get");
-    preview.rc("fromScheme");
+    body.rc(fromScheme);
     $("#scheme li").rc("active");
     updateTextbox(tiny);
     updateSchemes(tiny);
@@ -86,13 +89,13 @@ spec.spectrum({
 
 redrawPallet(getCurrentHex());
 
-preview.find("button").click(function() {
+$("button").click(function() {
    var hex = getCurrentHex();
    this.id == "add" && palletAdd(hex);
    this.id == "rm" && palletRemove(hex);
    this.id == "rl" && updatePartial();
 
-   preview.tc("has", palletHas(hex));
+   $(body).tc("has", palletHas(hex));
    return false;
 });
 
@@ -100,7 +103,7 @@ pallet.delegate("li", "click", function() {
    setCurrentHex(this.title, true);
 });
 
-$("body").tc("ns", !hasStorage);
+;
 
 win.onhashchange = function() {
     setCurrentHex(getLastColor(), true);
@@ -122,7 +125,7 @@ schemeContainer.delegate("li", "click", function() {
    $("#scheme li").rc("active");
    $(this).ac("active");
    stored = getCurrentHex();
-   preview.ac("fromScheme");
+   body.ac(fromScheme);
 });
 
 function schemeTmpl(e) {
