@@ -99,9 +99,9 @@ h1 {
     top:-2px;
     color: #333;
 }
+input { background: rgba(255, 255, 255, .9); }
 #current {
     font-size:24px;
-    background: rgba(255, 255, 255, .9);
     border: solid 2px rgba(0, 0, 0, .2);
     text-align: center;
     width: 95%;
@@ -133,7 +133,6 @@ h1 {
     font-size: 18px; 
     padding: 5px;
     width: 90%;
-    background-color: rgba(255, 255, 255, .6);
 }
 #conv div { margin:5px 0; position:relative; }
 
