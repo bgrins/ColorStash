@@ -33,6 +33,8 @@ task :build do
     exit
   end
   
+  system('rm out/*')
+  
   source = File.read 'c.js'
   File.open('out/c.js', 'w+') do |file|
     #file.write YUICompressor.compress_js(source)
@@ -45,7 +47,9 @@ task :build do
   end
     
   cp 'index.html', 'out/index.html'
-  cp 'c.png', 'out/c.png'
+  cp 'c.png', 'out/c.png' 
   
+  system('tar --exclude=".*" -pvczf out.tar.gz out')
+  system('ls -l out.tar.gz')
 end
 
