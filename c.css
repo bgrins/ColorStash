@@ -92,7 +92,6 @@ h1 {
     content: "share ↪";
     -webkit-transform:rotate(10deg);
     font-family: Georgia;
-    letter-spacing: .1em;
     display:block;
     position: absolute;
     left:0;
