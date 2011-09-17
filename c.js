@@ -13,7 +13,7 @@ var win = window,
     body = $(document.body).tc("ns", !hasStorage),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
-    lastColorName = "lc",
+    lastColorName = "lc1",
     fromScheme = "fromScheme",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
@@ -155,7 +155,7 @@ function setLastColor(c) {
 function getLastColor() {
     var fromHash = tinycolor(LOCATION.hash);
     if (fromHash.ok) { return fromHash.toHexString(); }
-    return (hasStorage && localStorage[lastColorName]) || "ddf";
+    return (hasStorage && localStorage[lastColorName]) || "2525c4";
 }
 function redrawPallet(active) {
     var c = getPallet();
