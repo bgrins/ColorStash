@@ -1,5 +1,5 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; background-color: rgba(255, 255, 255, .9); }
+body { margin: 0; font-size: 13px; line-height: 1.231; }
 body, button, input { font-family: "Lucida Sans", sans-serif; color: #222; }
 a { color: #00e; }
 a:visited { color: #551a8b; }
@@ -40,10 +40,10 @@ h1 {
 #sub {
     background: #292c2d;
     position:relative;
-    margin-bottom: 10px;
     height:40px;
     overflow:hidden;
 }
+#stash {  }
 #pa { 
     position:absolute; 
     left:0; 
@@ -71,8 +71,9 @@ h1 {
     -webkit-box-shadow: 0 0 6px orange;
 }
 #stash { 
-	margin: 0 auto;
-	width: 95%;
+    padding: 10px;
+	background-color:#fff; 
+	background-color: rgba(255, 255, 255, .8);
 }
 .in {
     padding: 0 15px;
