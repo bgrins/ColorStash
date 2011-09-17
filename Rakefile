@@ -1,22 +1,5 @@
 require 'rubygems'
 
-def minify(files)
-  files.each do |file|
-    cmd = "java -jar lib/yuicompressor-2.3.1.jar #{file} -o out/#{file}"
-    puts cmd
-    ret = system(cmd)
-    raise "Minification failed for #{file}" if !ret
-  end
-end
-
-desc "minify"
-task :minify => [:minify_css]
-
-desc "minify css"
-task :minify_css do
-  minify(FileList['*.css'])
-end
-
 desc "rebuild the spectrum.js files for distribution"
 task :build do
   begin
