@@ -1,4 +1,3 @@
-
 $.fn.tc = $.fn.toggleClass;
 $.fn.rc = $.fn.removeClass;
 $.fn.ac = $.fn.addClass;
@@ -15,6 +14,7 @@ var win = window,
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
     hasTouch = ('ontouchstart' in window),
+    CLICK = hasTouch ? "touchstart" : "click",
     lastColorName = "lc1",
     fromScheme = "fromScheme",
     BACKGROUND_COLOR = "background-color",
@@ -42,7 +42,7 @@ current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSc
 
 // iphone wont let you copy text out of readonly input
 if (!hasTouch) {
-    readonlyInputs.attr("readonly", "true").click(function() { $(this).focus(); this.select(); });
+    readonlyInputs.attr("readonly", "true").bind(CLICK, function() { $(this).focus(); this.select(); });
 }
 
 function change(color) {
@@ -98,7 +98,7 @@ spec.spectrum({
 
 redrawPallet(getCurrentHex());
 
-$("button").click(function() {
+$("button").bind(CLICK, function() {
    var hex = getCurrentHex();
    this.id == "add" && palletAdd(hex);
    this.id == "rm" && palletRemove(hex);
@@ -108,11 +108,10 @@ $("button").click(function() {
    return false;
 });
 
-pallet.delegate("li", "click", function() {
+pallet.delegate("li", CLICK, function(e) {
    setCurrentHex(this.title, true);
+   return false;
 });
-
-;
 
 win.onhashchange = function() {
     setCurrentHex(getLastColor(), true);
@@ -124,17 +123,14 @@ win.onunload = function() {
 // Only keep the scheme color if they click on it
 // Wait to update schemes until they press add
 var stored;
-schemeContainer.hover(
-   function() { stored = getCurrentHex(); }, 
-   function() { setCurrentHex(stored, true); }
-);
 
-schemeContainer.delegate("li", "click", function() {
+schemeContainer.delegate("li", CLICK, function() {
    setCurrentHex(this.title, true);
    $("#scheme li").rc("active");
    $(this).ac("active");
    stored = getCurrentHex();
    body.ac(fromScheme);
+   return false;
 });
 
 function schemeTmpl(e) {
@@ -167,6 +163,7 @@ function getLastColor() {
     if (fromHash.ok) { return fromHash.toHexString(); }
     return (hasStorage && localStorage[lastColorName]) || "2525c4";
 }
+        
 function redrawPallet(active) {
     var c = getPallet();
     var html = [];
@@ -175,7 +172,7 @@ function redrawPallet(active) {
         html.push("<li style='background-color:" + i + ";' title='" + i + "' " + cl + " />");
     }
     
-    pallet.html(html.join(''));   
+    pallet.html(html.join('')); 
 }
 
 function palletHas(hex) {

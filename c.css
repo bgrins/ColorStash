@@ -50,7 +50,7 @@ h1 {
     padding-top:15px; 
     z-index: 0; 
     height:26px; 
-    overflow: hidden;  
+    overflow: hidden;
 }
 #pa li {  
     display:inline-block; 
@@ -63,6 +63,7 @@ h1 {
     top:0;
     -webkit-transition: top .1s linear; 
     -moz-transition: top .1s linear; 
+    -webkit-user-select: none;
 }
 #pa li:hover, #pa li.active { 
     top: -10px; 
@@ -221,7 +222,7 @@ body .sp-container { width: 100%; }
         max-width: 355px;
         margin: 0 auto;
     }
-#pa li {  width: 50px; }
+    #pa li {  width: 50px; }
 }
 /* Picker and generated values next to each other, schemes at bottom */
 @media (min-width: 1024px) {
