@@ -35,6 +35,7 @@ task :build do
   
   source = File.read 'c.js'
   File.open('out/c.js', 'w+') do |file|
+    #file.write YUICompressor.compress_js(source)
     file.write Closure::Compiler.new.compress(source)
   end
   

@@ -243,14 +243,14 @@ License: MIT
 .sp-color { 
     position:relative;
 }
-.sp-saturation, .sp-value { 
+.sp-sat, .sp-val { 
     position: absolute; 
     top:0; 
     left:0; 
     right:0; 
     bottom:0; 
 }
-.sp-replacer, .sp-preview, .sp-drag-helper, .sp-slide-helper , .sp-container.sp-dragging .sp-input, .sp-container button  { 
+.sp-replacer, .sp-preview, .sp-drag-helper, .sp-slider , .sp-container.sp-dragging .sp-input, .sp-container button  { 
     -webkit-user-select:none; -moz-user-select: none; -o-user-select:none; user-select: none; 
 }
 
@@ -292,7 +292,27 @@ License: MIT
 .sp-input:focus { border: 1px solid orange; }
 .sp-container.sp-flat .sp-input { width: 100%; padding:0; text-align: center; }
 
-.sp-saturation {
+.sp-pallet { 
+	margin:3px 0; 
+	padding: 0;
+}
+.sp-pallet span {
+	display: block;
+	float:left;
+	width: 30px;
+	height: 15px; 
+	margin: 3px;
+	cursor: pointer;
+	border:solid 2px transparent;
+}
+.sp-pallet span:hover, .sp-pallet span.sp-pallet-active {
+    border-color: orange;
+}  
+.sp-pallet-disabled .sp-pallet { 
+	display: none; 
+}
+
+.sp-sat {
     background-image: -webkit-gradient(linear,  0 0, 100% 0, from(#FFF), to(rgba(204, 154, 129, 0)));
     background-image: -webkit-linear-gradient(left, #FFF, rgba(204, 154, 129, 0));
     background-image: -moz-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
@@ -301,7 +321,7 @@ License: MIT
     filter : progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr='#FFFFFFFF', endColorstr='#00CC9A81');
     
 }
-.sp-value {
+.sp-val {
     background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#000000), to(rgba(204, 154, 129, 0)));
     background-image: -webkit-linear-gradient(bottom, #000000, rgba(204, 154, 129, 0));
     background-image: -moz-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
@@ -320,7 +340,7 @@ License: MIT
     display:inline-block;
 }
 
-.sp-slide {
+.sp-hue {
     position:relative;
     float:left;
     background: -webkit-gradient(linear, left top, left bottom, from(#FF0000), color-stop(.12, #FFFF00), color-stop(.25, #0BED00), color-stop(.37, #00FF40), color-stop(.50, #00FFFF), color-stop(.62, #0040ff), color-stop(.75, #8000ff), color-stop(.87, #ff00ff), to(#ff0000));
@@ -360,7 +380,7 @@ License: MIT
     height:13%; 
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00ff', endColorstr='#ff0000');
 }
-.sp-slide-helper { 
+.sp-slider { 
     position: absolute; 
     top:0; 
     cursor:pointer;
@@ -389,7 +409,7 @@ License: MIT
     position: absolute;
     top:0;left:0;bottom:0;right:20%;
 }
-.sp-slide {
+.sp-hue {
     position: absolute;
     top:0;right:0;bottom:0;left:83%;
 }
@@ -401,7 +421,7 @@ License: MIT
 /* Mobile devices, make hue slider bigger so it is easier to slide */
 @media (max-device-width: 480px) {
     .sp-color { right: 40%; }
-    .sp-slide { left: 63%; }
+    .sp-hue { left: 63%; }
     .sp-fill { margin-top: 60%; } 
 }
 
@@ -411,7 +431,7 @@ License: MIT
    width: 5px; 
    border: solid black 3px; pointer: cursor;
 }
-.sp-slide-helper { 
+.sp-slider { 
     height: 5px; 
     width: 110%;
     margin-left: -5%;
@@ -419,38 +439,12 @@ License: MIT
     opacity: .8; 
 }
 
-/* Basic display options (colors, fonts, global widths) */
 .sp-container {
     padding: 10px;
     border-radius: 10px;
     width: 240px;
 }
-.sp-container.sp-small {
-    width: 160px;
-    padding: 5px;
-    border-radius: 5px;
-}
-.sp-small .sp-pallet-container span {
-	width: 16px;
-}
-
-/* Themable options (colors, fonts) */
-.sp-container.sp-light {
-    background-color: #ddd; 
-    border-radius: 5px; 
-    font-family: Droid Sans, Tahoma, sans-serif;
-}
 .sp-container.sp-dark {
     background-color: #333; 
     border-radius: 5px; 
-    font-family: Droid Sans, Tahoma, sans-serif;
 }
-.sp-dark .sp-input {
-   border-color: #444;
-   color: white;
-}
-.sp-light .sp-input {
-   border-color: #aaa;
-   color: #222;
-}
-
