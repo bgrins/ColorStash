@@ -12,7 +12,7 @@ var win = window,
     hasStorage = !!(localStorage && JSON),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
-    lastColorName = "lastColor",
+    lastColorName = "lc",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
     LOCATION = location,
@@ -29,7 +29,7 @@ var win = window,
     mono = $("#mono"),
     modifications = $("#mod"),
     shareInput = $("#share input"),
-    preview = $("#preview"),
+    preview = $("#prev"),
     schemeContainer = $("#scheme");
 
 current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });

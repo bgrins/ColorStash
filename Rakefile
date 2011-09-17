@@ -30,7 +30,7 @@ task :build do
   end
     
   cp 'index.html', 'out/index.html'
-  cp 'c.png', 'out/c.png' 
+  #cp 'c.png', 'out/c.png' 
   
   system('tar --exclude=".*" -pvczf out.tar.gz out')
   system('ls -l out.tar.gz')
