@@ -1,8 +1,5 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; 
-	background-color:#fff; 
-	background-color: rgba(255, 255, 255, .8);
-}
+body { margin: 0; font-size: 13px; line-height: 1.231; }
 body, button, input { font-family: "Lucida Sans", sans-serif; color: #222; }
 a { color: #00e; }
 a:visited { color: #551a8b; }

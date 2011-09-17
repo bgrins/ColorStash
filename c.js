@@ -7,7 +7,6 @@ $(function() {
 
 var win = window,
     document = win.document,
-    documentElement = document.documentElement,
     tinycolor = win.tinycolor,
     localStorage = win.localStorage,
     JSON = win.JSON,
@@ -43,8 +42,9 @@ function change(color) {
     var hexVal = color.toHexString();
     var hsvVal = color.toHsv();
     
-    body.tc("has", palletHas(hexVal)).tc("contrast", hsvVal.s < .3 && hsvVal.v > .6)
-    $(documentElement).css(BACKGROUND_COLOR, hexVal)        
+    body.tc("has", palletHas(hexVal)).tc("contrast", hsvVal.s < .3 && hsvVal.v > .6).css(
+        BACKGROUND_COLOR, tinycolor($.extend({}, hsvVal, {a: .2})).toRgbString()
+    );    
     preview.css(BACKGROUND_COLOR, hexVal);
     redrawPallet(hexVal);
     
