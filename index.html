@@ -8,7 +8,7 @@
 </head>
 
 <body class='ns'>
-	<div class='h cf'>
+	<div class='head cf'>
         <h1>ColorStash</h1>
         <div id='links'><a href='http://10k.aneventapart.com/'>10K</a> | <a href='twitter.com/bgrins'>Me</a></div>
         <div id='share'><div><input readonly /></div></div>
@@ -20,7 +20,7 @@
     </div>
 	
 	<div id='cs' class='cf'>
-        <div class='pick'>
+        <div id='pick'>
             <div class='in'>
                 <input id='spec' />
                 <div id='files'>
@@ -29,25 +29,26 @@
                 </div>
             </div>
         </div>
-        <div class='color'>
+        <div id='color'>
             <div class='in'>
                 <div id='preview'>
-                <input id='current' />
-                <div>
-                    <button id='rl'>Set As Base</button>
-                    <button id='add'>Add</button>
-                    <button id='rm'>Remove</button>
+                    <input id='current' />
+                    <div>
+                        <button id='rl'>Set As Base</button>
+                        <button id='add'>Add</button>
+                        <button id='rm'>Remove</button>
+                    </div>
                 </div>
-            </div>
-            <div id='conv'>
-                <div id='hex'><input readonly /></div>
-                <div id='rgb'><input readonly /></div>
-                <div id='hsl'><input readonly /></div>
-                <div id='hsv'><input readonly /></div>
+                <div id='conv'>
+                    <div id='hex'><input readonly /></div>
+                    <div id='rgb'><input readonly /></div>
+                    <div id='hsl'><input readonly /></div>
+                    <div id='hsv'><input readonly /></div>
+                </div>
             </div>
         </div>
 		
-		<div class='scheme'>
+		<div id='scheme'>
 		     <div class='in'>
 		        <div><ul id='sc' class='cf'></ul></div>
 		        <div><ul id='tetrad' class='cf'></ul></div>

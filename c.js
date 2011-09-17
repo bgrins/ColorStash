@@ -30,7 +30,7 @@ var win = window,
     modifications = $("#mod"),
     shareInput = $("#share input"),
     preview = $("#preview"),
-    schemeContainer = $(".scheme");
+    schemeContainer = $("#scheme");
 
 current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
 $("input[readonly]").click(function() { $(this).focus(); this.select(); });
@@ -70,7 +70,7 @@ function updateTextbox(color) {
 function updatePartial(color) {
     var tiny = color || spec.spectrum("get");
     preview.rc("fromScheme");
-    $(".scheme li").rc("active");
+    $("#scheme li").rc("active");
     updateTextbox(tiny);
     updateSchemes(tiny);
 }
@@ -119,7 +119,7 @@ schemeContainer.hover(
 
 schemeContainer.delegate("li", "click", function() {
    setCurrentHex(this.title, true);
-   $(".scheme li").rc("active");
+   $("#scheme li").rc("active");
    $(this).ac("active");
    stored = getCurrentHex();
    preview.ac("fromScheme");
