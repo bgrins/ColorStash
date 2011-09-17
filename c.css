@@ -1,5 +1,5 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; background-color: #fff; }
+body { margin: 0; font-size: 13px; line-height: 1.231; background-color: rgba(255, 255, 255, .9); }
 body, button, input { font-family: "Lucida Sans", sans-serif; color: #222; }
 a { color: #00e; }
 a:visited { color: #551a8b; }
@@ -208,10 +208,12 @@ body .sp-container { width: 100%; }
         display:inline-block; 
         width: 22%;
         margin: 10px 0; 
+        vertical-align: top;
     }
     #share { float:right; }
     #share div:after { display:none;}
-    #scheme li { float:none; width: 90%; }
+    #scheme li { float:none; width: 90%; height:60px; }
+    #scheme li:first-child { width: 90%; height: 20px; }
     #scheme ul:before {
         -webkit-transform:rotate(90deg);
         top:0;left:0;
