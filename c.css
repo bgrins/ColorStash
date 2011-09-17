@@ -1,7 +1,6 @@
-[hidden] { display: none; }
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 body { margin: 0; font-size: 13px; line-height: 1.231; background-color: #fff; }
-body, button, input { font-family: "Lucida Sans", "Droid Sans", sans-serif; color: #222; }
+body, button, input { font-family: "Lucida Sans", sans-serif; color: #222; }
 a { color: #00e; }
 a:visited { color: #551a8b; }
 a:hover { color: #06e; }
@@ -9,6 +8,7 @@ a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 ul { margin: 0; padding:0; }
 button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; line-height: normal; *overflow: visible;  }
+
 .head {
     overflow: visible;
     background: #d6f0f3;
