@@ -45,7 +45,7 @@ task :build do
   end
     
   cp 'index.html', 'out/index.html'
-  cp 'colorstash_pdn.png', 'out/colorstash_pdn.png'
+  cp 'c.png', 'out/c.png'
   
 end
 
