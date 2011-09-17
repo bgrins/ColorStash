@@ -30,7 +30,7 @@ var win = window,
     modifications = $("#mod"),
     shareInput = $("#share input"),
     preview = $("#preview"),
-    schemeContainer = $(".schemer");
+    schemeContainer = $(".scheme");
 
 current.bind("keyup change", function() { setCurrentHex($(this).val()); updateSchemes(); });
 $("input[readonly]").click(function() { $(this).focus(); this.select(); });
@@ -70,7 +70,7 @@ function updateTextbox(color) {
 function updatePartial(color) {
     var tiny = color || spec.spectrum("get");
     preview.rc("fromScheme");
-    $(".schemer li").rc("active");
+    $(".scheme li").rc("active");
     updateTextbox(tiny);
     updateSchemes(tiny);
 }
@@ -119,7 +119,7 @@ schemeContainer.hover(
 
 schemeContainer.delegate("li", "click", function() {
    setCurrentHex(this.title, true);
-   $(".schemer li").rc("active");
+   $(".scheme li").rc("active");
    $(this).ac("active");
    stored = getCurrentHex();
    preview.ac("fromScheme");
@@ -182,9 +182,8 @@ function palletRemove(hex) {
     setPallet(c);
     redrawPallet();
 }
-
-// Some drag/drop crap here
 /*
+// Some drag/drop crap here
 function getThumbnail(img, maxWidth, maxHeight) {
 
 	var canvas = document.createElement("canvas");

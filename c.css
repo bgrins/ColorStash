@@ -115,7 +115,7 @@ h1 {
 #preview.contrast a { color: #003; }
 
 
-.picker, .schemer, .colorer {
+.pick, .scheme, .color {
 	float:left;
 	width: 33.33%;
 	margin-bottom: 10px;
@@ -135,7 +135,7 @@ h1 {
 }
 #conv div { margin:5px 0; position:relative;}
 
-#conv div:before, .schemer ul:before {
+#conv div:before, .scheme ul:before {
     -webkit-transform:rotate(20deg);
     display:block;
     position: absolute;
@@ -144,8 +144,8 @@ h1 {
     left:-40px;
     top:-4px;
 }
-.schemer .in div {position: relative;}
-.schemer ul:before { text-align: right; width: 140px; left: 0; top: -10px;}
+.scheme .in div {position: relative;}
+.scheme ul:before { text-align: right; width: 140px; left: 0; top: -10px;}
 #hex:before { content: "hex →"; }
 #hsv:before { content: "hsv →"; }
 #rgb:before { content: "rgb →"; }
@@ -158,60 +158,60 @@ h1 {
 /* Make the colorpicker scale to fit */
 body .sp-container { width: 100%; }
 #preview { border-radius: 5px; }
-#preview, .schemer li { 
+#preview, .scheme li { 
     -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
 }
 
-.schemer.vhide ul { display:none; }
-.schemer ul { list-style-type: none; margin:0; padding:0; float:left; width:25%; }
-.schemer li { 
+.scheme.vhide ul { display:none; }
+.scheme ul { list-style-type: none; margin:0; padding:0; float:left; width:25%; }
+.scheme li { 
     height: 40px; 
     width: 14%;
     margin: 4px;
 }
 
-.schemer li:hover, .schemer li.active { outline: solid orange 2px; }
+.scheme li:hover, .scheme li.active { outline: solid orange 2px; }
 
 /* Picker and generated values next to each other, schemes at bottom */
 @media (max-width: 1200px) {
-    .schemer {
+    .scheme {
         float:none;
         clear: both;
         width:auto;
         padding-top: 30px;
     }
-    .schemer ul {
+    .scheme ul {
         float:none;
         width: auto;
         margin: 10px 0;
         margin-left: 140px;
     }
-    .schemer li {  float:left;  }
-    .picker { width: 33%; }
-    .colorer { width: 67%; }
+    .scheme li {  float:left;  }
+    .pick { width: 33%; }
+    .color { width: 67%; }
 }
 
 /* Really small - put everything in line */
 @media (max-width: 745px), (max-device-width: 480px) {
-    .schemer, .picker, .colorer {
+    .scheme, .pick, .color {
         float:none;
         width:100%;
         margin: 10px 0;
     }
-    .schemer .in div {
+    .scheme .in div {
         float:none; display:inline-block; width: 22%;
         margin: 10px 0; 
     }
     #share { float:right; }
     #share div:after { display:none;}
-    .schemer li { float:none; width: 90%; }
-     .schemer ul:before {
+    .scheme li { float:none; width: 90%; }
+    .scheme ul:before {
         -webkit-transform:rotate(90deg);
         top:0;left:-50%;
     }
-    .schemer { margin-top: 40px; text-align: center; }
-    .schemer ul { margin-left:0; margin-top:80px;}
-    .picker {
+    .scheme { margin-top: 40px; text-align: center; }
+    .scheme ul { margin-left:0; margin-top:80px;}
+    .pick {
         max-width: 325px;
         margin: 0 auto;
     }
