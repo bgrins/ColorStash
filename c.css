@@ -1,5 +1,8 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; }
+body { margin: 0; font-size: 13px; line-height: 1.231; 
+	background-color:#fff; 
+	background-color: rgba(255, 255, 255, .8);
+}
 body, button, input { font-family: "Lucida Sans", sans-serif; color: #222; }
 a { color: #00e; }
 a:visited { color: #551a8b; }
@@ -43,7 +46,6 @@ h1 {
     height:40px;
     overflow:hidden;
 }
-#stash {  }
 #pa { 
     position:absolute; 
     left:0; 
@@ -72,21 +74,23 @@ h1 {
 }
 #stash { 
     padding: 10px;
-	background-color:#fff; 
-	background-color: rgba(255, 255, 255, .8);
 }
 .in {
     padding: 0 15px;
     position:relative;
 }
+#pick .in { padding-left:0;} 
+
+/*
 #files {
     position:absolute;top:0;left:0;bottom:0;right:0;
     display:none;
     background-color:white;
     border:solid 10px;
 }
-
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
+*/
+
 #share { float: right; padding-left: 50px; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
 #share input { width: 210px; padding: 3px; font-size: 11px; color: #888; border: solid 2px; }
 #share div:before {
@@ -136,7 +140,7 @@ input { background: rgba(255, 255, 255, .9); }
 #conv div { margin:5px 0; position:relative; }
 
 #conv div:before, #scheme ul:before {
-    -webkit-transform:rotate(20deg);
+    -webkit-transform:rotate(10deg);
     display:block;
     position: absolute;
     font-family: Georgia;
@@ -159,8 +163,8 @@ body .sp-container { width: 100%; }
     -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
 }
 
-#scheme .in div {position: relative;}
-#scheme ul:before { text-align: right; width: 140px; left: 0; top: -10px;}
+#scheme .in div {position: relative; }
+#scheme ul:before { text-align: right; width: 140px; left: 0; top: 10px;}
 #scheme.vhide ul { display:none; }
 #scheme ul { list-style-type: none; margin: 9px 0 9px 140px; padding:0; float:left; width:25%; }
 #scheme li { 
@@ -168,38 +172,37 @@ body .sp-container { width: 100%; }
     width: 14%;
     margin: 4px;
 }
-#scheme li:first-child { width: 5%;}
+#scheme li:first-child { width: 10%;}
 #scheme li:hover, #scheme li.active { 
     outline: solid orange 2px; 
 }
 
+#scheme {
+    float:none;
+    clear: both;
+    width:auto;
+    padding-top: 30px;
+}
 
-#pick, #scheme, #color {
+
+#pick, #color {
 	float:left;
-	width: 33.33%;
+	width: 50%;
     margin: 10px 0;
 }
 
-/* Picker and generated values next to each other, schemes at bottom */
-@media (max-width: 1200px) {
-    #scheme {
-        float:none;
-        clear: both;
-        width:auto;
-        padding-top: 30px;
-    }
-    #scheme ul {
-        float:none;
-        width: auto;
-    }
-    #scheme li {  float:left;  }
-    #pick { width: 33%; }
-    #color { width: 67%; }
+#scheme ul {
+    float:none;
+    width: auto;
 }
+    
+#scheme li {  float:left;  }
+#pick { width: 40%; max-width: 400px; }
+#color { width: 60%; }
+
 
 /* Really small - put everything in line */
-@media (max-width: 745px), (max-device-width: 480px) {
-    
+@media (max-width: 900px), (max-device-width: 480px) {
     #pick, #scheme, #color {
         float:none;
         width:100%;
@@ -220,14 +223,27 @@ body .sp-container { width: 100%; }
         top:0;left:0;
     }
     #scheme { margin-top: 40px; text-align: center; }
-    #scheme ul { margin-left:0; margin-top:80px;}
+    #scheme ul { margin-left:0; margin-top:80px; }
     #pick {
         max-width: 400px;
         margin: 0 auto;
     }
 }
-
-@media (min-width: 1300px) { }
+/* Picker and generated values next to each other, schemes at bottom */
+@media (min-width: 1200px) {
+    #pick, #scheme, #color {
+    	float:left;
+    	width: 33.33%;
+        margin: 10px 0;
+    }
+    #pick { max-width: 650px;}
+    #scheme ul { margin:0; margin-top:15px; }
+    #scheme ul:before { top: -15px; left:0; -webkit-transform: rotate(0deg); width: auto; } 
+    #scheme { clear: none; padding-top:0;}
+    #scheme li { width: 19%; height: 50px;}
+    #conv { padding-right:10px; }
+    #conv div:before { left: -40px;}
+}
 
 .vhide { visibility: hidden; }
 .hide { display: none; }
