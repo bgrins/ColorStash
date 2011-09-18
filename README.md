@@ -19,8 +19,11 @@ One of the main goals of the contest this year was that the app had to be "respo
 <li><strong>Less than 600px</strong>: and everything is moved into a vertical line.  Additionally, schemes get vertical layout - otherwise they would be too small (since they are a percentage width).</li>
 <li><strong>Greater than 1200px</strong>: everything is moved into one row.  This is to make better use of avaiable horizontal space, and because of a unique problem that the colorpicker presents.  It must keep a 1:1 aspect ratio for the middle area (where you drag around to control saturation and value).  By moving the schemes into the row, the picker only takes up 33% of the width, which helps keep it from becoming way too tall to fit on a widescreen monitor.  
 <li><strong>On iPhone / iPad</strong>: The colorpicker hue slider gets wider to make sliding easier with touch events.  Also, the 'pallet' options at the top become wider.  I think it is just harder to tap on a small area than click.  Also, you probably don't need as many saved colors visible in a mobile environment.  Open up the site in an iPhone, and also inside a normal browser scaled down to 480px to see the difference between the two!</li>
-<li><strong>Other mobile environments</strong>: Unfortunately, I don't have the resources to test other mobile phones, so I'm not sure if it works...</li>
+<li><strong>Other mobile environments</strong>: Unfortunately, I don't have the resources to test other mobile phones, so I'm not sure if it works... If anyone knows of a good way to test this, please let me know!</li>
 </ul>
+
+<h3>Colors</h3>
+I am no color expert, but I have been learning!  I wrote a <a href='http://github.com/bgrins/tinycolor'>JavaScript color parsing and conversion library</a> and a <a href='http://github.com/bgrins/spectrum'>JavaScript colorpicker</a> for this contest.  I found a lot of hsv/rgb/hsl/hex conversion algorithms on wikipedia.  The scheme generation functions were mostly from looking at a colorwheel, other parsing libraries, and this <a href='http://dev.opera.com/articles/view/8-colour-theory/'>Opera Color Theory</a> article.  After the contest, I hope to expand these and support other color formats. 
 
 <h3>File Size</h3>
 Compressed, crunched, and zipped ColorStash weighs in at 10,013 bytes.  Obviously, this is cutting it close to the 10K limit!
@@ -37,11 +40,11 @@ I built the <a href=''>JavaScript colorpicker</a> just for this contest.  One of
 <li>Limited:  IE6/7 (no localStorage)</li>
 </ul>
   
-<h3>Fonts</h3>: I signed up for Typekit free edition for the contest.  Check out my fonts! <a href='http://typekit.com/colophons/zzr0ftq'>http://typekit.com/colophons/zzr0ftq</a>.  I think having the custom fonts is an easy way to make an app look nicer.  Here is a screenshot of with / without the fonts:
-
-
+<h3>Fonts</h3>
+I signed up for Typekit free edition for the contest.  Check out my fonts! <a href='http://typekit.com/colophons/zzr0ftq'>http://typekit.com/colophons/zzr0ftq</a>.  I think having the custom fonts is an easy way to make an app look nicer.  Here is a screenshot of with / without the fonts:
 
 Screenshots: 600x400
   * iPhone
   * Normal
   * Large screen
+  
