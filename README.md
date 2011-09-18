@@ -1,6 +1,6 @@
 Title: ColorStash
 Description: 
-ColorStash is a tiny web app I build for the <a href=''>10K Apart contest</a>.  The goal of the contest is to build an application in under 10 Kilobytes.  This includes all HTML, JavaScript, CSS, and images.
+ColorStash is a tiny web app I built for the <a href=''>10K Apart contest</a>.  The goal of the contest is to build an application in under 10 Kilobytes.  This includes all HTML, JavaScript, CSS, and images.
 
 From my description in the <a href=''>10K Apart entry</a>:
 <blockquote>

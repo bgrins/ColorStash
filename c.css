@@ -14,7 +14,7 @@ img {display:none;  opacity:.5;}.wf-active img { display:inline;}img:hover {opac
     background: #d6f0f3;
     border-bottom: solid 8px #636566;
 }
-#links {
+#side {
     float:right;
     height:35px;
     line-height:35px;
@@ -118,7 +118,8 @@ button:active {
 
 input[readonly] { color: #666; }
 h3 { text-decoration: underline; }
-#share { float: right; color: #555; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
+#links { float:right; margin-left:3px;  }
+#share { color: #555; margin: 2px 3px; float:right; position: relative; z-index:1; }
 #share input { width: 210px; padding: 3px; font-size: 11px; border: solid 2px; }
 #share span {
     display:block;
@@ -218,7 +219,6 @@ body .sp-container { width: 100%; }
         margin: 0; 
         vertical-align: top;
     }
-    #share { float:right; }
     #share span { display:none; }
     #scheme li { float:none; width: 90%; height:60px; }
     #scheme li:first-child { width: 90%; height: 25px; margin-bottom:10px;  }
@@ -231,6 +231,9 @@ body .sp-container { width: 100%; }
     }
     #pa li {  width: 50px; }
 }
+
+@media (max-width: 540px) {  #share input { width: 100px; } }
+
 /* Picker and generated values next to each other, schemes at bottom */
 @media (min-width: 1200px) {
     #pick, #scheme, #color {
