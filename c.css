@@ -37,11 +37,9 @@ h1 {
     padding:4px 0 0 75px;
     color:#766453;
     font-family: fertigo-script, sans-serif;
-  
     /* font-family: blambot-pro;/*, fertigo-script, cursive;*/
     float:left;
 }
-h1 em { color: #594c3f; font-size:1.1em; font-style: normal; font-weight: normal; }
 
 #sub {
     background: #292c2d;
@@ -68,8 +66,7 @@ h1 em { color: #594c3f; font-size:1.1em; font-style: normal; font-weight: normal
     position:relative;
     top:0;
     -webkit-transition: top .1s linear; 
-    -moz-transition: top .1s linear; 
-    -webkit-user-select: none;
+    -moz-transition: top .1s linear;
 }
 #pa li:hover, #pa li.active { 
     top: -10px; 
@@ -272,13 +269,12 @@ License: MIT
 ***/
 
 .sp-container { 
-    position:absolute; 
-    top:0; 
-    left:0; 
-    display:inline-block;
-}
-.sp-container.sp-flat {
     position: relative;
+    display:inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #333; 
+    border-radius: 5px; 
 }
 
 /* 
@@ -315,15 +311,11 @@ License: MIT
     bottom:0; 
 }
 
-/* Don't allow text selection */
-.sp-replacer, .sp-preview, .sp-dragger, .sp-slider , .sp-container.sp-dragging .sp-input, .sp-container button  { 
+/* Don't allow text selection 
+.sp-dragger, .sp-slider { 
     -webkit-user-select:none; -moz-user-select: none; -o-user-select:none; user-select: none; 
 }
-.sp-container.sp-input-disabled .sp-input-container,
-.sp-container.sp-flat .sp-input-container div {
-    display:none;
-}
-
+*/
 /* Gradients for hue, saturation and value instead of images.  Not pretty... but it works */
 .sp-sat {
     background-image: -webkit-gradient(linear,  0 0, 100% 0, from(#FFF), to(rgba(204, 154, 129, 0)));
@@ -416,17 +408,4 @@ License: MIT
     margin-left: -5%;
     background: white; 
     opacity: .8; 
-}
-
-/* Basic display options (colors, fonts, global widths) */
-.sp-container {
-    padding: 10px;
-    border-radius: 10px;
-    width: 240px;
-}
-/* Dark theme */
-.sp-container.sp-dark {
-    background-color: #333; 
-    border-radius: 5px; 
-    font-family: Droid Sans, Tahoma, sans-serif;
 }
