@@ -30,8 +30,9 @@ task :build do
   end
     
   cp 'index.html', 'out/index.html'
-  cp 'stacheonly.png', 'out/c.png' 
+  #cp 'stacheonly.png', 'out/c.png' 
   
+  system('pngcrush -reduce -brute stasheonly.png out/stasheonly.png')
   system('tar --exclude=".*" -pvczf out.tar.gz out')
   system('ls -l out.tar.gz')
 end
