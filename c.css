@@ -109,7 +109,6 @@ button {
   padding: 1px 8px;
   text-align: center;
   cursor: pointer;
-  height:23px;
 }
 button:hover {
     background: #ddd;
@@ -145,7 +144,7 @@ input { background: rgba(255, 255, 255, .9); }
 }
 
 /* ns: no local storage available */
-.ns #pa, .ns #prev a { display:none; }
+.ns #sub, .ns #buttons { display:none; }
 
 /* only show proper links in preview box */
 #rm, #rl, .has #add { display:none; }
