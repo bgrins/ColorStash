@@ -172,7 +172,7 @@ input { background: rgba(255, 255, 255, .9); }
 /* Make the colorpicker scale to fit */
 body .sp-container { width: 100%; }
 #prev, #scheme li { 
-    -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; 
+    -webkit-transition: background-color .1s linear; -moz-transition: background-color .1s linear; -o-transition: background-color .1s linear; 
 }
 
 #scheme .in div {position: relative; }
