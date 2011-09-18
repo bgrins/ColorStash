@@ -8,7 +8,7 @@ a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 ul { margin: 0; padding:0; }
 button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; line-height: normal; *overflow: visible;  }
-
+img {display:none;  opacity:.5;}.wf-active img { display:inline;}
 .head {
     overflow: visible;
     background: #d6f0f3;
