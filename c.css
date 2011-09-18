@@ -20,15 +20,19 @@ button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-
     line-height:35px;
     margin-right:5px;
 }
-.logo {
+#logo {
     background: no-repeat url(c.png);
     position:absolute;
-    height: 70px;
-    width: 70px;
-    top:-8px; 
-    left: 0;
+    height:40px;
+    width: 65px;
+    top:8px; 
+    left: 3px;
+    /*background: -webkit-linear-gradient(top left, #FF0000 0%, #FFFF00 12%, #0BED00 25%, #00FF40 37%, #00FFFF 50%, #0040ff 62%, #8000ff 75%, #ff00ff 87%, #ff0000 100%);
+    background: -webkit-radial-gradient(center, circle, #FF0000 0%, #FFFF00 20%, #0BED00 40%, #00FF40 50%, #00FFFF 60%, #0040ff 72%, #8000ff 75%, #ff00ff 87%, #ff0000 100%);*/
     z-index: 10;
+    background: no-repeat url(stacheonly.png);
 }
+
 h1 { 
     margin:0; 
     padding:0;
@@ -36,6 +40,7 @@ h1 {
     font-family: 'Rochester', cursive;
     float:left;
 }
+h1 em { color: orange; font-size:1.1em; font-style: normal; font-weight: normal; }
 
 #sub {
     background: #292c2d;
