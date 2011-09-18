@@ -37,10 +37,9 @@ h1 {
     margin:0; 
     padding:4px 0 0 75px;
     color:#766453;
-    font-family: fertigo-script,chippewa-falls, sans-serif;
+    font-family: fertigo-script, sans-serif;
   
-  /*
-    font-family: blambot-pro;/*, fertigo-script, cursive;*/
+    /* font-family: blambot-pro;/*, fertigo-script, cursive;*/
     float:left;
 }
 h1 em { color: #594c3f; font-size:1.1em; font-style: normal; font-weight: normal; }
