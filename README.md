@@ -1,8 +1,8 @@
 Title: ColorStash
 Description: 
-ColorStash is a tiny web app I built for the <a href=''>10K Apart contest</a>.  The goal of the contest is to build an application in under 10 Kilobytes.  This includes all HTML, JavaScript, CSS, and images.
+ColorStash is a tiny web app I built for the <a href='http://10k.aneventapart.com/'>10K Apart contest</a>.  The goal of the contest is to build an application in under 10 Kilobytes.  This includes all HTML, JavaScript, CSS, and images.
 
-From my description in the <a href=''>10K Apart entry</a>:
+From my description in the <a href='#'>10K Apart entry</a>:
 <blockquote>
 ColorStash lets you pick, convert, save, and share colors and schemes.  Use the custom built colorpicker, permissive text parsing, and color scheme generators. Stash colors in localStorage or share them from the URL.
 

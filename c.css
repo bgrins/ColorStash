@@ -23,10 +23,10 @@ img {display:none;  opacity:.5;}.wf-active img { display:inline;}img:hover {opac
 
 h1 { 
     margin:0; 
-    padding:4px 0 0 67px;
+    padding:4px 0 0 70px;
     /*color:#766453;*/ color:#000;
     font-family: fertigo-script, sans-serif;
-    /* font-family: blambot-pro;/*, fertigo-script, cursive;*/
+    font-weight: normal;
     float:left;
 }
 
@@ -238,9 +238,10 @@ body .sp-container { width: 100%; }
 @media (min-width: 1200px) {
     #pick, #scheme, #color {
     	float:left;
-    	width: 33.33%;
+    	width: 40%;
         margin: 10px 0;
     }
+    #color { width: 20%; }
     #pick { max-width: 650px;}
     #scheme ul { margin:0; margin-top:15px; }
     #scheme span { top: -15px; left:0; width: auto; } 
