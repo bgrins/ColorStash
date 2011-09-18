@@ -1,5 +1,5 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: Georgia;  }
+body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: acuta, Georgia;  }
 button, input { font-family: "Lucida Sans", sans-serif; color: #222;  }
 a { color: #00e; }
 a:visited { color: #551a8b; }
@@ -8,7 +8,7 @@ a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 ul { margin: 0; padding:0; }
 button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; line-height: normal; *overflow: visible;  }
-img {display:none;  opacity:.5;}.wf-active img { display:inline;}
+img {display:none;  opacity:.5;}.wf-active img { display:inline;}img:hover {opacity:1;}
 .head {
     overflow: visible;
     background: #d6f0f3;
@@ -20,6 +20,16 @@ img {display:none;  opacity:.5;}.wf-active img { display:inline;}
     line-height:35px;
     margin-right:5px;
 }
+
+h1 { 
+    margin:0; 
+    padding:4px 0 0 67px;
+    /*color:#766453;*/ color:#000;
+    font-family: fertigo-script, sans-serif;
+    /* font-family: blambot-pro;/*, fertigo-script, cursive;*/
+    float:left;
+}
+
 #logo {
     position:absolute;
     height:40px;
@@ -30,15 +40,6 @@ img {display:none;  opacity:.5;}.wf-active img { display:inline;}
     background: -webkit-radial-gradient(center, circle, #FF0000 0%, #FFFF00 20%, #0BED00 40%, #00FF40 50%, #00FFFF 60%, #0040ff 72%, #8000ff 75%, #ff00ff 87%, #ff0000 100%);*/
     z-index: 10;
     background: no-repeat url(colorstash.png);
-}
-
-h1 { 
-    margin:0; 
-    padding:4px 0 0 75px;
-    color:#766453;
-    font-family: fertigo-script, sans-serif;
-    /* font-family: blambot-pro;/*, fertigo-script, cursive;*/
-    float:left;
 }
 
 #sub {
@@ -124,7 +125,6 @@ h3 { text-decoration: underline; }
     position: absolute;
     left:-85px;
     top:3px;
-    
 }
 input { background: rgba(255, 255, 255, .9); }
 #current {
@@ -162,13 +162,11 @@ input { background: rgba(255, 255, 255, .9); }
 #conv div { margin:5px 0; position:relative; }
 
 #conv span, #scheme span {
-    -webkit-transform:rotate(10deg);
-    -moz-transform:rotate(10deg);
     display:block;
     position: absolute;
     font-weight: bold;
-    left:-25px;
-    top: 0;
+    left:-30px;
+    top: 35%;
 }
 
 /* Make the colorpicker scale to fit */
@@ -234,7 +232,7 @@ body .sp-container { width: 100%; }
     #pa li {  width: 50px; }
 }
 /* Picker and generated values next to each other, schemes at bottom */
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     #pick, #scheme, #color {
     	float:left;
     	width: 33.33%;
@@ -242,9 +240,7 @@ body .sp-container { width: 100%; }
     }
     #pick { max-width: 650px;}
     #scheme ul { margin:0; margin-top:15px; }
-    #scheme span { top: -15px; left:0; width: auto;
-        -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); 
-    } 
+    #scheme span { top: -15px; left:0; width: auto; } 
     #scheme { clear: none; padding-top:0;}
     #scheme li { width: 19%; height: 50px;}
     #conv { padding-right:10px; }
