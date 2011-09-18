@@ -1,6 +1,6 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; }
-body, button, input { font-family: "Lucida Sans", sans-serif; color: #222; }
+body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: Georgia;  }
+button, input { font-family: "Lucida Sans", sans-serif; color: #222;  }
 a { color: #00e; }
 a:visited { color: #551a8b; }
 a:hover { color: #06e; }
@@ -35,12 +35,15 @@ button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-
 
 h1 { 
     margin:0; 
-    padding:0;
-    padding-left: 70px;
-    font-family: 'Rochester', cursive;
+    padding:4px 0 0 75px;
+    color:#766453;
+    font-family: fertigo-script,chippewa-falls, sans-serif;
+  
+  /*
+    font-family: blambot-pro;/*, fertigo-script, cursive;*/
     float:left;
 }
-h1 em { color: orange; font-size:1.1em; font-style: normal; font-weight: normal; }
+h1 em { color: #594c3f; font-size:1.1em; font-style: normal; font-weight: normal; }
 
 #sub {
     background: #292c2d;
@@ -96,28 +99,49 @@ h1 em { color: orange; font-size:1.1em; font-style: normal; font-weight: normal;
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
 */
 
-#share { float: right; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
-#share input { width: 210px; padding: 3px; font-size: 11px; color: #777; border: solid 2px; }
-#share div:before {
-    content: "share this color →";
-    font-family: Georgia;
+button {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #333;
+  font-weight:bold;
+  font-size:12px; 
+  padding: 1px 8px;
+  text-align: center;
+  cursor: pointer;
+  height:23px;
+}
+button:hover {
+    background: #ddd;
+    border: 1px solid #bbb;
+}
+button:active {
+    border: 1px solid #aaa; 
+    background-color: #ccc; 
+}
+
+
+input[readonly] { color: #666; }
+h3 { text-decoration: underline; }
+#share { float: right; color: #555; margin: 10px 0; margin-right: 15px; position: relative; z-index:1; }
+#share input { width: 210px; padding: 3px; font-size: 11px; border: solid 2px; }
+#share span {
     display:block;
     position: absolute;
-    left:-110px;
-    top:0;
-    color: #333;
+    left:-85px;
+    top:3px;
+    
 }
 input { background: rgba(255, 255, 255, .9); }
 #current {
     font-size:24px;
-    border: solid 2px rgba(0, 0, 0, .2);
     text-align: center;
     width: 90%; margin:0 auto;
     display:block;
 }
 #prev {
     padding:10px 5px;
-    border: solid 2px #333;
+    border: solid 2px #444;
 }
 
 /* ns: no local storage available */
@@ -126,7 +150,7 @@ input { background: rgba(255, 255, 255, .9); }
 /* only show proper links in preview box */
 #rm, #rl, .has #add { display:none; }
 .has #rm, .fromScheme #rl { display:inline; }
-#buttons { padding: 5px 10px; text-align: right; background:#333; border-radius: 5px 5px 0 0; }
+#buttons { padding: 6px 10px; text-align: right; background:#444; border-radius: 5px 5px 0 0; }
 #conv { color: #ddf; }
 .contrast #conv { color: #003; }
 
@@ -143,25 +167,15 @@ input { background: rgba(255, 255, 255, .9); }
 }
 #conv div { margin:5px 0; position:relative; }
 
-#conv div:before, #scheme ul:before {
+#conv span, #scheme span {
     -webkit-transform:rotate(10deg);
     -moz-transform:rotate(10deg);
     display:block;
     position: absolute;
-    font-family: Georgia;
     font-weight: bold;
     left:-25px;
-    top:-4px;
+    top: 0;
 }
-#hex:before { content: "hex →"; }
-#hsv:before { content: "hsv →"; }
-#rgb:before { content: "rgb →"; }
-#hsl:before { content: "hsl →"; }
-#mono:before { content: "monochromatic →"; }
-#an:before { content: "analogous →"; }
-#sc:before { content: "complements →"; }
-#tetrad:before { content: "tetrad →"; }
-#triad:before { content: "triad →"; }
 
 /* Make the colorpicker scale to fit */
 body .sp-container { width: 100%; }
@@ -170,7 +184,7 @@ body .sp-container { width: 100%; }
 }
 
 #scheme .in div {position: relative; }
-#scheme ul:before { text-align: right; width: 140px; left: 0; top: 10px;}
+#scheme span { text-align: right; width: 140px; left: 0; }
 #scheme.vhide ul { display:none; }
 #scheme ul { list-style-type: none; margin: 9px 0 9px 140px; padding:0; }
 #scheme li { 
@@ -213,14 +227,10 @@ body .sp-container { width: 100%; }
         vertical-align: top;
     }
     #share { float:right; }
-    #share div:before { display:none;}
+    #share span { display:none; }
     #scheme li { float:none; width: 90%; height:60px; }
     #scheme li:first-child { width: 90%; height: 25px; margin-bottom:10px;  }
-    #scheme ul:before {
-        display:none;
-        -webkit-transform:rotate(80deg); -moz-transform: rotate(80deg); 
-        top:0;left:-20px;
-    }
+    #scheme span { display:none; }
     #scheme { margin-top: 5px; padding:0; text-align: center; }
     #scheme ul { margin:0; }
     #pick {
@@ -238,13 +248,13 @@ body .sp-container { width: 100%; }
     }
     #pick { max-width: 650px;}
     #scheme ul { margin:0; margin-top:15px; }
-    #scheme ul:before { top: -15px; left:0; width: auto;
+    #scheme span { top: -15px; left:0; width: auto;
         -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); 
     } 
     #scheme { clear: none; padding-top:0;}
     #scheme li { width: 19%; height: 50px;}
     #conv { padding-right:10px; }
-    #conv div:before { left: -40px;}
+    #conv span { left: -40px;}
 }
 
 .vhide { visibility: hidden; }

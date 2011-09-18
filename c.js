@@ -299,12 +299,6 @@ function initDragDrop() {
     },
     spectrums = [],
     IE = $.browser.msie,
-    replaceInput = [
-    	"<div class='sp-replacer sp-cf'>",
-    		"<div class='sp-preview'></div>",
-    		"<div class='sp-dd'>&#9660;</div>",
-    	"</div>"
-    ].join(''),
     markup = (function() {
         
         // IE does not support gradients with multiple stops, so we need to simulate            
@@ -388,9 +382,9 @@ function initDragDrop() {
             chooseButton = container.find(".sp-choose"),
             isInput = boundElement.is("input"),
             changeOnMove = (opts.changeOnMove || flat),
-            shouldReplace = isInput && !flat,
-            replacer = (shouldReplace) ? $(replaceInput).ac(theme) : $([]),
-            offsetElement = (shouldReplace) ? replacer : boundElement,
+            shouldReplace = false,
+            replacer = $([]),
+            offsetElement = boundElement,
             previewElement = replacer.find(".sp-preview"),
             initialColor = opts.color || (isInput && boundElement.val()),
             colorOnShow = false,
@@ -553,15 +547,7 @@ function initDragDrop() {
             
             var realColor = get(),
             	realHex = realColor.toHexString();
-            
-            // Update the replaced elements background color (with actual selected color)
-            previewElement.css("background-color", realHex);
-            
-            // Update the input as it changes happen
-            if (isInput) {
-                textInput.val(realHex);
-            }
-            
+                        
             if (hasOpened && changeOnMove) {
             	updateOriginalInput();
             }
@@ -597,12 +583,7 @@ function initDragDrop() {
         }
         
         function updateOriginalInput() {
-            var color = get();
-        	if (isInput) {
-        		boundElement.val(color.toHexString());
-        	}
-        	
-        	callbacks.change(color);
+        	callbacks.change(get());
         }
         
         function reflow() {
@@ -613,9 +594,6 @@ function initDragDrop() {
             slideHeight = slider.height();
             slideHelperHelperHeight = slideHelper.height();
             
-            if (!flat) {
-            	container.offset(getOffset(container, offsetElement));
-            }
             
             updateHelperLocations();
         }
@@ -634,34 +612,6 @@ function initDragDrop() {
         return  spect;
     }
 	
-    /**
-     * checkOffset - get the offset below/above and left/right element depending on screen position
-     * Thanks https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.datepicker.js
-     */
-    function getOffset(picker, input) {
-        var extraY = 6;
-		var dpWidth = picker.outerWidth();
-		var dpHeight = picker.outerHeight();
-		var inputWidth = input.outerWidth();
-		var inputHeight =  input.outerHeight();
-		var doc = picker[0].ownerDocument;
-		var docElem = doc.documentElement;
-		var viewWidth = docElem.clientWidth + $(doc).scrollLeft();
-		var viewHeight = docElem.clientHeight + $(doc).scrollTop();
-		var offset = input.offset();
-		offset.top += inputHeight;
-		
-		offset.left -= 
-			Math.min(offset.left, (offset.left + dpWidth > viewWidth && viewWidth > dpWidth) ?
-			Math.abs(offset.left + dpWidth - viewWidth) : 0);
-		
-		offset.top -= 
-			Math.min(offset.top, ((offset.top + dpHeight > viewHeight && viewHeight > dpHeight) ?
-			Math.abs(dpHeight + inputHeight - extraY) : extraY)  );
-
-        
-		return offset;
-	}
 	
 	/** 
 	 * noop - do nothing

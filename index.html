@@ -4,6 +4,9 @@
 <title>ColorStash</title>
 <meta name="viewport" content="width=480">
 <link rel="stylesheet" type="text/css" href="c.css">
+<script type="text/javascript" src="http://use.typekit.com/zzr0ftq.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
 <link href='http://fonts.googleapis.com/css?family=Rochester' rel='stylesheet' type='text/css'>
 </head>
 
@@ -11,7 +14,7 @@
 	<div class='head cf'>
         <h1><em>C</em>olor<em>S</em>tash</h1>
         <div id='links'><a href='http://10k.aneventapart.com/'>10K</a> | <a href='twitter.com/bgrins'>Me</a></div>
-        <div id='share'><div><input grab /></div></div>
+        <div id='share'><div><span>share color →</span><input grab /></div></div>
         <div id='logo'></div>
 	</div>
     
@@ -32,17 +35,18 @@
         <div id='color'>
             <div class='in'>
                 <div id='buttons'>
-                    <button id='add'>Save</button>
-                    <button id='rm'>Unsave</button>
-                    <button id='rl'>Reload Schemes</button>
+                    <button id='add'>Save ✓</button>
+                    <button id='rm'>Remove ✗</button>
+                    <button id='rl'>Reload Schemes ↻</button>
                 </div>
                 <div id='prev'>
                     <input id='current' />
                     <div id='conv'>
-                        <div id='hex'><input grab /></div>
-                        <div id='rgb'><input grab /></div>
-                        <div id='hsl'><input grabv /></div>
-                        <div id='hsv'><input grab /></div>
+                        <h3>Conversions</h3>
+                        <div id='hex'><span>hex →</span><input grab /></div>
+                        <div id='rgb'><span>rgb →</span><input grab /></div>
+                        <div id='hsl'><span>hsl →</span><input grab /></div>
+                        <div id='hsv'><span>hsv →</span><input grab /></div>
                     </div>
                 </div>
             </div>
@@ -50,11 +54,11 @@
 		
 		<div id='scheme'>
 		     <div class='in'>
-		        <div><ul id='an' class='cf'></ul></div>
-		     	<div><ul id='sc' class='cf'></ul></div>
-		        <div><ul id='tetrad' class='cf'></ul></div>
-		        <div><ul id='triad' class='cf'></ul></div>
-		        <div><ul id='mono' class='cf'></ul></div>
+		        <div><span>analogous →</span><ul id='an' class='cf'></ul></div>
+		     	<div><span>complements →</span><ul id='sc' class='cf'></ul></div>
+		        <div><span>tetrad →</span><ul id='tetrad' class='cf'></ul></div>
+		        <div><span>triad →</span><ul id='triad' class='cf'></ul></div>
+		        <div><span>monochromatic →</span><ul id='mono' class='cf'></ul></div>
 		    </div>
         </div>
 	</div>
