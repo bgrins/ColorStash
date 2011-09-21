@@ -35,6 +35,7 @@ var hasStorage = !!(localStorage && JSON),
     hex = $("#hex"),
     rgb = $("#rgb"),
     hsv = $("#hsv"),
+    ie = $("#ie"),
     analogous = $("#an"), 
     splitcomplement = $("#sc"), 
     tetrad = $("#tetrad"),  
@@ -59,15 +60,19 @@ if (!hasTouch) {
 
 function change(color) {
     var hexVal = color.toHexString();
-    var fullColor = hasSlider ? tinycolor($.extend(color.toRgb(), { a: currentAlpha })) : color;
+    var fullColor = tinycolor($.extend(color.toRgb(), { a: currentAlpha }));
     var fullRgb = fullColor.toRgbString();
     var hsvVal = color.toHsv();
+    var fullFilter = fullColor.alpha < 1 ? fullColor.toFilter() : false;
     
     body.tc("has", palletHas(hexVal)).tc("contrast", ( hsvVal.v > .6)).css(
         BACKGROUND_COLOR, tinycolor($.extend({}, hsvVal, {a: .2})).toRgbString()
-    );    
-    preview.css(BACKGROUND_COLOR, fullRgb);
+    );
     
+    preview.css(BACKGROUND_COLOR, fullRgb);
+    if (fullFilter && $.browser.msie) {
+        preview.css("filter", fullColor.toFilter());
+    }
     
     redrawPallet(hexVal);
     
@@ -75,6 +80,7 @@ function change(color) {
         val(location.href.split('#')[0] + hexVal);
     
     hsv.val(fullColor.toHsvString());
+    ie.val(fullFilter || "Will show IE filter if alpha is used");
     hex.val(hexVal);
     rgb.val(fullRgb);
     hsl.val(fullColor.toHslString());
@@ -84,12 +90,15 @@ function getCurrentHex() {
     return spec.spectrum("get").toHexString();
 }
 function setCurrentHex(color, noTextbox, noSchemes) {
-   var ok = tinycolor(color).ok;
-   spec.spectrum("set", color);
-   !noTextbox && updateTextbox();
-   !noSchemes && updatePartial();
-   schemeContainer.tc("vhide", !ok);
-   return ok;
+    var tiny = tinycolor(color);
+    var ok = tiny.ok;
+    if (tiny.alpha && tiny.alpha < 1) { currentAlpha = tiny.alpha; slider.val(currentAlpha * 100); }
+    else { currentAlpha = 1; slider.val(100); }
+    spec.spectrum("set", tiny);
+    !noTextbox && updateTextbox();
+    !noSchemes && updatePartial();
+    schemeContainer.tc("vhide", !ok);
+    return ok;
 }
 
 function updateTextbox(color) {
@@ -110,7 +119,11 @@ function updatePartial(color) {
 spec.spectrum({
     color: getLastColor(),
     change: change,
-    move: updateFull,
+    move: function(color) {
+        // reset alpha if there is no slider when they move
+        if (!hasSlider) { currentAlpha = 1; }
+        updateFull(color);
+    },
     show: updateFull
 });
 
@@ -328,7 +341,7 @@ function _tinycolor (color, opts) {
 	}
 	
 	var rgb = inputToRGB(color);
-	var r = rgb.r, g = rgb.g, b = rgb.b, a = rgb.a;
+	var r = rgb.r, g = rgb.g, b = rgb.b, a = parseFloat(rgb.a);
 	
 	// Don't let the range of [0,255] come back in [0,1].
 	// Potentially lose a little bit of precision here, but will fix issues where
@@ -375,6 +388,12 @@ function _tinycolor (color, opts) {
 		},
 		toName: function() {
 			return hexNames[rgbToHex(r, b, g)] || false;
+		},
+		toFilter: function() {
+            var hex = rgbToHex(r, g, b);
+            var alphaHex = Math.round(parseFloat(a) * 255).toString(16);
+            return "progid:DXImageTransform.Microsoft.gradient(startColorstr=#" +
+                alphaHex + hex + ",endColorstr=#" + alphaHex + hex + ")";         
 		}
 	};
 }

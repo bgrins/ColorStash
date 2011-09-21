@@ -177,7 +177,7 @@ input { background: rgba(255, 255, 255, .9); }
 
 
 
-.noslider #trans { display:none; }
+.noslider #trans, .noslider #ie-filter { display:none; }
 body #trans { text-align:left; margin-left:-30px; padding-top:10px;}
 #trans table { width: 90%; }
 body #a {  padding:0; width: 100%;}
