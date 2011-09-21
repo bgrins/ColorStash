@@ -252,17 +252,18 @@ function initDragDrop() {
     var fileInput = $("#pickimage");
     var imageContainer = $("#image");
     var imageEyedropper = $("#image .sp-dragger");
+    var filesContainer = $("#files");
+    var FileReader = window.FileReader;
     
-    if (!window.FileReader || !document.createElement('canvas').getContext) {
+    if (!FileReader || !$('<canvas />')[0].getContext) {
         dropZone.addClass("nofiles");
         return;
     }
     
     function loadImage(img) {
-        console.log("ere");
-        
+    
         dropZone.addClass("file");
-        var canvas = getThumbnail(img, $("#files").width(), $("#files").height());
+        var canvas = getThumbnail(img, filesContainer.width(), filesContainer.height());
         var context = canvas.getContext("2d");
         
         imageContainer.find("canvas").remove();

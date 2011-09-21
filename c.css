@@ -3,7 +3,6 @@ body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-
 background-image: -webkit-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-image: -moz-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-image: -ms-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
-background-image: -o-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-size: 80px;
 }
 button, input, h4 { font-family: "Lucida Sans", sans-serif; color: #222;  }
@@ -29,25 +28,24 @@ img {display:none;  opacity:.5;}.wf-active img { display:inline;}img:hover {opac
 
 h1 { 
     margin:0; 
-    padding:4px 0 0 70px;
+    padding:4px 0 0 4px;
     /*color:#766453;*/ color:#000;
     font-family: fertigo-script, sans-serif;
     font-weight: normal;
     float:left;
 }
 
+/*
 #logo {
     position:absolute;
     height:40px;
     width: 65px;
     top:8px; 
     left: 3px;
-    /*background: -webkit-linear-gradient(top left, #FF0000 0%, #FFFF00 12%, #0BED00 25%, #00FF40 37%, #00FFFF 50%, #0040ff 62%, #8000ff 75%, #ff00ff 87%, #ff0000 100%);
-    background: -webkit-radial-gradient(center, circle, #FF0000 0%, #FFFF00 20%, #0BED00 40%, #00FF40 50%, #00FFFF 60%, #0040ff 72%, #8000ff 75%, #ff00ff 87%, #ff0000 100%);*/
     z-index: 10;
     background: no-repeat url(colorstash.png);
 }
-
+*/
 #sub {
     background: #292c2d;
     background: rgba(41, 44, 45, .8);
@@ -106,7 +104,7 @@ h4 { margin:5px 0; padding:0; color:#eee; font-weight: normal; }
     overflow:hidden;
     position:absolute;top:5px;left:5px;bottom:5px;right:0;
     display:none;
-    background-color:white;
+    background:#fff;
 }
 /*
 #file-controls label {
