@@ -91,13 +91,22 @@ h1 {
 }
 #pick .in { padding-left:0;} 
 
-
+#files table { position:absolute; top:0; left:0; right:0; bottom:0; height:100%; width:100%; margin:0; padding:0; vertical-align: middle; text-align: center; border-spacing:0; }
+#files td {margin:0;padding:0;}
+#image {position:relative; display:inline-block;}
+.file #files { display:block; }
+.nofiles #file-controls, .file #file-controls h4  { display:none; } 
+#file-controls { margin-top:10px; }
+.file #file-controls button { display:inline-block; background: #fdd; font-size:14px; }
+#file-controls button, .file #file-controls label { display:none; }
 #files {
+    overflow:hidden;
     position:absolute;top:0;left:0;bottom:0;right:0;
     display:none;
     background-color:white;
     border:solid 10px;
 }
+
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
 
 
@@ -166,6 +175,7 @@ input { background: rgba(255, 255, 255, .9); }
     padding: 5px;
     width: 90%;
 }
+#conv #ie { font-size:10px; }
 #conv div { margin:5px 0; position:relative; }
 #prev, #scheme { font-weight: bold; }
 #conv span, #scheme span {
@@ -242,6 +252,7 @@ body .sp-container { width: 100%; }
         margin: 0 auto;
     }
     #pa li {  width: 50px; }
+    #file-controls h4 { display:none; }
 }
 
 @media (max-width: 540px) {  #share input { width: 100px; } }

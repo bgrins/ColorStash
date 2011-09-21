@@ -248,11 +248,45 @@ function getThumbnail(img, maxWidth, maxHeight) {
 
 function initDragDrop() {
 
-  function handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-console.log(evt)
-    var files = evt.dataTransfer.files; // FileList object.
+    var dropZone = $("body");
+    var fileInput = $("#pickimage");
+    var imageContainer = $("#image");
+    var imageEyedropper = $("#image .sp-dragger");
+    
+    if (!FileReader || !document.createElement('canvas').getContext) {
+        dropZone.addClass("nofiles");
+        return;
+    }
+    
+    function loadImage(img) {
+        console.log("ere");
+        
+        dropZone.addClass("file");
+        var canvas = getThumbnail(img, $("#files").width(), $("#files").height());
+        var context = canvas.getContext("2d");
+        
+        imageContainer.find("canvas").remove();
+        imageContainer.append(canvas);
+        
+        var dragHeight = imageEyedropper.height();
+        var dragWidth = imageEyedropper.width();
+        
+        $.fn.spectrum.draggable(canvas, function(dragX, dragY) {
+            drawPx(dragX, dragY)
+        });
+        drawPx(0, 0);
+        function drawPx(x, y) {
+            var imgd = context.getImageData(x, y, 1, 1).data;    
+                              
+            setCurrentHex({r: imgd[0], g: imgd[1], b: imgd[2], a: imgd[3] });
+            imageEyedropper.css({
+                top: y - dragHeight,
+                left: x - dragWidth
+            });
+        
+        }
+    }
+  function handleFileSelect(files) {
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
         
@@ -262,59 +296,41 @@ console.log(evt)
             
             var reader = new FileReader();
             
-            // Closure to capture the file information.
             reader.onload = (function(theFile) {
               return function(e) {
               
                 var img = new Image(); 
                 img.onload = function() {
-                    console.log("ere");
-                    $("#files").show();
-                    var c = getThumbnail(img, $("#files").width(), $("#files").height());
-                    $("#image").find("canvas").remove()
-                    $("#image").append(c);
-                    var d = $("#image .sp-dragger");
-                    var context = c.getContext("2d");
-                    $.fn.spectrum.draggable(c, function(dragX, dragY) {
-                    
-                        var imgd = context.getImageData(dragX, dragY, 1, 1).data;
-
-                        console.log("here", imgd);                        
-                        setCurrentHex({r: imgd[0], g: imgd[1], b: imgd[2], a: imgd[3] });
-                        d.css({
-                            top: dragY,
-                            left: dragX
-                        });
-                    });
+                    loadImage(img);
                 }
                 img.src =  e.target.result;
               };
             })(f);
             
             reader.readAsDataURL(f);
+            
+            // Only read one file
             break;
         }
         
         return false;
-            
-  }
-
-  function handleDragOver(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
   }
 
 
-  // Setup the dnd listeners.
-  var dropZone = $("body");
-
-  dropZone.bind("dragover", false);
-  dropZone[0].addEventListener('drop', handleFileSelect, false);
-      
-    $("#files span").click(function() {
-        $("#files").hide();
-    })
-  $("#pickimage")[0].addEventListener('change', handleFileSelect, false);
+    dropZone.bind("dragenter dragover", false);
+    dropZone.bind("drop", function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        handleFileSelect(e.originalEvent.dataTransfer.files);
+    });
+  
+    $("#file-controls button").click(function() {
+        dropZone.removeClass("file");
+    });
+    
+    fileInput.change(function(e) {
+        handleFileSelect(e.originalEvent.target.files);
+    });
 	
 }
 
