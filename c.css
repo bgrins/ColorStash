@@ -91,7 +91,7 @@ h1 {
 }
 #pick .in { padding-left:0;} 
 
-/*
+
 #files {
     position:absolute;top:0;left:0;bottom:0;right:0;
     display:none;
@@ -99,7 +99,7 @@ h1 {
     border:solid 10px;
 }
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
-*/
+
 
 button {
   background: #eee;

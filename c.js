@@ -57,7 +57,7 @@ slider.bind("change", function() {
 if (!hasTouch) {
     readonlyInputs.attr("readonly", "true").bind(CLICK, function() { $(this).focus(); this.select(); });
 }
-
+initDragDrop();
 function change(color) {
     var hexVal = color.toHexString();
     var fullColor = tinycolor($.extend(color.toRgb(), { a: currentAlpha }));
@@ -223,7 +223,7 @@ function palletRemove(hex) {
     setPallet(c);
     redrawPallet();
 }
-/*
+
 // Some drag/drop crap here
 function getThumbnail(img, maxWidth, maxHeight) {
 
@@ -251,7 +251,7 @@ function initDragDrop() {
   function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-
+console.log(evt)
     var files = evt.dataTransfer.files; // FileList object.
         for (var i = 0; i < files.length; i++) {
             var f = files[i];
@@ -269,9 +269,23 @@ function initDragDrop() {
                 var img = new Image(); 
                 img.onload = function() {
                     console.log("ere");
-                    var c = getThumbnail(img, $("#files").width(), $("#files").height());
                     $("#files").show();
-                    $("#files div").empty().append(c);
+                    var c = getThumbnail(img, $("#files").width(), $("#files").height());
+                    $("#image").find("canvas").remove()
+                    $("#image").append(c);
+                    var d = $("#image .sp-dragger");
+                    var context = c.getContext("2d");
+                    $.fn.spectrum.draggable(c, function(dragX, dragY) {
+                    
+                        var imgd = context.getImageData(dragX, dragY, 1, 1).data;
+
+                        console.log("here", imgd);                        
+                        setCurrentHex({r: imgd[0], g: imgd[1], b: imgd[2], a: imgd[3] });
+                        d.css({
+                            top: dragY,
+                            left: dragX
+                        });
+                    });
                 }
                 img.src =  e.target.result;
               };
@@ -300,9 +314,9 @@ function initDragDrop() {
     $("#files span").click(function() {
         $("#files").hide();
     })
-  //document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  $("#pickimage")[0].addEventListener('change', handleFileSelect, false);
 	
-}*/
+}
 
 });
 
@@ -1410,6 +1424,7 @@ window.tinycolor = tc;
     	}
     });
     
+    fnspectrum.draggable = draggable;
 })(this);
 
 
