@@ -9,24 +9,21 @@ var win = window,
     document = win.document,
     tinycolor = win.tinycolor,
     localStorage = win.localStorage,
-    JSON = win.JSON;
-    
-var rangeTest = document.createElement("input");
-rangeTest.setAttribute('type', "range");
-    
-var hasStorage = !!(localStorage && JSON),
+    JSON = win.JSON,
+    hasStorage = !!(localStorage && JSON),
     hasTouch = ('ontouchstart' in window),
     s = document.createElement("input"),
-    hasSlider = !hasTouch && rangeTest.type == "range",
+    hasSlider = !hasTouch && $("<input type='range' />")[0].type == "range",
     currentAlpha = 1,
     body = $(document.body).tc("ns", !hasStorage).tc("noslider", !hasSlider),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
     CLICK = hasTouch ? "touchstart" : "click",
     lastColorName = "lc1",
-    fromScheme = "fromScheme",
+    SCHEME_CLASS = "fromScheme",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
+    ACTIVE_CLASS = "active",
     location = win.location,
     spec = $("#spec"),
     current = $("#current"),
@@ -35,7 +32,7 @@ var hasStorage = !!(localStorage && JSON),
     hex = $("#hex"),
     rgb = $("#rgb"),
     hsv = $("#hsv"),
-    ie = $("#ie"),
+    //ie = $("#ie"),
     analogous = $("#an"), 
     splitcomplement = $("#sc"), 
     tetrad = $("#tetrad"),  
@@ -63,24 +60,26 @@ function change(color) {
     var fullColor = tinycolor($.extend(color.toRgb(), { a: currentAlpha }));
     var fullRgb = fullColor.toRgbString();
     var hsvVal = color.toHsv();
-    var fullFilter = fullColor.alpha < 1 ? fullColor.toFilter() : false;
     
     body.tc("has", palletHas(hexVal)).tc("contrast", ( hsvVal.v > .6)).css(
         BACKGROUND_COLOR, tinycolor($.extend({}, hsvVal, {a: .2})).toRgbString()
     );
     
     preview.css(BACKGROUND_COLOR, fullRgb);
+    /*
+    var fullFilter = fullColor.alpha < 1 ? fullColor.toFilter() : false;
     if (fullFilter && $.browser.msie) {
         preview.css("filter", fullColor.toFilter());
     }
-    
+    //ie.val(fullFilter || "Will show IE filter if alpha is used");
+    <div id='ie-filter'><span>ie →</span><input id='ie' grab /></div>
+    */
     redrawPallet(hexVal);
     
     shareInput.css(BORDER_COLOR, hexVal).
         val(location.href.split('#')[0] + hexVal);
     
     hsv.val(fullColor.toHsvString());
-    ie.val(fullFilter || "Will show IE filter if alpha is used");
     hex.val(hexVal);
     rgb.val(fullRgb);
     hsl.val(fullColor.toHslString());
@@ -111,8 +110,8 @@ function updateFull(color) {
 }
 function updatePartial(color) {
     var tiny = color || spec.spectrum("get");
-    body.rc(fromScheme);
-    schemeContainer.find("li").rc("active");
+    body.rc(SCHEME_CLASS);
+    schemeContainer.find("li").rc(ACTIVE_CLASS);
     updateSchemes(tiny);
 }
 
@@ -157,10 +156,10 @@ var stored;
 
 schemeContainer.delegate("li", CLICK, function() {
    setCurrentHex(this.title, false, true);
-   $("#scheme li").rc("active");
-   $(this).ac("active");
+   $("#scheme li").rc(ACTIVE_CLASS);
+   $(this).ac(ACTIVE_CLASS);
    stored = getCurrentHex();
-   body.ac(fromScheme);
+   body.ac(SCHEME_CLASS);
    return false;
 });
 
@@ -200,7 +199,7 @@ function redrawPallet(active) {
     var html = [];
     for (var i in c) {
         var cl = i == active ? " class='active' " : "";
-        html.push("<li style='background-color:" + i + ";' title='" + i + "' " + cl + " />");
+        html.push("<li style='background:" + i + ";' title='" + i + "' " + cl + " />");
     }
     
     pallet.html(html.join('')); 
@@ -245,13 +244,12 @@ function getThumbnail(img, maxWidth, maxHeight) {
 	return canvas;
 }
 
-
 function initDragDrop() {
 
     var dropZone = $("body");
     var fileInput = $("#pickimage");
     var imageContainer = $("#image");
-    var imageEyedropper = $("#image .sp-dragger");
+    var imageEyedropper = imageContainer.find(".sp-dragger");
     var filesContainer = $("#files");
     var FileReader = window.FileReader;
     
@@ -329,7 +327,7 @@ function initDragDrop() {
         handleFileSelect(e.originalEvent.dataTransfer.files);
     });
   
-    $("#file-controls button").click(function() {
+    $("#back").click(function() {
         dropZone.removeClass("file");
     });
     
@@ -340,7 +338,6 @@ function initDragDrop() {
 }
 
 });
-
 
 
 // TinyColor.js - https://github.com/bgrins/TinyColor - 2011 Brian Grinstead - v0.4.3
@@ -423,13 +420,13 @@ function _tinycolor (color, opts) {
 		},
 		toName: function() {
 			return hexNames[rgbToHex(r, b, g)] || false;
-		},
+		}/*,
 		toFilter: function() {
             var hex = rgbToHex(r, g, b);
             var alphaHex = Math.round(parseFloat(a) * 255).toString(16);
             return "progid:DXImageTransform.Microsoft.gradient(startColorstr=#" +
                 alphaHex + hex + ",endColorstr=#" + alphaHex + hex + ")";         
-		}
+		}*/
 	};
 }
 
@@ -651,7 +648,7 @@ tc.equals = function(color1, color2) {
 
 // Thanks to less.js for some functions: 
 // https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js
-tc.desaturate = function (color, amount) {
+/*tc.desaturate = function (color, amount) {
     var hsl = tc(color).toHsl();
     hsl.s -= ((amount || 10) / 100);
     hsl.s = clamp01(hsl.s);
@@ -682,7 +679,7 @@ tc.complement = function(color) {
     var hsl = tc(color).toHsl();
     hsl.h = (hsl.h + .5) % 1;
     return tc(hsl);
-};
+};*/
 
 tc.triad = function(color) {
     var hsl = tc(color).toHsl();
@@ -744,6 +741,7 @@ tc.monochromatic = function(color, results) {
     
     return ret;
 };
+/*
 tc.readable = function(color1, color2) {
     var a = tc(color1).toRgb(), b = tc(color2).toRgb();
     return (
@@ -752,7 +750,7 @@ tc.readable = function(color1, color2) {
         (b.b - a.b) * (b.b - a.b)
     ) > 0x28A4;
 };
-
+*/
 var names = tc.names = {
     aliceblue: "f0f8ff",
     antiquewhite: "faebd7",
