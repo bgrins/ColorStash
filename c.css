@@ -1,5 +1,10 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: acuta, Georgia;  }
+body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: acuta, Georgia;  
+background-image: -webkit-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
+background-image: -moz-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
+background-image: -ms-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
+background-size: 80px;
+}
 button, input { font-family: "Lucida Sans", sans-serif; color: #222;  }
 a { color: #00e; }
 a:visited { color: #551a8b; }
@@ -44,6 +49,7 @@ h1 {
 
 #sub {
     background: #292c2d;
+    background: rgba(41, 44, 45, .8);
     position:relative;
     height:40px;
     overflow:hidden;
@@ -161,14 +167,20 @@ input { background: rgba(255, 255, 255, .9); }
     width: 90%;
 }
 #conv div { margin:5px 0; position:relative; }
-
+#prev, #scheme { font-weight: bold; }
 #conv span, #scheme span {
     display:block;
     position: absolute;
-    font-weight: bold;
     left:-30px;
     top: 35%;
 }
+
+
+
+.noslider #trans { display:none; }
+body #trans { text-align:left; margin-left:-30px; padding-top:10px;}
+#trans table { width: 90%; }
+body #a {  padding:0; width: 100%;}
 
 /* Make the colorpicker scale to fit */
 body .sp-container { width: 100%; }

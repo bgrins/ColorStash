@@ -4,16 +4,24 @@ $.fn.ac = $.fn.addClass;
 
 $(function() {
 
+    
 var win = window,
     document = win.document,
     tinycolor = win.tinycolor,
     localStorage = win.localStorage,
-    JSON = win.JSON,
-    hasStorage = !!(localStorage && JSON),
-    body = $(document.body).tc("ns", !hasStorage),
+    JSON = win.JSON;
+    
+var rangeTest = document.createElement("input");
+rangeTest.setAttribute('type', "range");
+    
+var hasStorage = !!(localStorage && JSON),
+    hasTouch = ('ontouchstart' in window),
+    s = document.createElement("input"),
+    hasSlider = !hasTouch && rangeTest.type == "range",
+    currentAlpha = 1,
+    body = $(document.body).tc("ns", !hasStorage).tc("noslider", !hasSlider),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
-    hasTouch = ('ontouchstart' in window),
     CLICK = hasTouch ? "touchstart" : "click",
     lastColorName = "lc1",
     fromScheme = "fromScheme",
@@ -36,10 +44,14 @@ var win = window,
     shareInput = $("#share input"),
     preview = $("#prev"),
     schemeContainer = $("#scheme"),
+    slider = $("#a"),
     readonlyInputs = $("input[grab]").attr("spellcheck", "false");
 
 current.bind("keyup change", function() { setCurrentHex($(this).val(), true); updateSchemes(); });
-
+slider.bind("change", function() {
+    currentAlpha = $(this).val() / 100;
+    change(tinycolor(getCurrentHex()));
+});
 // iphone wont let you copy text out of readonly input
 if (!hasTouch) {
     readonlyInputs.attr("readonly", "true").bind(CLICK, function() { $(this).focus(); this.select(); });
@@ -47,20 +59,25 @@ if (!hasTouch) {
 
 function change(color) {
     var hexVal = color.toHexString();
+    var fullColor = hasSlider ? tinycolor($.extend(color.toRgb(), { a: currentAlpha })) : color;
+    var fullRgb = fullColor.toRgbString();
     var hsvVal = color.toHsv();
+    
     body.tc("has", palletHas(hexVal)).tc("contrast", ( hsvVal.v > .6)).css(
         BACKGROUND_COLOR, tinycolor($.extend({}, hsvVal, {a: .2})).toRgbString()
     );    
-    preview.css(BACKGROUND_COLOR, hexVal);
+    preview.css(BACKGROUND_COLOR, fullRgb);
+    
+    
     redrawPallet(hexVal);
     
     shareInput.css(BORDER_COLOR, hexVal).
         val(location.href.split('#')[0] + hexVal);
     
-    hsv.val(color.toHsvString());
+    hsv.val(fullColor.toHsvString());
     hex.val(hexVal);
-    rgb.val(color.toRgbString());
-    hsl.val(color.toHslString());
+    rgb.val(fullRgb);
+    hsl.val(fullColor.toHslString());
 }
 
 function getCurrentHex() {
@@ -278,26 +295,683 @@ function initDragDrop() {
 
 
 
-
 // TinyColor.js - https://github.com/bgrins/TinyColor - 2011 Brian Grinstead - v0.4.3
-(function(t){function w(b){var a={r:255,g:255,b:255},c=1,n=!1;typeof b=="string"&&(b=x(b));if(typeof b=="object"){if(b.hasOwnProperty("r")&&b.hasOwnProperty("g")&&b.hasOwnProperty("b"))a={r:h(b.r,255)*255,g:h(b.g,255)*255,b:h(b.b,255)*255},n=!0;else if(b.hasOwnProperty("h")&&b.hasOwnProperty("s")&&b.hasOwnProperty("v")){var d=b.h,f=b.s;a=b.v;var k,i,o;d=h(d,360);f=h(f,100);a=h(a,100);n=p.floor(d*6);var e=d*6-n;d=a*(1-f);var j=a*(1-e*f);f=a*(1-(1-e)*f);switch(n%6){case 0:k=a;i=f;o=d;break;case 1:k=
-j;i=a;o=d;break;case 2:k=d;i=a;o=f;break;case 3:k=d;i=j;o=a;break;case 4:k=f;i=d;o=a;break;case 5:k=a,i=d,o=j}a={r:k*255,g:i*255,b:o*255};n=!0}else b.hasOwnProperty("h")&&b.hasOwnProperty("s")&&b.hasOwnProperty("l")&&(a=y(b.h,b.s,b.l),n=!0);b.hasOwnProperty("a")&&(c=h(b.a,1))}return{ok:n,r:l(255,m(a.r,0)),g:l(255,m(a.g,0)),b:l(255,m(a.b,0)),a:c}}function u(b,a,c){b=h(b,255);a=h(a,255);c=h(c,255);var d=m(b,a,c),g=l(b,a,c),f,k=(d+g)/2;if(d==g)f=g=0;else{var i=d-g;g=k>0.5?i/(2-d-g):i/(d+g);switch(d){case b:f=
-(a-c)/i+(a<c?6:0);break;case a:f=(c-b)/i+2;break;case c:f=(b-a)/i+4}f/=6}return{h:f,s:g,l:k}}function y(b,a,c){function d(a,b,c){c<0&&(c+=1);c>1&&(c-=1);if(c<1/6)return a+(b-a)*6*c;if(c<0.5)return b;if(c<2/3)return a+(b-a)*(2/3-c)*6;return a}b=h(b,360);a=h(a,100);c=h(c,100);if(a==0)c=a=b=c;else{var g=c<0.5?c*(1+a):c+a-c*a,f=2*c-g;c=d(f,g,b+1/3);a=d(f,g,b);b=d(f,g,b-1/3)}return{r:c*255,g:a*255,b:b*255}}function v(b,a,c){b=h(b,255);a=h(a,255);c=h(c,255);var d=m(b,a,c),g=l(b,a,c),f,e=d-g;if(d==g)f=0;
-else{switch(d){case b:f=(a-c)/e+(a<c?6:0);break;case a:f=(c-b)/e+2;break;case c:f=(b-a)/e+4}f/=6}return{h:f,s:d==0?0:e/d,v:d}}function q(b,a,c){function d(a){return a.length==1?"0"+a:a}return[d(e(b).toString(16)),d(e(a).toString(16)),d(e(c).toString(16))].join("")}function h(b,a){typeof b=="string"&&b.indexOf(".")!=-1&&r(b)===1&&(b="100%");var c=typeof b==="string"&&b.indexOf("%")!=-1;b=l(a,m(0,r(b)));c&&(b*=a/100);if(p.abs(b-a)<1.0E-6)return 1;else if(b>=1)return b%a/r(a);return b}function x(b){b=
-b.replace(z,"").replace(A,"").toLowerCase();s[b]&&(b=s[b]);if(b=="transparent")return{r:0,g:0,b:0,a:0};var a;if(a=j.rgb.exec(b))return{r:a[1],g:a[2],b:a[3]};if(a=j.rgba.exec(b))return{r:a[1],g:a[2],b:a[3],a:a[4]};if(a=j.hsl.exec(b))return{h:a[1],s:a[2],l:a[3]};if(a=j.hsla.exec(b))return{h:a[1],s:a[2],l:a[3],a:a[4]};if(a=j.hsv.exec(b))return{h:a[1],s:a[2],v:a[3]};if(a=j.hex6.exec(b))return{r:parseInt(a[1],16),g:parseInt(a[2],16),b:parseInt(a[3],16)};if(a=j.hex3.exec(b))return{r:parseInt(a[1]+""+a[1],
-16),g:parseInt(a[2]+""+a[2],16),b:parseInt(a[3]+""+a[3],16)};return!1}var d=function(b,a){if(typeof b=="object"&&b.hasOwnProperty("_tc_id"))return b;if(typeof b=="object"&&(!a||!a.skipRatio))for(var c in b)b[c]===1&&(b[c]="1.0");c=w(b);var d=c.r,g=c.g,f=c.b,h=c.a;d<1&&(d=e(d));g<1&&(g=e(g));f<1&&(f=e(f));return{ok:c.ok,_tc_id:B++,alpha:h,toHsv:function(){return v(d,g,f)},toHsvString:function(){var a=v(d,g,f),b=e(a.h*360),c=e(a.s*100);a=e(a.v*100);return"hsv("+b+", "+c+"%, "+a+"%)"},toHsl:function(){return u(d,
-g,f)},toHslString:function(){var a=u(d,g,f),b=e(a.h*360),c=e(a.s*100);a=e(a.l*100);return h==1?"hsl("+b+", "+c+"%, "+a+"%)":"hsla("+b+", "+c+"%, "+a+"%, "+h+")"},toHex:function(){return q(d,g,f)},toHexString:function(){return"#"+q(d,g,f)},toRgb:function(){return{r:e(d),g:e(g),b:e(f)}},toRgbString:function(){return h==1?"rgb("+e(d)+", "+e(g)+", "+e(f)+")":"rgba("+e(d)+", "+e(g)+", "+e(f)+", "+h+")"},toName:function(){return C[q(d,f,g)]||!1}}};d.version="0.4.3";var z=/^[\s,#]+/,A=/\s+$/,B=0,p=Math,
-e=p.round,l=p.min,m=p.max,r=t.parseFloat;d.equals=function(b,a){return d(b).toHex()==d(a).toHex()};/*d.desaturate=function(b,a){var c=d(b).toHsl();c.s-=(a||10)/100;c.s=l(1,m(0,c.s));return d(c)};d.saturate=function(b,a){var c=d(b).toHsl();c.s+=(a||10)/100;c.s=l(1,m(0,c.s));return d(c)};d.greyscale=function(b){return d.desaturate(b,100)};d.lighten=function(b,a){var c=d(b).toHsl();c.l+=(a||10)/100;c.l=l(1,m(0,c.l));return d(c)};d.darken=function(b,a){var c=d(b).toHsl();c.l-=(a||10)/100;c.l=l(1,m(0,c.l));
-return d(c)};*/d.complement=function(b){b=d(b).toHsl();b.h=(b.h+0.5)%1;return d(b)};d.triad=function(b){var a=d(b).toHsl(),c=a.h*360;return[d(b),d({h:(c+120)%360,s:a.s,l:a.l}),d({h:(c+240)%360,s:a.s,l:a.l})]};d.tetrad=function(b){var a=d(b).toHsl(),c=a.h*360;return[d(b),d({h:(c+90)%360,s:a.s,l:a.l}),d({h:(c+180)%360,s:a.s,l:a.l}),d({h:(c+270)%360,s:a.s,l:a.l})]};d.splitcomplement=function(b){var a=d(b).toHsl(),c=a.h*360;return[d(b),d({h:(c+72)%360,s:a.s,l:a.l}),d({h:(c+216)%360,s:a.s,l:a.l})]};d.analogous=
-function(b,a,c){a=a||6;c=c||30;var e=d(b).toHsl();c=360/c;b=[d(b)];e.h*=360;for(e.h=(e.h-(c*a>>1)+720)%360;--a;)e.h=(e.h+c)%360,b.push(d(e));return b};d.monochromatic=function(b,a){a=a||6;var c=d(b).toHsv(),e=c.h,g=c.s;c=c.v;for(var f=[];a--;)f.push(d({h:e,s:g,v:c})),c=(c+0.2)%1;return f};d.readable=function(b,a){var c=d(b).toRgb(),e=d(a).toRgb();return(e.r-c.r)*(e.r-c.r)+(e.g-c.g)*(e.g-c.g)+(e.b-c.b)*(e.b-c.b)>10404};var s=d.names={aliceblue:"f0f8ff",antiquewhite:"faebd7",aqua:"0ff",aquamarine:"7fffd4",
-azure:"f0ffff",beige:"f5f5dc",bisque:"ffe4c4",black:"000",blanchedalmond:"ffebcd",blue:"00f",blueviolet:"8a2be2",brown:"a52a2a",burlywood:"deb887",burntsienna:"ea7e5d",cadetblue:"5f9ea0",chartreuse:"7fff00",chocolate:"d2691e",coral:"ff7f50",cornflowerblue:"6495ed",cornsilk:"fff8dc",crimson:"dc143c",cyan:"0ff",darkblue:"00008b",darkcyan:"008b8b",darkgoldenrod:"b8860b",darkgray:"a9a9a9",darkgreen:"006400",darkgrey:"a9a9a9",darkkhaki:"bdb76b",darkmagenta:"8b008b",darkolivegreen:"556b2f",darkorange:"ff8c00",
-darkorchid:"9932cc",darkred:"8b0000",darksalmon:"e9967a",darkseagreen:"8fbc8f",darkslateblue:"483d8b",darkslategray:"2f4f4f",darkslategrey:"2f4f4f",darkturquoise:"00ced1",darkviolet:"9400d3",deeppink:"ff1493",deepskyblue:"00bfff",dimgray:"696969",dimgrey:"696969",dodgerblue:"1e90ff",firebrick:"b22222",floralwhite:"fffaf0",forestgreen:"228b22",fuchsia:"f0f",gainsboro:"dcdcdc",ghostwhite:"f8f8ff",gold:"ffd700",goldenrod:"daa520",gray:"808080",green:"008000",greenyellow:"adff2f",grey:"808080",honeydew:"f0fff0",
-hotpink:"ff69b4",indianred:"cd5c5c",indigo:"4b0082",ivory:"fffff0",khaki:"f0e68c",lavender:"e6e6fa",lavenderblush:"fff0f5",lawngreen:"7cfc00",lemonchiffon:"fffacd",lightblue:"add8e6",lightcoral:"f08080",lightcyan:"e0ffff",lightgoldenrodyellow:"fafad2",lightgray:"d3d3d3",lightgreen:"90ee90",lightgrey:"d3d3d3",lightpink:"ffb6c1",lightsalmon:"ffa07a",lightseagreen:"20b2aa",lightskyblue:"87cefa",lightslategray:"789",lightslategrey:"789",lightsteelblue:"b0c4de",lightyellow:"ffffe0",lime:"0f0",limegreen:"32cd32",
-linen:"faf0e6",magenta:"f0f",maroon:"800000",mediumaquamarine:"66cdaa",mediumblue:"0000cd",mediumorchid:"ba55d3",mediumpurple:"9370db",mediumseagreen:"3cb371",mediumslateblue:"7b68ee",mediumspringgreen:"00fa9a",mediumturquoise:"48d1cc",mediumvioletred:"c71585",midnightblue:"191970",mintcream:"f5fffa",mistyrose:"ffe4e1",moccasin:"ffe4b5",navajowhite:"ffdead",navy:"000080",oldlace:"fdf5e6",olive:"808000",olivedrab:"6b8e23",orange:"ffa500",orangered:"ff4500",orchid:"da70d6",palegoldenrod:"eee8aa",palegreen:"98fb98",
-paleturquoise:"afeeee",palevioletred:"db7093",papayawhip:"ffefd5",peachpuff:"ffdab9",peru:"cd853f",pink:"ffc0cb",plum:"dda0dd",powderblue:"b0e0e6",purple:"800080",red:"f00",rosybrown:"bc8f8f",royalblue:"4169e1",saddlebrown:"8b4513",salmon:"fa8072",sandybrown:"f4a460",seagreen:"2e8b57",seashell:"fff5ee",sienna:"a0522d",silver:"c0c0c0",skyblue:"87ceeb",slateblue:"6a5acd",slategray:"708090",slategrey:"708090",snow:"fffafa",springgreen:"00ff7f",steelblue:"4682b4",tan:"d2b48c",teal:"008080",thistle:"d8bfd8",
-tomato:"ff6347",turquoise:"40e0d0",violet:"ee82ee",wheat:"f5deb3",white:"fff",whitesmoke:"f5f5f5",yellow:"ff0",yellowgreen:"9acd32"},C=function(b){var a={},c;for(c in b)b.hasOwnProperty(c)&&(a[b[c]]=c);return a}(s),j={rgb:RegExp("rgb[\\s|\\(]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))\\s*\\)?"),rgba:RegExp("rgba[\\s|\\(]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))\\s*\\)?"),
-hsl:RegExp("hsl[\\s|\\(]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))\\s*\\)?"),hsla:RegExp("hsla[\\s|\\(]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))\\s*\\)?"),hsv:RegExp("hsv[\\s|\\(]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))[,|\\s]+((?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?))\\s*\\)?"),
-hex3:/^([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,hex6:/^([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/};t.tinycolor=d})(this);
+(function(window) {
+
+var tc = _tinycolor;
+tc.version = "0.4.3";
+
+var trimLeft = /^[\s,#]+/, 
+	trimRight = /\s+$/,
+	tinyCounter = 0,
+	math = Math,
+	math_round = math.round,
+	math_min = math.min,
+	math_max = math.max,
+	parseFloat = window.parseFloat;
+
+function _tinycolor (color, opts) {
+	
+	// If input is already a tinycolor, return itself
+	if (typeof color == "object" && color.hasOwnProperty("_tc_id")) {
+	   return color;
+	}
+	
+	// If input is an object, force 1 into "1.0" to handle ratios properly
+	// String input requires "1.0" as input, so 1 will be treated as 1
+	if (typeof color == "object" && (!opts || !opts.skipRatio)) {
+        for (var i in color) {
+            if (color[i] === 1) {
+                color[i] = "1.0";
+            }
+        }
+	}
+	
+	var rgb = inputToRGB(color);
+	var r = rgb.r, g = rgb.g, b = rgb.b, a = rgb.a;
+	
+	// Don't let the range of [0,255] come back in [0,1].
+	// Potentially lose a little bit of precision here, but will fix issues where
+	// .5 gets interpreted as half of the total, instead of half of 1
+	if (r < 1) { r = math_round(r); }
+	if (g < 1) { g = math_round(g); }
+	if (b < 1) { b = math_round(b); }
+	
+	return {
+		ok: rgb.ok,
+		_tc_id: tinyCounter++,
+		alpha: a,
+		toHsv: function() {
+			return rgbToHsv(r, g, b);
+		},
+		toHsvString: function() {
+			var hsv = rgbToHsv(r, g, b);
+			var h = math_round(hsv.h * 360), s = math_round(hsv.s * 100), v = math_round(hsv.v * 100);
+			return "hsv(" + h + ", " + s + "%, " + v + "%)";
+		},
+		toHsl: function() {
+			return rgbToHsl(r, g, b);
+		},
+		toHslString: function() {
+			var hsl = rgbToHsl(r, g, b);
+			var h = math_round(hsl.h * 360), s = math_round(hsl.s * 100), l = math_round(hsl.l * 100);
+		    return (a == 1) ? 
+		      "hsl("  + h + ", " + s + "%, " + l + "%)" : 
+		      "hsla(" + h + ", " + s + "%, " + l + "%, "+ a + ")";
+		},
+		toHex: function() {
+			return rgbToHex(r, g, b);
+		},
+		toHexString: function() {
+			return '#' + rgbToHex(r, g, b);
+		},
+		toRgb: function() {
+			return { r: math_round(r), g: math_round(g), b: math_round(b) };
+		},
+		toRgbString: function() {
+		    return (a == 1) ? 
+		      "rgb("  + math_round(r) + ", " + math_round(g) + ", " + math_round(b) + ")" :
+		      "rgba(" + math_round(r) + ", " + math_round(g) + ", " + math_round(b) + ", " + a + ")";
+		},
+		toName: function() {
+			return hexNames[rgbToHex(r, b, g)] || false;
+		}
+	};
+}
+
+function inputToRGB(color) {
+
+	var rgb = { r: 255, g: 255, b: 255 };
+	var a = 1;
+	var ok = false;
+	
+	if (typeof color == "string") {
+		color = stringInputToObject(color);
+	}
+	if (typeof color == "object") {
+		if (color.hasOwnProperty("r") && color.hasOwnProperty("g") && color.hasOwnProperty("b")) {
+			rgb = rgbToRgb(color.r, color.g, color.b);
+			ok = true;
+		}
+		else if (color.hasOwnProperty("h") && color.hasOwnProperty("s") && color.hasOwnProperty("v")) {
+			rgb = hsvToRgb(color.h, color.s, color.v);
+			ok = true;
+		}
+		else if (color.hasOwnProperty("h") && color.hasOwnProperty("s") && color.hasOwnProperty("l")) {
+			var rgb = hslToRgb(color.h, color.s, color.l);
+			ok = true;
+		}
+		
+		if (color.hasOwnProperty("a")) {
+            a = color.a;
+		}
+	}
+	
+	return {
+		ok: ok,
+		r: math_min(255, math_max(rgb.r, 0)),
+		g: math_min(255, math_max(rgb.g, 0)),
+		b: math_min(255, math_max(rgb.b, 0)),
+		a: a
+	};
+}
+
+
+// Handle bounds / percentage checking to conform to CSS color spec http://www.w3.org/TR/css3-color/
+function rgbToRgb(r, g, b){	
+	return { 
+		r: bound01(r, 255) * 255, 
+		g: bound01(g, 255) * 255,
+		b: bound01(b, 255) * 255
+	};
+}
+
+// rgbToHsl, rgbToHsv, hslToRgb, hsvToRgb modified from: 
+// http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
+
+/** 
+ * Converts an RGB color value to HSL. Conversion formula
+ * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+ * Assumes r, g, and b are contained in the set [0, 255] or [0, 1] and
+ * returns h, s, l in [0,1]
+ *
+ * @param   Number  r       The red color value
+ * @param   Number  g       The green color value
+ * @param   Number  b       The blue color value
+ * @return  Array           The HSL representation
+ */
+function rgbToHsl(r, g, b){
+	
+	r = bound01(r, 255);
+	g = bound01(g, 255);
+	b = bound01(b, 255);
+	
+    var max = math_max(r, g, b), min = math_min(r, g, b);
+    var h, s, l = (max + min) / 2;
+
+    if(max == min){
+        h = s = 0; // achromatic
+    }else{
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+
+    return { h: h, s: s, l: l };
+}
+
+/**
+ * Converts an HSL color value to RGB. Conversion formula
+ * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+ * Assumes h, s, and l are contained in the set [0, 1] or [0, 360] and [0, 100] and
+ * returns r, g, and b in the set [0, 255].
+ *
+ * @param   Number  h       The hue
+ * @param   Number  s       The saturation
+ * @param   Number  l       The lightness
+ * @return  Array           The RGB representation
+ */
+function hslToRgb(h, s, l){
+    var r, g, b;
+
+	h = bound01(h, 360);
+	s = bound01(s, 100);
+	l = bound01(l, 100);
+	
+    function hue2rgb(p, q, t){
+        if(t < 0) t += 1;
+        if(t > 1) t -= 1;
+        if(t < 1/6) return p + (q - p) * 6 * t;
+        if(t < 1/2) return q;
+        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+    }
+    
+    if(s == 0){
+        r = g = b = l; // achromatic
+    }else{
+
+        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+    }
+
+    return { r: r * 255, g: g * 255, b: b * 255 };
+}
+
+/**
+ * Converts an RGB color value to HSV. Conversion formula
+ * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
+ * Assumes r, g, and b are contained in the set [0, 255] or [0, 1] and
+ * returns h, s, v in [0,1]
+ *
+ * @param   Number  r       The red color value
+ * @param   Number  g       The green color value
+ * @param   Number  b       The blue color value
+ * @return  Array           The HSV representation
+ */
+function rgbToHsv(r, g, b){
+
+	r = bound01(r, 255);
+	g = bound01(g, 255);
+	b = bound01(b, 255);
+	
+    var max = math_max(r, g, b), min = math_min(r, g, b);
+    var h, s, v = max;
+
+    var d = max - min;
+    s = max == 0 ? 0 : d / max;
+
+    if(max == min){
+        h = 0; // achromatic
+    }else{
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    return { h: h, s: s, v: v };
+}
+
+
+/**
+ * Converts an HSV color value to RGB. Conversion formula
+ * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
+ * Assumes h, s, and v are contained in the set [0, 1] or [0, 360] and [0, 100] and
+ * returns r, g, and b in the set [0, 255].
+ *
+ * @param   Number  h       The hue
+ * @param   Number  s       The saturation
+ * @param   Number  v       The value
+ * @return  Array           The RGB representation
+ */
+ function hsvToRgb(h, s, v){
+    var r, g, b;
+    
+	h = bound01(h, 360);
+	s = bound01(s, 100);
+	v = bound01(v, 100);
+
+    var i = math.floor(h * 6);
+    var f = h * 6 - i;
+    var p = v * (1 - s);
+    var q = v * (1 - f * s);
+    var t = v * (1 - (1 - f) * s);
+    
+    switch(i % 6){
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+    
+    return {r: r * 255, g: g * 255, b: b * 255};
+}
+
+function rgbToHex(r, g, b) {
+	function pad(c) {
+		return c.length == 1 ? '0' + c : c;
+	}	
+	return [ 
+		pad(math_round(r).toString(16)),
+		pad(math_round(g).toString(16)),
+		pad(math_round(b).toString(16))
+	].join("");
+}
+
+
+tc.equals = function(color1, color2) {
+	return tc(color1).toHex() == tc(color2).toHex();
+};
+
+// Thanks to less.js for some functions: 
+// https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js
+tc.desaturate = function (color, amount) {
+    var hsl = tc(color).toHsl();
+    hsl.s -= ((amount || 10) / 100);
+    hsl.s = clamp01(hsl.s);
+    return tc(hsl);
+};
+tc.saturate = function (color, amount) {
+    var hsl = tc(color).toHsl();
+    hsl.s += ((amount || 10) / 100);
+    hsl.s = clamp01(hsl.s);
+    return tc(hsl);
+};
+tc.greyscale = function(color) {
+    return tc.desaturate(color, 100);
+};
+tc.lighten = function(color, amount) {
+    var hsl = tc(color).toHsl();
+    hsl.l += ((amount || 10) / 100);
+    hsl.l = clamp01(hsl.l);
+    return tc(hsl);
+};
+tc.darken = function (color, amount) {
+    var hsl = tc(color).toHsl();
+    hsl.l -= ((amount || 10) / 100);
+    hsl.l = clamp01(hsl.l);
+    return tc(hsl);
+};
+tc.complement = function(color) {
+    var hsl = tc(color).toHsl();
+    hsl.h = (hsl.h + .5) % 1;
+    return tc(hsl);
+};
+
+tc.triad = function(color) {
+    var hsl = tc(color).toHsl();
+    var h = hsl.h * 360;
+    return [
+        tc(color),
+        tc({ h: (h + 120) % 360, s: hsl.s, l: hsl.l }),
+        tc({ h: (h + 240) % 360, s: hsl.s, l: hsl.l })
+    ];
+};
+tc.tetrad = function(color) {
+    var hsl = tc(color).toHsl();
+    var h = hsl.h * 360;
+    return [
+        tc(color),
+        tc({ h: (h + 90) % 360, s: hsl.s, l: hsl.l }),
+        tc({ h: (h + 180) % 360, s: hsl.s, l: hsl.l }),
+        tc({ h: (h + 270) % 360, s: hsl.s, l: hsl.l })
+    ];
+};
+
+// Thanks to xColor for some of the combinations, and the great isReadable function
+// https://github.com/infusion/jQuery-xcolor/blob/master/jquery.xcolor.js
+tc.splitcomplement = function(color) {
+    var hsl = tc(color).toHsl();
+    var h = hsl.h * 360;
+    return [
+        tc(color),
+        tc({ h: (h + 72) % 360, s: hsl.s, l: hsl.l}),
+        tc({ h: (h + 216) % 360, s: hsl.s, l: hsl.l})
+    ];
+};
+tc.analogous = function(color, results, slices) {
+    results = results || 6;
+    slices = slices || 30;
+    
+    var hsl = tc(color).toHsl();
+    var part = 360 / slices
+    var ret = [tc(color)];
+    
+    hsl.h *= 360;
+
+    for (hsl.h = ((hsl.h - (part * results >> 1)) + 720) % 360; --results; ) {
+        hsl.h = (hsl.h + part) % 360;
+        ret.push(tc(hsl));
+    }
+    return ret;
+};
+tc.monochromatic = function(color, results) {
+    results = results || 6;
+    var hsv = tc(color).toHsv();
+    var h = hsv.h, s = hsv.s, v = hsv.v;
+    var ret = [];
+        
+    while (results--) {
+        ret.push(tc({ h: h, s: s, v: v}));
+        v = (v + .2) % 1;
+    }
+    
+    return ret;
+};
+tc.readable = function(color1, color2) {
+    var a = tc(color1).toRgb(), b = tc(color2).toRgb();
+    return (
+        (b.r - a.r) * (b.r - a.r) +
+        (b.g - a.g) * (b.g - a.g) +
+        (b.b - a.b) * (b.b - a.b)
+    ) > 0x28A4;
+};
+
+var names = tc.names = {
+    aliceblue: "f0f8ff",
+    antiquewhite: "faebd7",
+    aqua: "0ff",
+    aquamarine: "7fffd4",
+    azure: "f0ffff",
+    beige: "f5f5dc",
+    bisque: "ffe4c4",
+    black: "000",
+    blanchedalmond: "ffebcd",
+    blue: "00f",
+    blueviolet: "8a2be2",
+    brown: "a52a2a",
+    burlywood: "deb887",
+    burntsienna: "ea7e5d",
+    cadetblue: "5f9ea0",
+    chartreuse: "7fff00",
+    chocolate: "d2691e",
+    coral: "ff7f50",
+    cornflowerblue: "6495ed",
+    cornsilk: "fff8dc",
+    crimson: "dc143c",
+    cyan: "0ff",
+    darkblue: "00008b",
+    darkcyan: "008b8b",
+    darkgoldenrod: "b8860b",
+    darkgray: "a9a9a9",
+    darkgreen: "006400",
+    darkgrey: "a9a9a9",
+    darkkhaki: "bdb76b",
+    darkmagenta: "8b008b",
+    darkolivegreen: "556b2f",
+    darkorange: "ff8c00",
+    darkorchid: "9932cc",
+    darkred: "8b0000",
+    darksalmon: "e9967a",
+    darkseagreen: "8fbc8f",
+    darkslateblue: "483d8b",
+    darkslategray: "2f4f4f",
+    darkslategrey: "2f4f4f",
+    darkturquoise: "00ced1",
+    darkviolet: "9400d3",
+    deeppink: "ff1493",
+    deepskyblue: "00bfff",
+    dimgray: "696969",
+    dimgrey: "696969",
+    dodgerblue: "1e90ff",
+    firebrick: "b22222",
+    floralwhite: "fffaf0",
+    forestgreen: "228b22",
+    fuchsia: "f0f",
+    gainsboro: "dcdcdc",
+    ghostwhite: "f8f8ff",
+    gold: "ffd700",
+    goldenrod: "daa520",
+    gray: "808080",
+    green: "008000",
+    greenyellow: "adff2f",
+    grey: "808080",
+    honeydew: "f0fff0",
+    hotpink: "ff69b4",
+    indianred: "cd5c5c",
+    indigo: "4b0082",
+    ivory: "fffff0",
+    khaki: "f0e68c",
+    lavender: "e6e6fa",
+    lavenderblush: "fff0f5",
+    lawngreen: "7cfc00",
+    lemonchiffon: "fffacd",
+    lightblue: "add8e6",
+    lightcoral: "f08080",
+    lightcyan: "e0ffff",
+    lightgoldenrodyellow: "fafad2",
+    lightgray: "d3d3d3",
+    lightgreen: "90ee90",
+    lightgrey: "d3d3d3",
+    lightpink: "ffb6c1",
+    lightsalmon: "ffa07a",
+    lightseagreen: "20b2aa",
+    lightskyblue: "87cefa",
+    lightslategray: "789",
+    lightslategrey: "789",
+    lightsteelblue: "b0c4de",
+    lightyellow: "ffffe0",
+    lime: "0f0",
+    limegreen: "32cd32",
+    linen: "faf0e6",
+    magenta: "f0f",
+    maroon: "800000",
+    mediumaquamarine: "66cdaa",
+    mediumblue: "0000cd",
+    mediumorchid: "ba55d3",
+    mediumpurple: "9370db",
+    mediumseagreen: "3cb371",
+    mediumslateblue: "7b68ee",
+    mediumspringgreen: "00fa9a",
+    mediumturquoise: "48d1cc",
+    mediumvioletred: "c71585",
+    midnightblue: "191970",
+    mintcream: "f5fffa",
+    mistyrose: "ffe4e1",
+    moccasin: "ffe4b5",
+    navajowhite: "ffdead",
+    navy: "000080",
+    oldlace: "fdf5e6",
+    olive: "808000",
+    olivedrab: "6b8e23",
+    orange: "ffa500",
+    orangered: "ff4500",
+    orchid: "da70d6",
+    palegoldenrod: "eee8aa",
+    palegreen: "98fb98",
+    paleturquoise: "afeeee",
+    palevioletred: "db7093",
+    papayawhip: "ffefd5",
+    peachpuff: "ffdab9",
+    peru: "cd853f",
+    pink: "ffc0cb",
+    plum: "dda0dd",
+    powderblue: "b0e0e6",
+    purple: "800080",
+    red: "f00",
+    rosybrown: "bc8f8f",
+    royalblue: "4169e1",
+    saddlebrown: "8b4513",
+    salmon: "fa8072",
+    sandybrown: "f4a460",
+    seagreen: "2e8b57",
+    seashell: "fff5ee",
+    sienna: "a0522d",
+    silver: "c0c0c0",
+    skyblue: "87ceeb",
+    slateblue: "6a5acd",
+    slategray: "708090",
+    slategrey: "708090",
+    snow: "fffafa",
+    springgreen: "00ff7f",
+    steelblue: "4682b4",
+    tan: "d2b48c",
+    teal: "008080",
+    thistle: "d8bfd8",
+    tomato: "ff6347",
+    turquoise: "40e0d0",
+    violet: "ee82ee",
+    wheat: "f5deb3",
+    white: "fff",
+    whitesmoke: "f5f5f5",
+    yellow: "ff0",
+    yellowgreen: "9acd32"
+};
+
+var hexNames = flip(names);
+
+function flip(o) {
+	var flipped = { };
+	for (var i in o) {
+		if (o.hasOwnProperty(i)) {
+			flipped[o[i]] = i;
+		}
+	}
+	return flipped;
+}
+
+function bound01(n, max) {
+	// Handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
+	// http://stackoverflow.com/questions/7422072/javascript-how-to-detect-number-as-a-decimal-including-1-0
+	if (typeof n == "string" && n.indexOf('.') != -1 && parseFloat(n) === 1) { n = "100%"; }
+    
+	var processPercent = isPercentage(n);
+	n = math_min(max, math_max(0, parseFloat(n)));
+	
+	// Automatically convert percentage into number
+	if (processPercent) {
+		n = n * (max / 100);
+	}
+	
+	// Handle floating point rounding errors
+	if ((math.abs(n - max) < 0.000001)) {
+		return 1;
+	}
+	else if (n >= 1) {
+		return (n % max) / parseFloat(max);
+	}
+	return n;
+}
+
+function clamp01(val) {
+    return math_min(1, math_max(0, val));
+}
+function parseHex(val) {
+    return parseInt(val, 16);
+}
+function isPercentage(n) {
+	return typeof n === "string" && n.indexOf('%') != -1;
+}
+
+var matchers = (function() {
+
+	// http://www.w3.org/TR/css3-values/#integers
+	var CSS_INTEGER = "[-\\+]?\\d+%?"; 
+	
+	// http://www.w3.org/TR/css3-values/#number-value
+	var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?"; 
+	
+	// Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
+	var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")"; 
+	
+	// Actual matching... parentheses and commas are optional, but not required.  Whitespace can take the place of commas or opening paren
+	var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
+	var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
+	
+	return {
+		rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
+		rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
+		hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
+		hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
+		hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
+		hex3: /^([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
+		hex6: /^([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
+	};
+})();
+
+function stringInputToObject(color) {
+
+    color = color.replace(trimLeft,'').replace(trimRight, '').toLowerCase();
+    if (names[color]) {
+        color = names[color];
+    }
+    if (color == 'transparent') { 
+        return { r: 0, g: 0, b: 0, a: 0 }; 
+    }
+    
+    // Try to match string input using regular expressions.  Keep most of the number bounding
+    // out of this function - don't worry about [0,1] or [0,100] or [0,360] - just return 
+    // an object and let the conversion functions handle that.  This way the result will
+    // be the same whether the tinycolor is initialized with string or object.
+    var match;
+    if ((match = matchers.rgb.exec(color))) {
+        return { r: match[1], g: match[2], b: match[3] };
+    }
+    if ((match = matchers.rgba.exec(color))) {
+        return { r: match[1], g: match[2], b: match[3], a: match[4] };
+    }
+    if ((match = matchers.hsl.exec(color))) {
+        return { h: match[1], s: match[2], l: match[3] };
+    }
+    if ((match = matchers.hsla.exec(color))) {
+        return { h: match[1], s: match[2], l: match[3], a: match[4] };
+    }
+    if ((match = matchers.hsv.exec(color))) {
+        return { h: match[1], s: match[2], v: match[3] };
+    }
+    if ((match = matchers.hex6.exec(color))) {
+        return {
+            r: parseHex(match[1]),
+            g: parseHex(match[2]),
+            b: parseHex(match[3])
+        };
+    }
+    if ((match = matchers.hex3.exec(color))) {
+        return {
+            r: parseHex(match[1] + '' + match[1]),
+            g: parseHex(match[2] + '' + match[2]),
+            b: parseHex(match[3] + '' + match[3])
+        };
+    }
+    
+    return false;
+}
+
+window.tinycolor = tc;
+
+})(this);
 
 
 // Spectrum: The No Hassle Colorpicker

@@ -31,7 +31,7 @@ task :build do
     
   cp 'index.html', 'out/index.html'
   
-  system('pngcrush -reduce -brute colorstash.png out/colorstash.png')
+  #system('pngcrush -reduce -brute colorstash.png out/colorstash.png')
   system('tar --exclude=".*" -pvczf out.tar.gz out')
   system('ls -l out.tar.gz')
 end
