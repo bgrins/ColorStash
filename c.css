@@ -98,7 +98,7 @@ h4 { margin:5px 0; padding:0; color:#eee; font-weight: normal; }
 .file #files { display:block; }
 .nofiles #file-controls, .file #file-controls h4  { display:none; } 
 #file-controls { background:#333; margin-top:-8px; max-width:225px; padding:10px; padding-top:8px; border-radius:5px;}
-#file-controls input { width:100%; }
+#file-controls input { width:100%; background:transparent;}
 .file #file-controls #back { display:inline-block; background: #fdd; margin-top: 5px; }
 #file-controls #back, .file #file-controls input { display:none; }
 #files {
