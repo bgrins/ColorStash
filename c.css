@@ -6,7 +6,7 @@ background-image: -ms-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 5
 background-image: -o-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-size: 80px;
 }
-button, input { font-family: "Lucida Sans", sans-serif; color: #222;  }
+button, input, h4 { font-family: "Lucida Sans", sans-serif; color: #222;  }
 a { color: #00e; }
 a:visited { color: #551a8b; }
 a:hover { color: #06e; }
@@ -96,17 +96,17 @@ h1 {
 #files td {margin:0;padding:0;}
 #image {position:relative; display:inline-block;}
 .file #files { display:block; }
-h4 { margin:5px 0; padding:0; }
+h4 { margin:5px 0; padding:0; color:#eee; font-weight: normal; }
 .nofiles #file-controls, .file #file-controls h4  { display:none; } 
-#file-controls { margin-top:10px; }
-.file #file-controls #back { display:inline-block; background: #fdd; font-size:14px; }
+#file-controls { background:#333; margin-top:-8px; max-width:225px; padding:10px; padding-top:8px; border-radius:5px;}
+#file-controls input { width:100%; }
+.file #file-controls #back { display:inline-block; background: #fdd; margin-top: 5px; }
 #file-controls #back, .file #file-controls input { display:none; }
 #files {
     overflow:hidden;
-    position:absolute;top:0;left:0;bottom:0;right:0;
+    position:absolute;top:5px;left:5px;bottom:5px;right:0;
     display:none;
     background-color:white;
-    border:solid 10px;
 }
 /*
 #file-controls label {

@@ -268,6 +268,8 @@ function initDragDrop() {
         imageContainer.find("canvas").remove();
         imageContainer.append(canvas);
         
+        var canvasHeight = canvas.height;
+        var canvasWidth = canvas.width;
         var dragHeight = imageEyedropper.height();
         var dragWidth = imageEyedropper.width();
         
@@ -276,6 +278,8 @@ function initDragDrop() {
         });
         drawPx(0, 0);
         function drawPx(x, y) {
+            x = Math.min(x, canvasWidth -1);
+            y = Math.min(y, canvasHeight -1);
             var imgd = context.getImageData(x, y, 1, 1).data;    
                               
             setCurrentHex({r: imgd[0], g: imgd[1], b: imgd[2], a: imgd[3] });
