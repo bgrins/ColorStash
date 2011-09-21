@@ -3,6 +3,7 @@ body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-
 background-image: -webkit-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-image: -moz-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-image: -ms-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
+background-image: -o-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-size: 80px;
 }
 button, input { font-family: "Lucida Sans", sans-serif; color: #222;  }
@@ -95,10 +96,11 @@ h1 {
 #files td {margin:0;padding:0;}
 #image {position:relative; display:inline-block;}
 .file #files { display:block; }
+h4 { margin:5px 0; padding:0; }
 .nofiles #file-controls, .file #file-controls h4  { display:none; } 
 #file-controls { margin-top:10px; }
-.file #file-controls button { display:inline-block; background: #fdd; font-size:14px; }
-#file-controls button, .file #file-controls label { display:none; }
+.file #file-controls #back { display:inline-block; background: #fdd; font-size:14px; }
+#file-controls #back, .file #file-controls input { display:none; }
 #files {
     overflow:hidden;
     position:absolute;top:0;left:0;bottom:0;right:0;
@@ -106,11 +108,27 @@ h1 {
     background-color:white;
     border:solid 10px;
 }
+/*
+#file-controls label {
+    width: 120px;
+    height: 20px;
+    line-height: 20px;
+    background: #eee;
+    text-align: center;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+}
+#file-controls input {
+    position: relative;
+    height: 100%;
+    width: auto;
+}*/
 
 #files span { position:absolute; top:10px; right: 10px; background:#333; border-radius: 30px; width:30px; height:30px; }
 
 
-button {
+button, .button {
   background: #eee;
   border: 1px solid #ccc;
   border-radius: 3px;

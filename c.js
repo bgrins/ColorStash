@@ -253,7 +253,7 @@ function initDragDrop() {
     var imageContainer = $("#image");
     var imageEyedropper = $("#image .sp-dragger");
     
-    if (!FileReader || !document.createElement('canvas').getContext) {
+    if (!window.FileReader || !document.createElement('canvas').getContext) {
         dropZone.addClass("nofiles");
         return;
     }
