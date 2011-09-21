@@ -13,7 +13,8 @@ a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 ul { margin: 0; padding:0; }
 button, input { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; line-height: normal; *overflow: visible;  }
-img {display:none;  opacity:.5;}.wf-active img { display:inline;}img:hover {opacity:1;}
+img {display:none; opacity:.5;} .wf-active img { display:inline;} img:hover {opacity:1;}
+table, td {margin:0;padding:0;}
 .head {
     overflow: visible;
     background: #d6f0f3;
@@ -34,6 +35,8 @@ h1 {
     font-weight: normal;
     float:left;
 }
+h3 { text-decoration: underline; }
+h4 { margin:5px 0; padding:0; color:#eee; font-weight: normal; }
 
 /*
 #logo {
@@ -91,10 +94,8 @@ h1 {
 #pick .in { padding-left:0;} 
 
 #files table { position:absolute; top:0; left:0; right:0; bottom:0; height:100%; width:100%; vertical-align: middle; text-align: center; border-spacing:0; }
-table, td {margin:0;padding:0;}
 #image {position:relative; display:inline-block;}
 .file #files { display:block; }
-h4 { margin:5px 0; padding:0; color:#eee; font-weight: normal; }
 .nofiles #file-controls, .file #file-controls h4  { display:none; } 
 #file-controls { background:#333; margin-top:-8px; max-width:225px; padding:10px; padding-top:8px; border-radius:5px;}
 #file-controls input { width:100%; }
@@ -143,7 +144,6 @@ button:active {
 
 
 input[readonly] { color: #666; }
-h3 { text-decoration: underline; }
 #links { float:right; margin-left:3px;  }
 #share { color: #555; margin: 2px 3px; float:right; position: relative; z-index:1; }
 #share input { width: 210px; padding: 3px; font-size: 11px; border: solid 2px; }
