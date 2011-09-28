@@ -420,13 +420,13 @@ function _tinycolor (color, opts) {
 		},
 		toName: function() {
 			return hexNames[rgbToHex(r, b, g)] || false;
-		}/*,
+		},
 		toFilter: function() {
             var hex = rgbToHex(r, g, b);
             var alphaHex = Math.round(parseFloat(a) * 255).toString(16);
             return "progid:DXImageTransform.Microsoft.gradient(startColorstr=#" +
                 alphaHex + hex + ",endColorstr=#" + alphaHex + hex + ")";         
-		}*/
+		}
 	};
 }
 
@@ -648,7 +648,7 @@ tc.equals = function(color1, color2) {
 
 // Thanks to less.js for some functions: 
 // https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js
-/*tc.desaturate = function (color, amount) {
+tc.desaturate = function (color, amount) {
     var hsl = tc(color).toHsl();
     hsl.s -= ((amount || 10) / 100);
     hsl.s = clamp01(hsl.s);
@@ -679,7 +679,7 @@ tc.complement = function(color) {
     var hsl = tc(color).toHsl();
     hsl.h = (hsl.h + .5) % 1;
     return tc(hsl);
-};*/
+};
 
 tc.triad = function(color) {
     var hsl = tc(color).toHsl();
@@ -741,7 +741,6 @@ tc.monochromatic = function(color, results) {
     
     return ret;
 };
-/*
 tc.readable = function(color1, color2) {
     var a = tc(color1).toRgb(), b = tc(color2).toRgb();
     return (
@@ -750,7 +749,7 @@ tc.readable = function(color1, color2) {
         (b.b - a.b) * (b.b - a.b)
     ) > 0x28A4;
 };
-*/
+
 var names = tc.names = {
     aliceblue: "f0f8ff",
     antiquewhite: "faebd7",
@@ -823,7 +822,7 @@ var names = tc.names = {
     lightblue: "add8e6",
     lightcoral: "f08080",
     lightcyan: "e0ffff",
-    //lightgoldenrodyellow: "fafad2",
+    lightgoldenrodyellow: "fafad2",
     lightgray: "d3d3d3",
     lightgreen: "90ee90",
     lightgrey: "d3d3d3",
@@ -840,7 +839,7 @@ var names = tc.names = {
     linen: "faf0e6",
     magenta: "f0f",
     maroon: "800000",
-    //mediumaquamarine: "66cdaa",
+    mediumaquamarine: "66cdaa",
     mediumblue: "0000cd",
     mediumorchid: "ba55d3",
     mediumpurple: "9370db",
@@ -864,7 +863,7 @@ var names = tc.names = {
     palegoldenrod: "eee8aa",
     palegreen: "98fb98",
     paleturquoise: "afeeee",
-    //palevioletred: "db7093",
+    palevioletred: "db7093",
     papayawhip: "ffefd5",
     peachpuff: "ffdab9",
     peru: "cd853f",
