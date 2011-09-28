@@ -1,10 +1,6 @@
-$.fn.tc = $.fn.toggleClass;
-$.fn.rc = $.fn.removeClass;
-$.fn.ac = $.fn.addClass;
 
 $(function() {
 
-    
 var win = window,
     document = win.document,
     tinycolor = win.tinycolor,
@@ -15,7 +11,7 @@ var win = window,
     s = document.createElement("input"),
     hasSlider = !hasTouch && $("<input type='range' />")[0].type == "range",
     currentAlpha = 1,
-    body = $(document.body).tc("ns", !hasStorage).tc("noslider", !hasSlider),
+    body = $(document.body).toggleClass("ns", !hasStorage).toggleClass("noslider", !hasSlider),
     defaultPallet = '{ "#3126c1": { }, "#c8901e": { }, "#c81e59": { } }',
     colorStorageName = "colors",
     CLICK = hasTouch ? "touchstart" : "click",
@@ -61,7 +57,7 @@ function change(color) {
     var fullRgb = fullColor.toRgbString();
     var hsvVal = color.toHsv();
     
-    body.tc("has", palletHas(hexVal)).tc("contrast", ( hsvVal.v > .6)).css(
+    body.toggleClass("has", palletHas(hexVal)).toggleClass("contrast", ( hsvVal.v > .6)).css(
         BACKGROUND_COLOR, tinycolor($.extend({}, hsvVal, {a: .2})).toRgbString()
     );
     
@@ -96,7 +92,7 @@ function setCurrentHex(color, noTextbox, noSchemes) {
     spec.spectrum("set", tiny);
     !noTextbox && updateTextbox();
     !noSchemes && updatePartial();
-    schemeContainer.tc("vhide", !ok);
+    schemeContainer.toggleClass("vhide", !ok);
     return ok;
 }
 
@@ -110,8 +106,8 @@ function updateFull(color) {
 }
 function updatePartial(color) {
     var tiny = color || spec.spectrum("get");
-    body.rc(SCHEME_CLASS);
-    schemeContainer.find("li").rc(ACTIVE_CLASS);
+    body.removeClass(SCHEME_CLASS);
+    schemeContainer.find("li").removeClass(ACTIVE_CLASS);
     updateSchemes(tiny);
 }
 
@@ -134,7 +130,7 @@ $("button").bind(CLICK, function() {
    this.id == "rm" && palletRemove(hex);
    this.id == "rl" && updatePartial();
 
-   $(body).tc("has", palletHas(hex));
+   $(body).toggleClass("has", palletHas(hex));
    return false;
 });
 
@@ -156,10 +152,10 @@ var stored;
 
 schemeContainer.delegate("li", CLICK, function() {
    setCurrentHex(this.title, false, true);
-   $("#scheme li").rc(ACTIVE_CLASS);
-   $(this).ac(ACTIVE_CLASS);
+   $("#scheme li").removeClass(ACTIVE_CLASS);
+   $(this).addClass(ACTIVE_CLASS);
    stored = getCurrentHex();
-   body.ac(SCHEME_CLASS);
+   body.addClass(SCHEME_CLASS);
    return false;
 });
 
@@ -1114,7 +1110,7 @@ window.tinycolor = tc;
         var doc = element.ownerDocument,
             body = doc.body, 
             boundElement = $(element),
-        	container = $(markup, doc).ac(theme),
+        	container = $(markup, doc).addClass(theme),
             dragger = container.find(".sp-color"),
             dragHelper = container.find(".sp-dragger"),
             slider = container.find(".sp-hue"),
@@ -1169,10 +1165,10 @@ window.tinycolor = tc;
 		}
 		
 		function dragStart() {
-		  container.ac(draggingClass);
+		  container.addClass(draggingClass);
 		}
 		function dragStop() {
-		  container.rc(draggingClass);
+		  container.removeClass(draggingClass);
 		}
         
         function show() {
