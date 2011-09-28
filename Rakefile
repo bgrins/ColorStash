@@ -29,9 +29,10 @@ task :build do
     file.write YUICompressor.compress_css(source)
   end
     
-  cp 'index.html', 'out/index.html'
+  cp 'index.html', 'out/'
+  cp 'jquery-1.6.4.js', 'out/'
   
-  #system('pngcrush -reduce -brute colorstash.png out/colorstash.png')
+  system('pngcrush -reduce -brute colorstash.png out/colorstash.png')
   system('tar --exclude=".*" -pvczf out.tar.gz out')
   system('ls -l out.tar.gz')
 end
