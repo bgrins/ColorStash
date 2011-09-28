@@ -1,5 +1,5 @@
 html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: acuta, Georgia;  
+body { margin: 0; font-size: 13px; line-height: 1.231; margin-bottom:20px; font-family: arvo, Georgia;  
 background-image: -webkit-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-image: -moz-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
 background-image: -ms-linear-gradient(0, transparent 50%, rgba(255,255,255,.4) 50%);
@@ -31,7 +31,7 @@ h1 {
     margin:0; 
     padding:4px 0 0 4px;
     /*color:#766453;*/ color:#000;
-    font-family: fertigo-script, sans-serif;
+    font-family: 'Lobster Two', sans-serif;
     font-weight: normal;
     float:left;
 }
