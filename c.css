@@ -274,7 +274,7 @@ body .sp-container { width: 100%; }
 @media (max-width: 540px) {  #share input { width: 100px; } }
 
 /* Picker and generated values next to each other, schemes at bottom */
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
     #pick, #scheme, #color {
     	float:left;
     	width: 40%;
