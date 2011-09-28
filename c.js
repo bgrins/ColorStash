@@ -17,6 +17,7 @@ var win = window,
     CLICK = hasTouch ? "touchstart" : "click",
     lastColorName = "lc1",
     SCHEME_CLASS = "fromScheme",
+    ALPHA_CLASS = "hasAlpha",
     BACKGROUND_COLOR = "background-color",
     BORDER_COLOR = "border-color",
     ACTIVE_CLASS = "active",
@@ -28,7 +29,7 @@ var win = window,
     hex = $("#hex"),
     rgb = $("#rgb"),
     hsv = $("#hsv"),
-    //ie = $("#ie"),
+    ie = $("#ie"),
     analogous = $("#an"), 
     splitcomplement = $("#sc"), 
     tetrad = $("#tetrad"),  
@@ -62,14 +63,16 @@ function change(color) {
     );
     
     preview.css(BACKGROUND_COLOR, fullRgb);
-    /*
+    
     var fullFilter = fullColor.alpha < 1 ? fullColor.toFilter() : false;
     if (fullFilter && $.browser.msie) {
         preview.css("filter", fullColor.toFilter());
     }
-    //ie.val(fullFilter || "Will show IE filter if alpha is used");
-    <div id='ie-filter'><span>ie →</span><input id='ie' grab /></div>
-    */
+    
+    ie.val(fullFilter);
+    
+    body.toggleClass(ALPHA_CLASS, !!fullFilter);
+    
     redrawPallet(hexVal);
     
     shareInput.css(BORDER_COLOR, hexVal).

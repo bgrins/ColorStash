@@ -198,7 +198,12 @@ input { background: rgba(255, 255, 255, .9); }
 
 
 
-.noslider #trans /*, .noslider #ie-filter */ { display:none; }
+.noslider #trans, .noslider #ie-filter { display:none; }
+
+/* Only show filter if alpha is used */
+#ie-filter { visibility:hidden; }
+.hasAlpha #ie-filter { visibility:visible; }
+
 body #trans { text-align:left; margin-left:-30px; padding-top:10px;}
 #trans table { width: 90%; }
 body #a {  padding:0; width: 100%;}
